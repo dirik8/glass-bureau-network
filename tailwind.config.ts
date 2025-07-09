@@ -53,12 +53,35 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
         },
-        'calm-blue': 'oklch(0.6 0.15 220)',
-        'trust-green': 'oklch(0.7 0.12 160)',
-        'premium-gold': 'oklch(0.8 0.1 50)',
-        'muted-white': 'oklch(0.95 0.02 220)',
-        'deep-navy': 'oklch(0.2 0.1 220)',
-        'steel-gray': 'oklch(0.5 0.02 220)',
+        // FBI Government Colors
+        'fbi-blue': {
+          DEFAULT: 'rgb(31 78 121)',
+          50: 'rgb(239 246 255)',
+          100: 'rgb(219 234 254)',
+          200: 'rgb(191 219 254)',
+          300: 'rgb(147 197 253)',
+          400: 'rgb(96 165 250)',
+          500: 'rgb(59 130 246)',
+          600: 'rgb(31 78 121)',
+          700: 'rgb(29 78 216)',
+          800: 'rgb(30 64 175)',
+          900: 'rgb(30 58 138)',
+        },
+        'government': {
+          'white': 'rgb(255 255 255)',
+          'gray': {
+            50: 'rgb(248 250 252)',
+            100: 'rgb(241 245 249)',
+            200: 'rgb(226 232 240)',
+            300: 'rgb(203 213 225)',
+            400: 'rgb(148 163 184)',
+            500: 'rgb(100 116 139)',
+            600: 'rgb(71 85 105)',
+            700: 'rgb(51 65 85)',
+            800: 'rgb(30 41 59)',
+            900: 'rgb(15 23 42)',
+          }
+        }
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -81,46 +104,20 @@ export default {
           to: {
             height: '0'
           }
-        },
-        'fade-in': {
-          '0%': {
-            opacity: '0',
-            transform: 'translateY(10px)'
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0)'
-          }
-        },
-        'slide-in-right': {
-          '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(0)' }
-        },
-        'scale-in': {
-          '0%': {
-            transform: 'scale(0.95)',
-            opacity: '0'
-          },
-          '100%': {
-            transform: 'scale(1)',
-            opacity: '1'
-          }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-in': 'fade-in 0.5s ease-out',
-        'slide-in-right': 'slide-in-right 0.3s ease-out',
-        'scale-in': 'scale-in 0.2s ease-out'
+        'accordion-up': 'accordion-up 0.2s ease-out'
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'sans-serif'],
+        serif: ['Georgia', 'Times New Roman', 'serif'],
+        mono: ['JetBrains Mono', 'Monaco', 'Consolas', 'monospace'],
       },
       fontSize: {
-        'bureau-xl': 'clamp(2rem, 5vw, 4rem)',
-        'bureau-lg': 'clamp(1.5rem, 3vw, 2.5rem)',
+        'government-xl': 'clamp(2.5rem, 5vw, 4rem)',
+        'government-lg': 'clamp(1.75rem, 3vw, 2.5rem)',
       }
     }
   },
