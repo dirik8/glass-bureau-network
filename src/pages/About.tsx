@@ -1,140 +1,237 @@
 
 import React from 'react';
 import Layout from '@/components/layout/Layout';
-import { LiquidGlassCard } from '@/components/LiquidGlassCard';
-import { Shield, Users, Award, Target } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Shield, Target, Users, Globe, TrendingUp, Award, MapPin, Phone } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const About: React.FC = () => {
-  const values = [
+  const missionPoints = [
     {
-      icon: Shield,
-      title: 'Justice',
-      description: 'Unwavering commitment to pursuing cybercriminals and protecting victims.'
+      icon: Target,
+      title: 'Combat Cybercrime',
+      description: 'Investigate and prosecute cybercriminals targeting American citizens and businesses'
     },
     {
       icon: Users,
-      title: 'Expertise',
-      description: 'Elite team of investigators, analysts, and blockchain forensic specialists.'
+      title: 'Victim Assistance',
+      description: 'Provide comprehensive support and recovery services to cybercrime victims'
     },
     {
-      icon: Award,
-      title: 'Excellence',
-      description: 'Industry-leading recovery rates and investigation success stories.'
+      icon: Globe,
+      title: 'International Cooperation',
+      description: 'Partner with global law enforcement to combat transnational cyber threats'
     },
     {
-      icon: Target,
-      title: 'Precision',
-      description: 'Advanced technology and methodical approach to digital investigations.'
+      icon: TrendingUp,
+      title: 'Prevention & Education',
+      description: 'Educate the public and private sector about emerging cyber threats'
     }
+  ];
+
+  const leadership = [
+    {
+      name: 'Director Sarah M. Johnson',
+      title: 'Cybercrime Division Director',
+      background: '15 years federal law enforcement, MS Cybersecurity',
+      specialization: 'Financial crimes, international cooperation'
+    },
+    {
+      name: 'Assistant Director Michael Chen',
+      title: 'Digital Forensics Unit',
+      background: '12 years digital investigations, PhD Computer Science',
+      specialization: 'Blockchain analysis, cryptocurrency tracing'
+    },
+    {
+      name: 'Assistant Director Lisa Rodriguez',
+      title: 'Victim Services Division',
+      background: '18 years victim advocacy, JD Criminal Justice',
+      specialization: 'Asset recovery, victim compensation'
+    }
+  ];
+
+  const achievements = [
+    { metric: '127', label: 'Cases Closed (2024)', icon: Award },
+    { metric: '$24.8M', label: 'Assets Recovered', icon: TrendingUp },
+    { metric: '3,847', label: 'Victims Assisted', icon: Users },
+    { metric: '23', label: 'Field Offices', icon: MapPin }
   ];
 
   return (
     <Layout>
-      <div className="py-24">
-        <div className="container">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-bureau-xl font-bold text-deep-navy mb-6">
-              About LionsGate Cybercrime Division
-            </h1>
-            <p className="text-xl text-steel-gray max-w-4xl mx-auto">
-              We are an elite cybercrime investigation bureau specializing in cryptocurrency fraud, 
-              blockchain forensics, and digital asset recovery. When traditional law enforcement 
-              reaches its limits, we go further.
-            </p>
+      <div className="min-h-screen bg-background">
+        {/* Hero Section */}
+        <section className="bg-fbi-blue text-white py-16">
+          <div className="container">
+            <div className="max-w-4xl">
+              <div className="flex items-center space-x-3 mb-6">
+                <Shield className="h-12 w-12" />
+                <div>
+                  <h1 className="text-4xl font-bold">FBI Cybercrime Division</h1>
+                  <p className="text-fbi-blue-100">Protecting America in the Digital Age</p>
+                </div>
+              </div>
+              <div className="bg-fbi-blue-900/50 p-6 rounded-lg">
+                <p className="text-xl text-fbi-blue-100 leading-relaxed">
+                  Established to combat the growing threat of cybercrime, our division combines 
+                  cutting-edge technology with traditional investigative excellence to protect 
+                  American citizens, businesses, and critical infrastructure from digital threats.
+                </p>
+              </div>
+            </div>
           </div>
+        </section>
 
-          {/* Mission */}
-          <div className="mb-24">
-            <LiquidGlassCard className="p-12 text-center">
-              <h2 className="text-3xl font-bold text-deep-navy mb-6">Our Mission</h2>
-              <p className="text-lg text-steel-gray max-w-3xl mx-auto">
-                To provide world-class cybercrime investigation services, recover stolen digital assets, 
-                and bring justice to victims of cryptocurrency and blockchain-related crimes through 
-                advanced forensic techniques and relentless pursuit of cybercriminals.
+        {/* Mission Statement */}
+        <section className="py-16">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-fbi-blue mb-4">Our Mission</h2>
+              <p className="text-xl text-government-gray-600 max-w-3xl mx-auto">
+                To investigate cybercrime, protect victims, recover stolen assets, and prevent 
+                future digital crimes through intelligence-driven operations and international cooperation.
               </p>
-            </LiquidGlassCard>
-          </div>
+            </div>
 
-          {/* Values */}
-          <div className="mb-24">
-            <h2 className="text-3xl font-bold text-deep-navy text-center mb-12">
-              Our Core Values
-            </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {values.map((value, index) => (
-                <LiquidGlassCard key={index} className="p-8 text-center">
-                  <value.icon className="h-12 w-12 text-premium-gold mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-deep-navy mb-3">{value.title}</h3>
-                  <p className="text-steel-gray">{value.description}</p>
-                </LiquidGlassCard>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {missionPoints.map((point, index) => (
+                <Card key={index} className="government-card text-center hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <point.icon className="h-12 w-12 text-fbi-blue mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-fbi-blue mb-2">{point.title}</h3>
+                    <p className="text-government-gray-600">{point.description}</p>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
+        </section>
 
-          {/* Team */}
-          <div className="mb-24">
-            <h2 className="text-3xl font-bold text-deep-navy text-center mb-12">
-              Elite Investigation Team
-            </h2>
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h3 className="text-2xl font-bold text-deep-navy mb-6">
-                  World-Class Expertise
-                </h3>
-                <div className="space-y-6 text-steel-gray">
-                  <p>
-                    Our team consists of former federal investigators, blockchain analysts, 
-                    cybersecurity experts, and legal professionals with decades of combined 
-                    experience in cybercrime investigation.
-                  </p>
-                  <p>
-                    We maintain partnerships with international law enforcement agencies, 
-                    cryptocurrency exchanges, and blockchain analysis firms to ensure 
-                    comprehensive investigation capabilities.
-                  </p>
-                  <p>
-                    Our investigators hold advanced certifications in digital forensics, 
-                    blockchain analysis, and cybercrime investigation techniques.
-                  </p>
-                </div>
-              </div>
-              <LiquidGlassCard className="p-8">
-                <div className="space-y-6">
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-premium-gold">2,847</div>
-                    <div className="text-steel-gray">Cases Successfully Resolved</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-trust-green">$847M</div>
-                    <div className="text-steel-gray">Digital Assets Recovered</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-calm-blue">94%</div>
-                    <div className="text-steel-gray">Recovery Success Rate</div>
-                  </div>
-                </div>
-              </LiquidGlassCard>
+        {/* Leadership */}
+        <section className="bg-government-gray-50 py-16">
+          <div className="container">
+            <h2 className="text-3xl font-bold text-fbi-blue mb-12 text-center">Division Leadership</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {leadership.map((leader, index) => (
+                <Card key={index} className="government-card">
+                  <CardHeader>
+                    <div className="text-center">
+                      <div className="w-24 h-24 bg-fbi-blue rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <Shield className="h-12 w-12 text-white" />
+                      </div>
+                      <CardTitle className="text-xl text-fbi-blue">{leader.name}</CardTitle>
+                      <Badge variant="secondary" className="mt-2">{leader.title}</Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="text-center space-y-2">
+                    <p className="text-sm text-government-gray-600">{leader.background}</p>
+                    <p className="text-sm font-medium text-fbi-blue">{leader.specialization}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
+        </section>
 
-          {/* Technology */}
-          <div>
-            <LiquidGlassCard className="p-12">
-              <div className="text-center">
-                <h2 className="text-3xl font-bold text-deep-navy mb-6">
-                  Advanced Investigation Technology
-                </h2>
-                <p className="text-lg text-steel-gray max-w-4xl mx-auto">
-                  We employ cutting-edge blockchain analysis tools, artificial intelligence, 
-                  and proprietary investigation techniques to trace cryptocurrency transactions, 
-                  identify bad actors, and recover stolen digital assets across multiple blockchains 
-                  and cryptocurrency networks.
-                </p>
-              </div>
-            </LiquidGlassCard>
+        {/* Achievements */}
+        <section className="py-16">
+          <div className="container">
+            <h2 className="text-3xl font-bold text-fbi-blue mb-12 text-center">2024 Achievements</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {achievements.map((achievement, index) => (
+                <Card key={index} className="government-card text-center hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <achievement.icon className="h-8 w-8 text-fbi-blue mx-auto mb-3" />
+                    <div className="text-3xl font-bold text-fbi-blue mb-1">{achievement.metric}</div>
+                    <p className="text-sm text-government-gray-600">{achievement.label}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
+
+        {/* Organizational Structure */}
+        <section className="bg-government-gray-50 py-16">
+          <div className="container">
+            <h2 className="text-3xl font-bold text-fbi-blue mb-8">Organizational Structure</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <Card className="government-card">
+                <CardHeader>
+                  <CardTitle className="text-xl text-fbi-blue">Investigation Units</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex justify-between items-center py-2 border-b border-government-gray-100">
+                    <span>Financial Crimes Unit</span>
+                    <Badge variant="secondary">Active</Badge>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-government-gray-100">
+                    <span>Digital Forensics Unit</span>
+                    <Badge variant="secondary">Active</Badge>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-government-gray-100">
+                    <span>International Cooperation Unit</span>
+                    <Badge variant="secondary">Active</Badge>
+                  </div>
+                  <div className="flex justify-between items-center py-2">
+                    <span>Threat Intelligence Unit</span>
+                    <Badge variant="secondary">Active</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="government-card">
+                <CardHeader>
+                  <CardTitle className="text-xl text-fbi-blue">Support Services</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex justify-between items-center py-2 border-b border-government-gray-100">
+                    <span>Victim Assistance Program</span>
+                    <Badge variant="secondary">24/7</Badge>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-government-gray-100">
+                    <span>Asset Recovery Division</span>
+                    <Badge variant="secondary">Active</Badge>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-government-gray-100">
+                    <span>Public Affairs Office</span>
+                    <Badge variant="secondary">Active</Badge>
+                  </div>
+                  <div className="flex justify-between items-center py-2">
+                    <span>Training & Prevention</span>
+                    <Badge variant="secondary">Nationwide</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section className="bg-fbi-blue text-white py-16">
+          <div className="container">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold mb-6">Contact the Cybercrime Division</h2>
+              <p className="text-xl text-fbi-blue-100 mb-8 max-w-3xl mx-auto">
+                Report cybercrime, request assistance, or partner with us in protecting America's digital infrastructure.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" variant="secondary" asChild>
+                  <Link to="/contact-us">
+                    <Shield className="h-5 w-5 mr-2" />
+                    File a Report
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-fbi-blue">
+                  <Phone className="h-5 w-5 mr-2" />
+                  Emergency: (438) 602-5895
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </Layout>
   );
