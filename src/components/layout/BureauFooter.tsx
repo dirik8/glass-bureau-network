@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Phone, Mail, MapPin } from 'lucide-react';
+import { Shield, Phone, Mail } from 'lucide-react';
 
 const BureauFooter: React.FC = () => {
   const footerSections = [
@@ -28,8 +28,8 @@ const BureauFooter: React.FC = () => {
       links: [
         { title: 'Case Studies', href: '/case-studies' },
         { title: 'Research Team', href: '/lionsgate-network-research-team' },
-        { title: 'FAQ', href: '/qa' },
         { title: 'Blog', href: '/blog' },
+        { title: 'FAQ', href: '/qa' },
       ]
     },
     {
@@ -37,37 +37,37 @@ const BureauFooter: React.FC = () => {
       links: [
         { title: 'Privacy Policy', href: '/privacy-policy-2' },
         { title: 'Terms & Conditions', href: '/terms-conditions' },
-        { title: 'Opt-Out Preferences', href: '/opt-out-preferences' },
         { title: 'Contact Us', href: '/contact-us' },
+        { title: 'Careers', href: '/career' },
       ]
     }
   ];
 
   return (
-    <footer className="bg-deep-navy text-muted-white">
+    <footer className="bg-muted text-muted-foreground">
       <div className="container py-12">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Bureau Info */}
+          {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
-              <Shield className="h-8 w-8 text-premium-gold" />
+              <Shield className="h-8 w-8 text-primary" />
               <div className="flex flex-col">
-                <span className="font-bold text-lg leading-none">LionsGate</span>
-                <span className="text-xs text-steel-gray leading-none">CYBERCRIME DIVISION</span>
+                <span className="font-bold text-lg leading-none text-foreground">LGN Recovery</span>
+                <span className="text-xs text-muted-foreground leading-none">CYBERCRIME DIVISION</span>
               </div>
             </div>
-            <p className="text-sm text-steel-gray mb-4">
+            <p className="text-sm text-muted-foreground mb-4">
               Elite cybercrime investigation and asset recovery specialists. 
               Protecting victims and pursuing digital justice.
             </p>
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-sm">
-                <Phone className="h-4 w-4 text-premium-gold" />
+                <Phone className="h-4 w-4 text-primary" />
                 <span>+1 (438) 602-5895</span>
               </div>
               <div className="flex items-center space-x-2 text-sm">
-                <Mail className="h-4 w-4 text-premium-gold" />
+                <Mail className="h-4 w-4 text-primary" />
                 <span>investigations@lionsgate.network</span>
               </div>
             </div>
@@ -76,7 +76,7 @@ const BureauFooter: React.FC = () => {
           {/* Footer Links */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h3 className="font-semibold text-lg mb-4 text-premium-gold">
+              <h3 className="font-semibold text-lg mb-4 text-foreground">
                 {section.title}
               </h3>
               <ul className="space-y-2">
@@ -84,7 +84,7 @@ const BureauFooter: React.FC = () => {
                   <li key={link.href}>
                     <Link
                       to={link.href}
-                      className="text-sm text-steel-gray hover:text-muted-white transition-colors"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {link.title}
                     </Link>
@@ -96,19 +96,19 @@ const BureauFooter: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-steel-gray/30 mt-12 pt-8">
+        <div className="border-t border-border mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-sm text-steel-gray">
-              © 2024 LionsGate Cybercrime Division. All rights reserved.
+            <div className="text-sm text-muted-foreground">
+              © 2024 LGN Recovery Cybercrime Division. All rights reserved.
             </div>
-            <div className="flex space-x-6 text-sm text-steel-gray">
-              <Link to="/privacy-policy-2" className="hover:text-muted-white transition-colors">
+            <div className="flex space-x-6 text-sm text-muted-foreground">
+              <Link to="/privacy-policy-2" className="hover:text-foreground transition-colors">
                 Privacy
               </Link>
-              <Link to="/terms-conditions" className="hover:text-muted-white transition-colors">
+              <Link to="/terms-conditions" className="hover:text-foreground transition-colors">
                 Terms
               </Link>
-              <Link to="/contact-us" className="hover:text-muted-white transition-colors">
+              <Link to="/contact-us" className="hover:text-foreground transition-colors">
                 Contact
               </Link>
             </div>

@@ -11,7 +11,7 @@ const BureauHeader: React.FC = () => {
 
   const navigationItems = [
     {
-      title: 'Investigate',
+      title: 'Scam Types',
       items: [
         { title: 'Cryptocurrency Fraud', href: '/cryptocurrency-scams' },
         { title: 'Foreign Exchange Scams', href: '/forex-scams' },
@@ -22,30 +22,30 @@ const BureauHeader: React.FC = () => {
       ]
     },
     {
-      title: 'Prevention & Recovery',
+      title: 'Recovery Services',
       items: [
-        { title: 'Federal Recovery Programs', href: '/asset-recovery-solutions' },
+        { title: 'Asset Recovery', href: '/asset-recovery-solutions' },
         { title: 'Digital Forensics', href: '/blockchain-forensic' },
         { title: 'Investigation Services', href: '/crypto-investigation' },
         { title: 'Blockchain Analysis', href: '/blockchain-analyst' },
       ]
     },
     {
-      title: 'Field Offices',
+      title: 'Statistics',
       items: [
-        { title: 'California Field Office', href: '/california-cryptocurrency-scam-statistics-2020-2024' },
-        { title: 'New York Field Office', href: '/new-york-cryptocurrency-scam-statistics-2020-2024' },
-        { title: 'Texas Field Office', href: '/texas-cryptocurrency-scam-statistics-2020-2024' },
-        { title: 'Florida Field Office', href: '/florida-cryptocurrency-scam-statistics-2020-2024' },
+        { title: 'California Statistics', href: '/california-cryptocurrency-scam-statistics-2020-2024' },
+        { title: 'New York Statistics', href: '/new-york-cryptocurrency-scam-statistics-2020-2024' },
+        { title: 'Texas Statistics', href: '/texas-cryptocurrency-scam-statistics-2020-2024' },
+        { title: 'Florida Statistics', href: '/florida-cryptocurrency-scam-statistics-2020-2024' },
       ]
     },
     {
       title: 'Resources',
       items: [
-        { title: 'Closed Operations', href: '/case-studies' },
+        { title: 'Case Studies', href: '/case-studies' },
         { title: 'Prevention Programs', href: '/scam-prevention' },
-        { title: 'Intelligence Reports', href: '/lionsgate-network-research-team' },
-        { title: 'Victim Assistance', href: '/qa' },
+        { title: 'Research Team', href: '/lionsgate-network-research-team' },
+        { title: 'Blog', href: '/blog' },
       ]
     }
   ];
@@ -53,12 +53,12 @@ const BureauHeader: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
       <div className="container flex h-16 items-center justify-between">
-        {/* FBI Logo */}
+        {/* LGN Recovery Logo */}
         <Link to="/" className="flex items-center space-x-3">
-          <Shield className="h-10 w-10 text-fbi-blue" />
+          <Shield className="h-10 w-10 text-primary" />
           <div className="flex flex-col">
-            <span className="font-bold text-xl leading-none text-fbi-blue">FBI</span>
-            <span className="text-xs text-government-gray-600 leading-none font-medium">CYBERCRIME DIVISION</span>
+            <span className="font-bold text-xl leading-none text-primary">LGN Recovery</span>
+            <span className="text-xs text-muted-foreground leading-none font-medium">CYBERCRIME DIVISION</span>
           </div>
         </Link>
 
@@ -67,11 +67,11 @@ const BureauHeader: React.FC = () => {
           <NavigationMenuList>
             {navigationItems.map((item) => (
               <NavigationMenuItem key={item.title}>
-                <NavigationMenuTrigger className="h-9 px-4 py-2 text-government-gray-700 hover:text-fbi-blue font-medium">
+                <NavigationMenuTrigger className="h-9 px-4 py-2 text-foreground hover:text-primary font-medium">
                   {item.title}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white border border-government-gray-200">
+                  <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-background border border-border">
                     {item.items.map((subItem) => (
                       <NavigationMenuLink
                         key={subItem.href}
@@ -79,7 +79,7 @@ const BureauHeader: React.FC = () => {
                       >
                         <Link
                           to={subItem.href}
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-government-gray-50 hover:text-fbi-blue focus:bg-government-gray-50 focus:text-fbi-blue"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                         >
                           <div className="text-sm font-medium leading-none">
                             {subItem.title}
@@ -96,13 +96,13 @@ const BureauHeader: React.FC = () => {
 
         {/* Action Buttons */}
         <div className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm" className="hidden md:flex text-government-gray-600 hover:text-fbi-blue">
+          <Button variant="ghost" size="sm" className="hidden md:flex text-muted-foreground hover:text-primary">
             <Search className="h-4 w-4 mr-2" />
             Search
           </Button>
-          <Button size="sm" className="hidden md:flex bg-fbi-blue hover:bg-fbi-blue/90 text-white">
+          <Button size="sm" className="hidden md:flex bg-primary hover:bg-primary/90 text-primary-foreground">
             <Phone className="h-4 w-4 mr-2" />
-            Report Crime
+            Get Help
           </Button>
 
           {/* Mobile Menu */}
@@ -112,17 +112,17 @@ const BureauHeader: React.FC = () => {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-white">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background">
               <div className="flex flex-col space-y-4 mt-8">
                 {navigationItems.map((item) => (
                   <div key={item.title} className="space-y-2">
-                    <h3 className="font-semibold text-lg text-fbi-blue">{item.title}</h3>
+                    <h3 className="font-semibold text-lg text-primary">{item.title}</h3>
                     <div className="grid gap-2 pl-4">
                       {item.items.map((subItem) => (
                         <Link
                           key={subItem.href}
                           to={subItem.href}
-                          className="block py-2 text-sm text-government-gray-600 hover:text-fbi-blue transition-colors"
+                          className="block py-2 text-sm text-muted-foreground hover:text-primary transition-colors"
                           onClick={() => setMobileMenuOpen(false)}
                         >
                           {subItem.title}
