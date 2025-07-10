@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -11,7 +10,7 @@ const BureauHeader: React.FC = () => {
 
   const navigationItems = [
     {
-      title: 'Scam Types',
+      title: 'Scam Intelligence',
       items: [
         { title: 'Cryptocurrency Fraud', href: '/cryptocurrency-scams' },
         { title: 'Foreign Exchange Scams', href: '/forex-scams' },
@@ -19,6 +18,12 @@ const BureauHeader: React.FC = () => {
         { title: 'Investment Fraud', href: '/pig-butchering-scam' },
         { title: 'Trading Scams', href: '/fake-trading-scam' },
         { title: 'Binary Options Fraud', href: '/binary-options-scams' },
+        { title: 'Job Scams', href: '/job-scam' },
+        { title: 'Task Scams', href: '/task-scam' },
+        { title: 'Online Dating Scams', href: '/online-dating-scam' },
+        { title: 'Phishing Attacks', href: '/phishing-scam' },
+        { title: 'Wallet Poisoning', href: '/wallet-poisoning-scam' },
+        { title: 'Stock Trading Fraud', href: '/stock-trading-scams' },
       ]
     },
     {
@@ -28,24 +33,28 @@ const BureauHeader: React.FC = () => {
         { title: 'Digital Forensics', href: '/blockchain-forensic' },
         { title: 'Investigation Services', href: '/crypto-investigation' },
         { title: 'Blockchain Analysis', href: '/blockchain-analyst' },
+        { title: 'Prevention Programs', href: '/scam-prevention' },
       ]
     },
     {
-      title: 'Statistics',
+      title: 'State Intelligence',
       items: [
         { title: 'California Statistics', href: '/california-cryptocurrency-scam-statistics-2020-2024' },
         { title: 'New York Statistics', href: '/new-york-cryptocurrency-scam-statistics-2020-2024' },
         { title: 'Texas Statistics', href: '/texas-cryptocurrency-scam-statistics-2020-2024' },
         { title: 'Florida Statistics', href: '/florida-cryptocurrency-scam-statistics-2020-2024' },
+        { title: 'Arizona Statistics', href: '/arizona-cryptocurrency-scam-statistics-2020-2024' },
+        { title: 'Colorado Statistics', href: '/colorado-cryptocurrency-scam-statistics-2020-2024' },
       ]
     },
     {
       title: 'Resources',
       items: [
         { title: 'Case Studies', href: '/case-studies' },
-        { title: 'Prevention Programs', href: '/scam-prevention' },
         { title: 'Research Team', href: '/lionsgate-network-research-team' },
-        { title: 'Blog', href: '/blog' },
+        { title: 'Security Analysis', href: '/ledger-security-incidents-analysis-and-recommendations' },
+        { title: 'Q&A', href: '/qa' },
+        { title: 'Manuals', href: '/manuals' },
       ]
     }
   ];

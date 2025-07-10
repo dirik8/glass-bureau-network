@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Phone, Mail } from 'lucide-react';
@@ -12,6 +11,8 @@ const BureauFooter: React.FC = () => {
         { title: 'Romance Scams', href: '/romance-scams' },
         { title: 'Trading Scams', href: '/fake-trading-scam' },
         { title: 'Pig Butchering', href: '/pig-butchering-scam' },
+        { title: 'Binary Options', href: '/binary-options-scams' },
+        { title: 'Job Scams', href: '/job-scam' },
       ]
     },
     {
@@ -21,6 +22,7 @@ const BureauFooter: React.FC = () => {
         { title: 'Blockchain Forensics', href: '/blockchain-forensic' },
         { title: 'Investigation Services', href: '/crypto-investigation' },
         { title: 'Prevention Programs', href: '/scam-prevention' },
+        { title: 'Blockchain Analysis', href: '/blockchain-analyst' },
       ]
     },
     {
@@ -28,17 +30,19 @@ const BureauFooter: React.FC = () => {
       links: [
         { title: 'Case Studies', href: '/case-studies' },
         { title: 'Research Team', href: '/lionsgate-network-research-team' },
-        { title: 'Blog', href: '/blog' },
-        { title: 'FAQ', href: '/qa' },
+        { title: 'Q&A', href: '/qa' },
+        { title: 'Manuals', href: '/manuals' },
+        { title: 'News Room', href: '/news-room' },
       ]
     },
     {
-      title: 'Legal',
+      title: 'Business',
       links: [
-        { title: 'Privacy Policy', href: '/privacy-policy-2' },
-        { title: 'Terms & Conditions', href: '/terms-conditions' },
         { title: 'Contact Us', href: '/contact-us' },
         { title: 'Careers', href: '/career' },
+        { title: 'Services', href: '/services' },
+        { title: 'Privacy Policy', href: '/privacy-policy-2' },
+        { title: 'Terms & Conditions', href: '/terms-conditions' },
       ]
     }
   ];
