@@ -27,6 +27,11 @@ const TaskScam = lazy(() => import("./pages/TaskScam"));
 const FakeTrading = lazy(() => import("./pages/FakeTrading"));
 const PigButchering = lazy(() => import("./pages/PigButchering"));
 const OnlineDatingScam = lazy(() => import("./pages/OnlineDatingScam"));
+const PhishingScam = lazy(() => import("./pages/PhishingScam"));
+const WalletPoisoning = lazy(() => import("./pages/WalletPoisoning"));
+const StockTradingScams = lazy(() => import("./pages/StockTradingScams"));
+const BlockchainCom = lazy(() => import("./pages/BlockchainCom"));
+const BlockchainForensic = lazy(() => import("./pages/BlockchainForensic"));
 
 // Service Pages
 const ScamPrevention = lazy(() => import("./pages/ScamPrevention"));
@@ -76,18 +81,18 @@ const App = () => (
               <Route path="/pig-butchering-scam" element={<PigButchering />} />
               <Route path="/online-dating-scam" element={<OnlineDatingScam />} />
               
-              {/* Placeholder routes for pages that will be created later */}
-              <Route path="/phishing-scam" element={<Index />} />
-              <Route path="/wallet-poisoning-scam" element={<Index />} />
-              <Route path="/stock-trading-scams" element={<Index />} />
-              <Route path="/blockchain-com" element={<Index />} />
+              {/* New Scam Intelligence Pages */}
+              <Route path="/phishing-scam" element={<PhishingScam />} />
+              <Route path="/wallet-poisoning-scam" element={<WalletPoisoning />} />
+              <Route path="/stock-trading-scams" element={<StockTradingScams />} />
+              <Route path="/blockchain-com" element={<BlockchainCom />} />
               
               {/* Service Routes */}
               <Route path="/asset-recovery-solutions" element={<AssetRecovery />} />
               <Route path="/scam-prevention" element={<ScamPrevention />} />
+              <Route path="/blockchain-forensic" element={<BlockchainForensic />} />
               
               {/* Placeholder service routes */}
-              <Route path="/blockchain-forensic" element={<Index />} />
               <Route path="/crypto-investigation" element={<Index />} />
               <Route path="/blockchain-analyst" element={<Index />} />
               
