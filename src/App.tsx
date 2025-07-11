@@ -20,15 +20,18 @@ const RomanceScams = lazy(() => import("./pages/RomanceScams"));
 const AssetRecovery = lazy(() => import("./pages/AssetRecovery"));
 const TexasStats = lazy(() => import("./pages/TexasStats"));
 
-// New Scam Intelligence Pages (only existing ones)
+// New Scam Intelligence Pages
 const BinaryOptionsScams = lazy(() => import("./pages/BinaryOptionsScams"));
 const JobScam = lazy(() => import("./pages/JobScam"));
 const TaskScam = lazy(() => import("./pages/TaskScam"));
+const FakeTrading = lazy(() => import("./pages/FakeTrading"));
+const PigButchering = lazy(() => import("./pages/PigButchering"));
+const OnlineDatingScam = lazy(() => import("./pages/OnlineDatingScam"));
 
-// Service Pages (only existing ones)
+// Service Pages
 const ScamPrevention = lazy(() => import("./pages/ScamPrevention"));
 
-// Content Pages (only existing ones)
+// Content Pages
 const NewsRoom = lazy(() => import("./pages/NewsRoom"));
 
 const queryClient = new QueryClient();
@@ -62,18 +65,18 @@ const App = () => (
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/case-studies" element={<CaseStudies />} />
               
-              {/* Scam Intelligence Routes - Only existing pages */}
+              {/* Scam Intelligence Routes */}
               <Route path="/cryptocurrency-scams" element={<CryptocurrencyScams />} />
               <Route path="/forex-scams" element={<ForexScams />} />
               <Route path="/romance-scams" element={<RomanceScams />} />
               <Route path="/binary-options-scams" element={<BinaryOptionsScams />} />
               <Route path="/job-scam" element={<JobScam />} />
               <Route path="/task-scam" element={<TaskScam />} />
+              <Route path="/fake-trading-scam" element={<FakeTrading />} />
+              <Route path="/pig-butchering-scam" element={<PigButchering />} />
+              <Route path="/online-dating-scam" element={<OnlineDatingScam />} />
               
               {/* Placeholder routes for pages that will be created later */}
-              <Route path="/pig-butchering-scam" element={<Index />} />
-              <Route path="/fake-trading-scam" element={<Index />} />
-              <Route path="/online-dating-scam" element={<Index />} />
               <Route path="/phishing-scam" element={<Index />} />
               <Route path="/wallet-poisoning-scam" element={<Index />} />
               <Route path="/stock-trading-scams" element={<Index />} />
