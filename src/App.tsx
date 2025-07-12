@@ -35,9 +35,14 @@ const BlockchainForensic = lazy(() => import("./pages/BlockchainForensic"));
 
 // Service Pages
 const ScamPrevention = lazy(() => import("./pages/ScamPrevention"));
+const CryptoInvestigation = lazy(() => import("./pages/CryptoInvestigation"));
+const BlockchainAnalyst = lazy(() => import("./pages/BlockchainAnalyst"));
 
 // Content Pages
 const NewsRoom = lazy(() => import("./pages/NewsRoom"));
+const Manuals = lazy(() => import("./pages/Manuals"));
+const QA = lazy(() => import("./pages/QA"));
+const ResearchTeam = lazy(() => import("./pages/ResearchTeam"));
 
 const queryClient = new QueryClient();
 
@@ -92,17 +97,17 @@ const App = () => (
               <Route path="/scam-prevention" element={<ScamPrevention />} />
               <Route path="/blockchain-forensic" element={<BlockchainForensic />} />
               
-              {/* Placeholder service routes */}
-              <Route path="/crypto-investigation" element={<Index />} />
-              <Route path="/blockchain-analyst" element={<Index />} />
+              {/* Service routes */}
+              <Route path="/crypto-investigation" element={<CryptoInvestigation />} />
+              <Route path="/blockchain-analyst" element={<BlockchainAnalyst />} />
               
               {/* Content Routes */}
               <Route path="/news-room" element={<NewsRoom />} />
               
-              {/* Placeholder content routes */}
-              <Route path="/manuals" element={<Index />} />
-              <Route path="/qa" element={<Index />} />
-              <Route path="/lionsgate-network-research-team" element={<Index />} />
+              {/* Content routes */}
+              <Route path="/manuals" element={<Manuals />} />
+              <Route path="/qa" element={<QA />} />
+              <Route path="/lionsgate-network-research-team" element={<ResearchTeam />} />
               <Route path="/ledger-security-incidents-analysis-and-recommendations" element={<Index />} />
               
               {/* Legal Routes - Placeholder */}
