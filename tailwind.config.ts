@@ -53,9 +53,12 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
         },
-        // FBI Government Colors
+        // FBI Government Colors - Enhanced for Vibrancy
         'fbi-blue': {
           DEFAULT: 'hsl(var(--fbi-blue))',
+          light: 'hsl(var(--fbi-blue-light))',
+          dark: 'hsl(var(--fbi-blue-dark))',
+          vibrant: 'hsl(var(--fbi-blue-vibrant))',
           50: 'hsl(220, 100%, 98%)',
           100: 'hsl(214, 95%, 93%)',
           200: 'hsl(213, 97%, 87%)',

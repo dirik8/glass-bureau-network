@@ -54,13 +54,13 @@ const BureauFooter: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <div className="flex items-center space-x-2 mb-4">
-              <Shield className="h-8 w-8 text-primary" />
-              <div className="flex flex-col">
-                <span className="font-bold text-lg leading-none text-foreground">LGN Recovery</span>
-                <span className="text-xs text-muted-foreground leading-none">CYBERCRIME DIVISION</span>
+              <div className="flex items-center space-x-2 mb-4">
+                <Shield className="h-8 w-8 text-primary" />
+                <div className="flex flex-col">
+                  <span className="font-bold text-lg leading-none vibrant-text">LGN ADVANCED SCAM RECOVERY</span>
+                  <span className="text-xs text-muted-foreground leading-none font-bold">CYBERCRIME DIVISION</span>
+                </div>
               </div>
-            </div>
             <p className="text-sm text-muted-foreground mb-4">
               Elite cybercrime investigation and asset recovery specialists. 
               Protecting victims and pursuing digital justice.
@@ -103,7 +103,7 @@ const BureauFooter: React.FC = () => {
         <div className="border-t border-border mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-muted-foreground">
-              © 2024 LGN Recovery Cybercrime Division. All rights reserved.
+              © 2024 LGN ADVANCED SCAM RECOVERY Cybercrime Division. All rights reserved.
             </div>
             <div className="flex space-x-6 text-sm text-muted-foreground">
               <Link to="/privacy-policy-2" className="hover:text-foreground transition-colors">

@@ -3,18 +3,23 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Shield, TrendingUp, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import heroBackground from '@/assets/hero-background.jpg';
 
 const HeroSection: React.FC = () => {
   const stats = [
     { icon: TrendingUp, label: 'Cases Solved', value: '2,847' },
     { icon: Users, label: 'Victims Assisted', value: '15,439' },
-    { icon: Award, label: 'Assets Recovered', value: '$847M' },
+    { icon: Award, label: 'Assets Recovered', value: '$992.4M' },
   ];
 
   return (
-    <section className="relative bg-white min-h-[80vh] flex items-center">
-      {/* Professional background overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-fbi-blue/5 to-fbi-blue/10"></div>
+    <section className="relative bg-white min-h-[80vh] flex items-center overflow-hidden">
+      {/* Enhanced vibrant background with image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
+        style={{ backgroundImage: `url(${heroBackground})` }}
+      ></div>
+      <div className="absolute inset-0 hero-gradient"></div>
       
       <div className="container relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -30,8 +35,8 @@ const HeroSection: React.FC = () => {
 
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               MISSION FIRST:
-              <span className="block text-fbi-blue">Fighting Cybercrime</span>
-              <span className="block text-gray-700">Across the Nation</span>
+              <span className="block vibrant-text">Fighting Cybercrime</span>
+              <span className="block text-gray-700">Across the Globe</span>
             </h1>
 
             <p className="text-xl text-gray-600 mb-8 max-w-2xl leading-relaxed">
@@ -40,10 +45,10 @@ const HeroSection: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
-              <Button size="lg" className="bg-fbi-blue hover:bg-fbi-blue/90 text-white font-semibold px-8 py-4">
+              <Button size="lg" className="button-vibrant px-8 py-4 text-lg">
                 <Link to="/contact-us" className="flex items-center">Report Scam or Request Help</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-fbi-blue text-fbi-blue hover:bg-fbi-blue hover:text-white px-8 py-4">
+              <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 text-lg font-bold">
                 <Link to="/case-studies">View Closed Operations</Link>
               </Button>
             </div>
@@ -52,9 +57,9 @@ const HeroSection: React.FC = () => {
             <div className="grid grid-cols-3 gap-8 pt-8 border-t border-gray-200">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <stat.icon className="h-8 w-8 text-fbi-blue mx-auto mb-3" />
-                  <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                  <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
+                  <stat.icon className="h-8 w-8 text-primary mx-auto mb-3" />
+                  <div className="text-3xl font-bold vibrant-text mb-1">{stat.value}</div>
+                  <div className="text-sm font-semibold text-gray-700">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -76,7 +81,7 @@ const HeroSection: React.FC = () => {
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
                     <span className="text-gray-600 font-medium">Assets Traced:</span>
-                    <span className="text-green-600 font-bold">$2.4M USD</span>
+                    <span className="text-green-600 font-bold text-vibrant">$992.4M USD</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
                     <span className="text-gray-600 font-medium">Recovery Status:</span>

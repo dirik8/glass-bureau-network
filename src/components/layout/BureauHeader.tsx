@@ -62,12 +62,12 @@ const BureauHeader: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
       <div className="container flex h-16 items-center justify-between">
-        {/* LGN Recovery Logo */}
+        {/* LGN ADVANCED SCAM RECOVERY Logo */}
         <Link to="/" className="flex items-center space-x-3">
           <Shield className="h-10 w-10 text-primary" />
           <div className="flex flex-col">
-            <span className="font-bold text-xl leading-none text-primary">LGN Recovery</span>
-            <span className="text-xs text-muted-foreground leading-none font-medium">CYBERCRIME DIVISION</span>
+            <span className="font-bold text-xl leading-none vibrant-text">LGN ADVANCED SCAM RECOVERY</span>
+            <span className="text-xs text-muted-foreground leading-none font-bold">CYBERCRIME DIVISION</span>
           </div>
         </Link>
 
@@ -109,7 +109,7 @@ const BureauHeader: React.FC = () => {
             <Search className="h-4 w-4 mr-2" />
             Search
           </Button>
-          <Button size="sm" className="hidden md:flex bg-primary hover:bg-primary/90 text-primary-foreground">
+          <Button size="sm" className="hidden md:flex button-vibrant">
             <Phone className="h-4 w-4 mr-2" />
             Get Help
           </Button>
