@@ -5,8 +5,26 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { BookOpen, Download, Shield, Users, Lock, FileText } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
+import { useToast } from '@/hooks/use-toast';
 
 const Manuals = () => {
+  const { toast } = useToast();
+
+  const downloadPDF = (title: string) => {
+    // Simulate PDF download
+    toast({
+      title: "Download Started",
+      description: `${title} is being downloaded...`,
+    });
+    
+    // In a real implementation, this would download the actual PDF
+    setTimeout(() => {
+      toast({
+        title: "Download Complete",
+        description: `${title} has been downloaded successfully.`,
+      });
+    }, 2000);
+  };
   const manuals = [
     {
       category: "Investigation Procedures",
@@ -72,10 +90,14 @@ const Manuals = () => {
               investigations and blockchain forensics. Industry-standard procedures and protocols.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
-                <Download className="mr-2 h-5 w-5" />
-                Download Manual Library
-              </Button>
+                <Button 
+                  size="lg" 
+                  className="bg-primary hover:bg-primary/90"
+                  onClick={() => downloadPDF("Complete Manual Library")}
+                >
+                  <Download className="mr-2 h-5 w-5" />
+                  Download Manual Library
+                </Button>
               <Button size="lg" variant="outline">
                 View Documentation
               </Button>
@@ -114,7 +136,12 @@ const Manuals = () => {
                             {guide.level}
                           </Badge>
                         </div>
-                        <Button size="sm" variant="outline" className="w-full text-xs">
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="w-full text-xs"
+                          onClick={() => downloadPDF(guide.title)}
+                        >
                           <Download className="mr-1 h-3 w-3" />
                           Download PDF
                         </Button>
@@ -208,7 +235,11 @@ const Manuals = () => {
                 <p className="text-sm text-muted-foreground">
                   Immediate action items for cryptocurrency theft incidents
                 </p>
-                <Button size="sm" className="w-full bg-red-600 hover:bg-red-700">
+                <Button 
+                  size="sm" 
+                  className="w-full bg-red-600 hover:bg-red-700"
+                  onClick={() => downloadPDF("Emergency Response Checklist")}
+                >
                   <Download className="mr-2 h-4 w-4" />
                   Download Checklist
                 </Button>
@@ -226,7 +257,12 @@ const Manuals = () => {
                 <p className="text-sm text-muted-foreground">
                   Quick setup guides for investigation tools and software
                 </p>
-                <Button size="sm" variant="outline" className="w-full">
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => downloadPDF("Tool Configuration Guide")}
+                >
                   <Download className="mr-2 h-4 w-4" />
                   Download Guide
                 </Button>
@@ -244,7 +280,12 @@ const Manuals = () => {
                 <p className="text-sm text-muted-foreground">
                   Professional report templates for investigation findings
                 </p>
-                <Button size="sm" variant="outline" className="w-full">
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => downloadPDF("Report Templates")}
+                >
                   <Download className="mr-2 h-4 w-4" />
                   Download Templates
                 </Button>

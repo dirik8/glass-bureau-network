@@ -27,8 +27,8 @@ const AdminLogin: React.FC = () => {
         title: "Login Successful",
         description: "Welcome to LGN Admin Panel",
       });
-      // Redirect to admin dashboard
-      window.location.href = '/admin/dashboard';
+    // Redirect to admin dashboard
+    window.location.href = '/admin/dashboard';
     } else {
       toast({
         title: "Login Failed",

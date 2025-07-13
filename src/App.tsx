@@ -77,6 +77,7 @@ const Manuals = lazy(() => import("./pages/Manuals"));
 const QA = lazy(() => import("./pages/QA"));
 const ResearchTeam = lazy(() => import("./pages/ResearchTeam"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
 const queryClient = new QueryClient();
 
@@ -147,6 +148,7 @@ const App = () => (
               
               {/* Admin Routes */}
               <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
               
               {/* Legal Routes */}
               <Route path="/privacy-policy-2" element={<PrivacyPolicy />} />

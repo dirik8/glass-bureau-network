@@ -1,14 +1,17 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Shield, Calendar, DollarSign, Users, FileText, ChevronRight } from 'lucide-react';
+import { Shield, Calendar, DollarSign, Users, FileText, ChevronRight, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const CaseStudies: React.FC = () => {
-  const cases = [
+  const [loading, setLoading] = useState(false);
+  const [visibleCases, setVisibleCases] = useState(4);
+
+  const allCases = [
     {
       id: 'OP-2024-001',
       title: 'Operation Digital Shield',
@@ -52,6 +55,50 @@ const CaseStudies: React.FC = () => {
       date: 'September 2023',
       description: 'Work-from-home job scam targeting recent graduates and unemployed individuals.',
       outcomes: ['8 arrests', 'Educational campaign', 'Employer partnerships']
+    },
+    {
+      id: 'OP-2023-012',
+      title: 'Operation Crypto Mirage',
+      type: 'Investment Fraud',
+      status: 'Closed',
+      recoveredAmount: '$3.1M',
+      victims: 678,
+      date: 'August 2023',
+      description: 'Fake DeFi protocol promising impossible returns through yield farming scams.',
+      outcomes: ['18 arrests', 'Smart contract analysis', 'Investor education']
+    },
+    {
+      id: 'OP-2023-009',
+      title: 'Operation Social Shield',
+      type: 'Social Media Scam',
+      status: 'Closed',
+      recoveredAmount: '$1.2M',
+      victims: 432,
+      date: 'July 2023',
+      description: 'Instagram and TikTok investment scam targeting young adults.',
+      outcomes: ['7 arrests', 'Platform cooperation', 'Awareness campaign']
+    },
+    {
+      id: 'OP-2023-006',
+      title: 'Operation Mining Trap',
+      type: 'Cloud Mining Fraud',
+      status: 'Closed',
+      recoveredAmount: '$4.7M',
+      victims: 1123,
+      date: 'June 2023',
+      description: 'Fake cryptocurrency mining operation with fabricated mining facilities.',
+      outcomes: ['15 arrests', 'Equipment seizure', 'Victim compensation']
+    },
+    {
+      id: 'OP-2023-003',
+      title: 'Operation Tech Support',
+      type: 'Tech Support Scam',
+      status: 'Closed',
+      recoveredAmount: '$2.8M',
+      victims: 789,
+      date: 'May 2023',
+      description: 'Call center operation targeting elderly with fake computer virus warnings.',
+      outcomes: ['22 arrests', 'Call center shutdown', 'International cooperation']
     }
   ];
 
@@ -106,7 +153,7 @@ const CaseStudies: React.FC = () => {
         <section className="py-16">
           <div className="container">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {cases.map((case_) => (
+              {allCases.slice(0, visibleCases).map((case_) => (
                 <Card key={case_.id} className="government-card hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="flex items-start justify-between">
@@ -171,18 +218,31 @@ const CaseStudies: React.FC = () => {
             </div>
 
             {/* Load More */}
-            <div className="text-center mt-12">
-              <Button 
-                variant="outline" 
-                size="lg"
-                onClick={() => {
-                  // Simulate loading more cases
-                  alert('Loading more cases... This feature will be available soon.');
-                }}
-              >
-                Load More Cases
-              </Button>
-            </div>
+            {visibleCases < allCases.length && (
+              <div className="text-center mt-12">
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  disabled={loading}
+                  onClick={async () => {
+                    setLoading(true);
+                    // Simulate loading delay
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    setVisibleCases(prev => Math.min(prev + 4, allCases.length));
+                    setLoading(false);
+                  }}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Loading Cases...
+                    </>
+                  ) : (
+                    `Load More Cases (${allCases.length - visibleCases} remaining)`
+                  )}
+                </Button>
+              </div>
+            )}
           </div>
         </section>
 
