@@ -3,34 +3,42 @@ import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { MapPin, TrendingUp, Users, DollarSign, AlertCircle, Phone } from 'lucide-react';
+import { MapPin, TrendingUp, AlertCircle, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const ColoradoStats: React.FC = () => {
-  const yearlyData = [
-    { year: 2024, cases: 1567, losses: '$42.3M', avgLoss: '$27.0K' },
-    { year: 2023, cases: 1342, losses: '$35.8M', avgLoss: '$26.7K' },
-    { year: 2022, cases: 1089, losses: '$28.1M', avgLoss: '$25.8K' },
-    { year: 2021, cases: 934, losses: '$22.7M', avgLoss: '$24.3K' },
-    { year: 2020, cases: 756, losses: '$17.2M', avgLoss: '$22.8K' }
-  ];
+interface StateData {
+  state: string;
+  office: string;
+  totalCases: string;
+  totalLosses: string;
+  increase: string;
+  avgLoss: string;
+  yearlyData: Array<{
+    year: number;
+    cases: number;
+    losses: string;
+    avgLoss: string;
+  }>;
+  topScamTypes: Array<{
+    type: string;
+    percentage: number;
+    cases: number;
+    losses: string;
+  }>;
+  regionalHotspots: Array<{
+    city: string;
+    cases: number;
+    losses: string;
+  }>;
+  phoneNumber: string;
+  description: string;
+}
 
-  const topScamTypes = [
-    { type: 'Investment/Trading Platforms', percentage: 36, cases: 564, losses: '$15.2M' },
-    { type: 'Romance/Relationship', percentage: 22, cases: 345, losses: '$9.3M' },
-    { type: 'Business Email Compromise', percentage: 19, cases: 298, losses: '$8.0M' },
-    { type: 'Tech Support', percentage: 13, cases: 204, losses: '$5.5M' },
-    { type: 'Employment/Job', percentage: 10, cases: 156, losses: '$4.2M' }
-  ];
+interface StatePageTemplateProps {
+  data: StateData;
+}
 
-  const regionalHotspots = [
-    { city: 'Denver', cases: 634, losses: '$17.1M' },
-    { city: 'Colorado Springs', cases: 387, losses: '$10.4M' },
-    { city: 'Aurora', cases: 234, losses: '$6.3M' },
-    { city: 'Fort Collins', cases: 189, losses: '$5.1M' },
-    { city: 'Other Areas', cases: 123, losses: '$3.3M' }
-  ];
-
+const StatePageTemplate: React.FC<StatePageTemplateProps> = ({ data }) => {
   return (
     <Layout>
       <div className="min-h-screen bg-background">
@@ -42,14 +50,13 @@ const ColoradoStats: React.FC = () => {
                 <MapPin className="h-12 w-12" />
                 <div>
                   <Badge className="bg-primary/80 text-primary-foreground mb-2">FIELD OFFICE REPORT</Badge>
-                  <h1 className="text-4xl font-bold">Colorado Cybercrime Statistics</h1>
-                  <p className="text-primary-foreground/80">Denver Field Office - 2020-2024 Analysis</p>
+                  <h1 className="text-4xl font-bold">{data.state} Cybercrime Statistics</h1>
+                  <p className="text-primary-foreground/80">{data.office} - 2020-2024 Analysis</p>
                 </div>
               </div>
               <div className="bg-primary/80 p-6 rounded-lg">
                 <p className="text-xl text-primary-foreground/90 leading-relaxed">
-                  Colorado has seen a 107% increase in cybercrime incidents over four years, with the tech-savvy 
-                  population increasingly targeted through sophisticated cryptocurrency investment schemes.
+                  {data.description}
                 </p>
               </div>
             </div>
@@ -57,24 +64,24 @@ const ColoradoStats: React.FC = () => {
         </section>
 
         {/* Key Statistics */}
-        <section className="bg-government-gray-50 border-l-4 border-red-500 py-8">
+        <section className="bg-muted border-l-4 border-red-500 py-8">
           <div className="container">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-fbi-blue">5,688</div>
-                <div className="text-sm text-government-gray-600">Total Cases (2020-2024)</div>
+                <div className="text-3xl font-bold text-primary">{data.totalCases}</div>
+                <div className="text-sm text-muted-foreground">Total Cases (2020-2024)</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-red-600">$146.1M</div>
-                <div className="text-sm text-government-gray-600">Total Losses</div>
+                <div className="text-3xl font-bold text-red-600">{data.totalLosses}</div>
+                <div className="text-sm text-muted-foreground">Total Losses</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-orange-500">107%</div>
-                <div className="text-sm text-government-gray-600">4-Year Increase</div>
+                <div className="text-3xl font-bold text-orange-500">{data.increase}</div>
+                <div className="text-sm text-muted-foreground">4-Year Increase</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-fbi-blue">$25.7K</div>
-                <div className="text-sm text-government-gray-600">Average Loss</div>
+                <div className="text-3xl font-bold text-primary">{data.avgLoss}</div>
+                <div className="text-sm text-muted-foreground">Average Loss</div>
               </div>
             </div>
           </div>
@@ -83,10 +90,10 @@ const ColoradoStats: React.FC = () => {
         {/* Yearly Trends */}
         <section className="py-16">
           <div className="container">
-            <h2 className="text-3xl font-bold text-fbi-blue mb-8">Five-Year Trend Analysis</h2>
+            <h2 className="text-3xl font-bold text-primary mb-8">Five-Year Trend Analysis</h2>
             <Card className="government-card">
               <CardHeader>
-                <CardTitle className="text-xl text-fbi-blue flex items-center">
+                <CardTitle className="text-xl text-primary flex items-center">
                   <TrendingUp className="h-6 w-6 mr-2" />
                   Annual Cybercrime Statistics
                 </CardTitle>
@@ -94,26 +101,26 @@ const ColoradoStats: React.FC = () => {
               <CardContent>
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="border-b border-government-gray-200">
+                    <thead className="border-b border-border">
                       <tr>
-                        <th className="text-left py-3 text-government-gray-700">Year</th>
-                        <th className="text-left py-3 text-government-gray-700">Reported Cases</th>
-                        <th className="text-left py-3 text-government-gray-700">Total Losses</th>
-                        <th className="text-left py-3 text-government-gray-700">Average Loss</th>
-                        <th className="text-left py-3 text-government-gray-700">Trend</th>
+                        <th className="text-left py-3 text-foreground">Year</th>
+                        <th className="text-left py-3 text-foreground">Reported Cases</th>
+                        <th className="text-left py-3 text-foreground">Total Losses</th>
+                        <th className="text-left py-3 text-foreground">Average Loss</th>
+                        <th className="text-left py-3 text-foreground">Trend</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {yearlyData.map((data, index) => (
-                        <tr key={data.year} className="border-b border-government-gray-100">
-                          <td className="py-4 font-semibold text-fbi-blue">{data.year}</td>
-                          <td className="py-4">{data.cases.toLocaleString()}</td>
-                          <td className="py-4 font-semibold text-red-600">{data.losses}</td>
-                          <td className="py-4">{data.avgLoss}</td>
+                      {data.yearlyData.map((yearData, index) => (
+                        <tr key={yearData.year} className="border-b border-border/50">
+                          <td className="py-4 font-semibold text-primary">{yearData.year}</td>
+                          <td className="py-4">{yearData.cases.toLocaleString()}</td>
+                          <td className="py-4 font-semibold text-red-600">{yearData.losses}</td>
+                          <td className="py-4">{yearData.avgLoss}</td>
                           <td className="py-4">
-                            {index < yearlyData.length - 1 && (
-                              <Badge variant={data.cases > yearlyData[index + 1].cases ? 'destructive' : 'secondary'}>
-                                {data.cases > yearlyData[index + 1].cases ? '↑ Increase' : '↓ Decrease'}
+                            {index < data.yearlyData.length - 1 && (
+                              <Badge variant={yearData.cases > data.yearlyData[index + 1].cases ? 'destructive' : 'secondary'}>
+                                {yearData.cases > data.yearlyData[index + 1].cases ? '↑ Increase' : '↓ Decrease'}
                               </Badge>
                             )}
                           </td>
@@ -128,25 +135,25 @@ const ColoradoStats: React.FC = () => {
         </section>
 
         {/* Scam Type Breakdown */}
-        <section className="bg-government-gray-50 py-16">
+        <section className="bg-muted py-16">
           <div className="container">
-            <h2 className="text-3xl font-bold text-fbi-blue mb-8">Primary Threat Categories (2024)</h2>
+            <h2 className="text-3xl font-bold text-primary mb-8">Primary Threat Categories (2024)</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-4">
-                {topScamTypes.map((scam, index) => (
+                {data.topScamTypes.map((scam, index) => (
                   <Card key={index} className="government-card">
                     <CardContent className="p-6">
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-semibold text-fbi-blue">{scam.type}</h3>
+                        <h3 className="font-semibold text-primary">{scam.type}</h3>
                         <Badge variant="secondary">{scam.percentage}%</Badge>
                       </div>
-                      <div className="grid grid-cols-2 gap-4 text-sm text-government-gray-600">
+                      <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground">
                         <div>Cases: {scam.cases}</div>
                         <div className="text-red-600 font-semibold">Losses: {scam.losses}</div>
                       </div>
-                      <div className="mt-3 bg-government-gray-200 rounded-full h-2">
+                      <div className="mt-3 bg-border rounded-full h-2">
                         <div 
-                          className="bg-fbi-blue h-2 rounded-full" 
+                          className="bg-primary h-2 rounded-full" 
                           style={{ width: `${scam.percentage}%` }}
                         ></div>
                       </div>
@@ -157,15 +164,15 @@ const ColoradoStats: React.FC = () => {
               <div>
                 <Card className="government-card">
                   <CardHeader>
-                    <CardTitle className="text-xl text-fbi-blue">Regional Hotspots</CardTitle>
+                    <CardTitle className="text-xl text-primary">Regional Hotspots</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {regionalHotspots.map((region, index) => (
-                        <div key={index} className="flex justify-between items-center py-2 border-b border-government-gray-100 last:border-0">
+                      {data.regionalHotspots.map((region, index) => (
+                        <div key={index} className="flex justify-between items-center py-2 border-b border-border/50 last:border-0">
                           <div>
-                            <div className="font-medium text-fbi-blue">{region.city}</div>
-                            <div className="text-sm text-government-gray-600">{region.cases} cases</div>
+                            <div className="font-medium text-primary">{region.city}</div>
+                            <div className="text-sm text-muted-foreground">{region.cases} cases</div>
                           </div>
                           <div className="text-right">
                             <div className="font-semibold text-red-600">{region.losses}</div>
@@ -192,8 +199,8 @@ const ColoradoStats: React.FC = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-government-gray-700">
-                    Colorado victims should report cybercrime immediately to increase recovery chances 
+                  <p className="text-foreground">
+                    {data.state} victims should report cybercrime immediately to increase recovery chances 
                     and prevent further victimization.
                   </p>
                   <div className="space-y-2">
@@ -202,19 +209,19 @@ const ColoradoStats: React.FC = () => {
                     </Button>
                     <Button variant="outline" className="w-full" size="lg">
                       <Phone className="h-4 w-4 mr-2" />
-                      Colorado Hotline: (303) 629-7171
+                      {data.state} Hotline: {data.phoneNumber}
                     </Button>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="government-card border-fbi-blue">
+              <Card className="government-card border-primary">
                 <CardHeader>
-                  <CardTitle className="text-xl text-fbi-blue">Prevention Resources</CardTitle>
+                  <CardTitle className="text-xl text-primary">Prevention Resources</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-government-gray-700">
-                    Access Colorado-specific prevention programs, educational materials, and 
+                  <p className="text-foreground">
+                    Access {data.state}-specific prevention programs, educational materials, and 
                     community outreach resources.
                   </p>
                   <div className="space-y-2">
@@ -222,7 +229,7 @@ const ColoradoStats: React.FC = () => {
                       <Link to="/scam-prevention">Prevention Programs</Link>
                     </Button>
                     <Button variant="outline" className="w-full" asChild>
-                      <Link to="/case-studies">Colorado Case Studies</Link>
+                      <Link to="/case-studies">{data.state} Case Studies</Link>
                     </Button>
                   </div>
                 </CardContent>
@@ -235,4 +242,4 @@ const ColoradoStats: React.FC = () => {
   );
 };
 
-export default ColoradoStats;
+export default StatePageTemplate;

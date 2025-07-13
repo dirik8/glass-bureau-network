@@ -35,19 +35,19 @@ const IllinoisStats: React.FC = () => {
     <Layout>
       <div className="min-h-screen bg-background">
         {/* Field Office Header */}
-        <section className="bg-fbi-blue text-white py-16">
+        <section className="bg-primary text-primary-foreground py-16">
           <div className="container">
             <div className="max-w-4xl">
               <div className="flex items-center space-x-3 mb-6">
                 <MapPin className="h-12 w-12" />
                 <div>
-                  <Badge className="bg-fbi-blue-800 text-white mb-2">FIELD OFFICE REPORT</Badge>
+                  <Badge className="bg-primary/80 text-primary-foreground mb-2">FIELD OFFICE REPORT</Badge>
                   <h1 className="text-4xl font-bold">Illinois Cybercrime Statistics</h1>
-                  <p className="text-fbi-blue-100">Chicago Field Office - 2020-2024 Analysis</p>
+                  <p className="text-primary-foreground/80">Chicago Field Office - 2020-2024 Analysis</p>
                 </div>
               </div>
-              <div className="bg-fbi-blue-900/50 p-6 rounded-lg">
-                <p className="text-xl text-fbi-blue-100 leading-relaxed">
+              <div className="bg-primary/80 p-6 rounded-lg">
+                <p className="text-xl text-primary-foreground/90 leading-relaxed">
                   Illinois has experienced a 103% increase in cybercrime incidents over four years, 
                   with Chicago serving as a major hub for both financial crimes and cryptocurrency fraud 
                   affecting the Midwest region.

@@ -35,19 +35,19 @@ const ArizonaStats: React.FC = () => {
     <Layout>
       <div className="min-h-screen bg-background">
         {/* Field Office Header */}
-        <section className="bg-fbi-blue text-white py-16">
+        <section className="bg-primary text-primary-foreground py-16">
           <div className="container">
             <div className="max-w-4xl">
               <div className="flex items-center space-x-3 mb-6">
                 <MapPin className="h-12 w-12" />
                 <div>
-                  <Badge className="bg-fbi-blue-800 text-white mb-2">FIELD OFFICE REPORT</Badge>
+                  <Badge className="bg-primary/80 text-primary-foreground mb-2">FIELD OFFICE REPORT</Badge>
                   <h1 className="text-4xl font-bold">Arizona Cybercrime Statistics</h1>
-                  <p className="text-fbi-blue-100">Phoenix Field Office - 2020-2024 Analysis</p>
+                  <p className="text-primary-foreground/80">Phoenix Field Office - 2020-2024 Analysis</p>
                 </div>
               </div>
-              <div className="bg-fbi-blue-900/50 p-6 rounded-lg">
-                <p className="text-xl text-fbi-blue-100 leading-relaxed">
+              <div className="bg-primary/80 p-6 rounded-lg">
+                <p className="text-xl text-primary-foreground/90 leading-relaxed">
                   Arizona has experienced a 123% increase in cybercrime incidents over the past four years,
                   with investment fraud targeting retirees being the primary concern for law enforcement.
                 </p>
@@ -57,24 +57,24 @@ const ArizonaStats: React.FC = () => {
         </section>
 
         {/* Key Statistics */}
-        <section className="bg-government-gray-50 border-l-4 border-red-500 py-8">
+        <section className="bg-muted border-l-4 border-red-500 py-8">
           <div className="container">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-fbi-blue">6,569</div>
-                <div className="text-sm text-government-gray-600">Total Cases (2020-2024)</div>
+                <div className="text-3xl font-bold text-primary">6,569</div>
+                <div className="text-sm text-muted-foreground">Total Cases (2020-2024)</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-red-600">$168.2M</div>
-                <div className="text-sm text-government-gray-600">Total Losses</div>
+                <div className="text-sm text-muted-foreground">Total Losses</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-orange-500">123%</div>
-                <div className="text-sm text-government-gray-600">4-Year Increase</div>
+                <div className="text-sm text-muted-foreground">4-Year Increase</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-fbi-blue">$25.6K</div>
-                <div className="text-sm text-government-gray-600">Average Loss</div>
+                <div className="text-3xl font-bold text-primary">$25.6K</div>
+                <div className="text-sm text-muted-foreground">Average Loss</div>
               </div>
             </div>
           </div>
@@ -83,10 +83,10 @@ const ArizonaStats: React.FC = () => {
         {/* Yearly Trends */}
         <section className="py-16">
           <div className="container">
-            <h2 className="text-3xl font-bold text-fbi-blue mb-8">Five-Year Trend Analysis</h2>
+            <h2 className="text-3xl font-bold text-primary mb-8">Five-Year Trend Analysis</h2>
             <Card className="government-card">
               <CardHeader>
-                <CardTitle className="text-xl text-fbi-blue flex items-center">
+                <CardTitle className="text-xl text-primary flex items-center">
                   <TrendingUp className="h-6 w-6 mr-2" />
                   Annual Cybercrime Statistics
                 </CardTitle>
@@ -94,19 +94,19 @@ const ArizonaStats: React.FC = () => {
               <CardContent>
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="border-b border-government-gray-200">
+                    <thead className="border-b border-border">
                       <tr>
-                        <th className="text-left py-3 text-government-gray-700">Year</th>
-                        <th className="text-left py-3 text-government-gray-700">Reported Cases</th>
-                        <th className="text-left py-3 text-government-gray-700">Total Losses</th>
-                        <th className="text-left py-3 text-government-gray-700">Average Loss</th>
-                        <th className="text-left py-3 text-government-gray-700">Trend</th>
+                        <th className="text-left py-3 text-foreground">Year</th>
+                        <th className="text-left py-3 text-foreground">Reported Cases</th>
+                        <th className="text-left py-3 text-foreground">Total Losses</th>
+                        <th className="text-left py-3 text-foreground">Average Loss</th>
+                        <th className="text-left py-3 text-foreground">Trend</th>
                       </tr>
                     </thead>
                     <tbody>
                       {yearlyData.map((data, index) => (
-                        <tr key={data.year} className="border-b border-government-gray-100">
-                          <td className="py-4 font-semibold text-fbi-blue">{data.year}</td>
+                        <tr key={data.year} className="border-b border-border/50">
+                          <td className="py-4 font-semibold text-primary">{data.year}</td>
                           <td className="py-4">{data.cases.toLocaleString()}</td>
                           <td className="py-4 font-semibold text-red-600">{data.losses}</td>
                           <td className="py-4">{data.avgLoss}</td>
@@ -128,25 +128,25 @@ const ArizonaStats: React.FC = () => {
         </section>
 
         {/* Scam Type Breakdown */}
-        <section className="bg-government-gray-50 py-16">
+        <section className="bg-muted py-16">
           <div className="container">
-            <h2 className="text-3xl font-bold text-fbi-blue mb-8">Primary Threat Categories (2024)</h2>
+            <h2 className="text-3xl font-bold text-primary mb-8">Primary Threat Categories (2024)</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-4">
                 {topScamTypes.map((scam, index) => (
                   <Card key={index} className="government-card">
                     <CardContent className="p-6">
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-semibold text-fbi-blue">{scam.type}</h3>
+                        <h3 className="font-semibold text-primary">{scam.type}</h3>
                         <Badge variant="secondary">{scam.percentage}%</Badge>
                       </div>
-                      <div className="grid grid-cols-2 gap-4 text-sm text-government-gray-600">
+                      <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground">
                         <div>Cases: {scam.cases}</div>
                         <div className="text-red-600 font-semibold">Losses: {scam.losses}</div>
                       </div>
-                      <div className="mt-3 bg-government-gray-200 rounded-full h-2">
+                      <div className="mt-3 bg-border rounded-full h-2">
                         <div 
-                          className="bg-fbi-blue h-2 rounded-full" 
+                          className="bg-primary h-2 rounded-full" 
                           style={{ width: `${scam.percentage}%` }}
                         ></div>
                       </div>
@@ -157,15 +157,15 @@ const ArizonaStats: React.FC = () => {
               <div>
                 <Card className="government-card">
                   <CardHeader>
-                    <CardTitle className="text-xl text-fbi-blue">Regional Hotspots</CardTitle>
+                    <CardTitle className="text-xl text-primary">Regional Hotspots</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       {regionalHotspots.map((region, index) => (
-                        <div key={index} className="flex justify-between items-center py-2 border-b border-government-gray-100 last:border-0">
+                        <div key={index} className="flex justify-between items-center py-2 border-b border-border/50 last:border-0">
                           <div>
-                            <div className="font-medium text-fbi-blue">{region.city}</div>
-                            <div className="text-sm text-government-gray-600">{region.cases} cases</div>
+                            <div className="font-medium text-primary">{region.city}</div>
+                            <div className="text-sm text-muted-foreground">{region.cases} cases</div>
                           </div>
                           <div className="text-right">
                             <div className="font-semibold text-red-600">{region.losses}</div>
@@ -192,7 +192,7 @@ const ArizonaStats: React.FC = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-government-gray-700">
+                  <p className="text-foreground">
                     Arizona victims should report cybercrime immediately to increase recovery chances 
                     and prevent further victimization.
                   </p>
@@ -208,12 +208,12 @@ const ArizonaStats: React.FC = () => {
                 </CardContent>
               </Card>
 
-              <Card className="government-card border-fbi-blue">
+              <Card className="government-card border-primary">
                 <CardHeader>
-                  <CardTitle className="text-xl text-fbi-blue">Prevention Resources</CardTitle>
+                  <CardTitle className="text-xl text-primary">Prevention Resources</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-government-gray-700">
+                  <p className="text-foreground">
                     Access Arizona-specific prevention programs, educational materials, and 
                     community outreach resources.
                   </p>

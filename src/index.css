@@ -7,14 +7,14 @@
 
 @layer base {
   :root {
-    /* FBI Official Color Palette */
-    --fbi-blue: 31 78 121; /* #1f4e79 */
-    --fbi-blue-light: 59 130 246; /* #3b82f6 */
-    --fbi-blue-dark: 15 23 42; /* #0f172a */
-    --fbi-gray: 71 85 105; /* #475569 */
-    --fbi-gray-light: 148 163 184; /* #94a3b8 */
-    --government-white: 255 255 255;
-    --government-black: 15 23 42;
+    /* FBI Official Color Palette - HSL format for consistency */
+    --fbi-blue: 208 66% 30%; /* #1f4e79 */
+    --fbi-blue-light: 221 83% 53%; /* #3b82f6 */
+    --fbi-blue-dark: 222 47% 11%; /* #0f172a */
+    --fbi-gray: 215 16% 47%; /* #475569 */
+    --fbi-gray-light: 214 32% 91%; /* #94a3b8 */
+    --government-white: 0 0% 100%;
+    --government-black: 222 47% 11%;
     
     /* Shadcn Variables */
     --background: 0 0% 100%;
@@ -23,7 +23,7 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 31 78 121;
+    --primary: 208 66% 30%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -35,7 +35,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 31 78 121;
+    --ring: 208 66% 30%;
     --radius: 0.375rem;
   }
 
@@ -84,20 +84,20 @@
 /* Government/FBI Style Components */
 @layer utilities {
   .government-card {
-    background: white;
-    border: 1px solid rgb(226 232 240);
+    background: hsl(var(--government-white));
+    border: 1px solid hsl(214, 32%, 91%);
     border-radius: 0.5rem;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    box-shadow: 0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .government-card:hover {
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    box-shadow: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1);
   }
   
   .fbi-button {
-    background-color: rgb(31 78 121);
-    color: white;
+    background-color: hsl(var(--fbi-blue));
+    color: hsl(var(--government-white));
     font-weight: 600;
     padding: 0.75rem 1.5rem;
     border-radius: 0.375rem;
@@ -105,18 +105,18 @@
   }
   
   .fbi-button:hover {
-    background-color: rgb(15 58 111);
+    background-color: hsl(var(--fbi-blue-dark));
   }
   
   .government-link {
-    color: rgb(31 78 121);
+    color: hsl(var(--fbi-blue));
     text-decoration: underline;
     text-decoration-color: transparent;
     transition: text-decoration-color 0.2s;
   }
   
   .government-link:hover {
-    text-decoration-color: rgb(31 78 121);
+    text-decoration-color: hsl(var(--fbi-blue));
   }
 }
 
