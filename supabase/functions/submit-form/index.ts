@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { Resend } from 'npm:resend@2.0.0';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -23,6 +24,8 @@ const handler = async (req: Request): Promise<Response> => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
+    const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
+
     const { form_type, data }: FormSubmissionRequest = await req.json();
 
     console.log('Received form submission:', { form_type, data });
@@ -44,6 +47,33 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     console.log('Form submission saved successfully:', submission);
+
+    // Send email notification
+    try {
+      const emailData = Object.entries(data)
+        .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+        .join('<br>');
+
+      const emailResponse = await resend.emails.send({
+        from: 'Form Submissions <onboarding@resend.dev>',
+        to: [Deno.env.get('ADMIN_EMAIL') ?? ''],
+        subject: `New ${form_type} Form Submission`,
+        html: `
+          <h2>New Form Submission</h2>
+          <p><strong>Form Type:</strong> ${form_type}</p>
+          <p><strong>Submission ID:</strong> ${submission.id}</p>
+          <p><strong>Submitted At:</strong> ${new Date().toLocaleString()}</p>
+          <hr>
+          <h3>Form Data:</h3>
+          ${emailData}
+        `,
+      });
+
+      console.log('Email notification sent:', emailResponse);
+    } catch (emailError) {
+      console.error('Failed to send email notification:', emailError);
+      // Don't fail the whole request if email fails
+    }
 
     return new Response(
       JSON.stringify({ 
