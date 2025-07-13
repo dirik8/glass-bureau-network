@@ -78,6 +78,7 @@ const QA = lazy(() => import("./pages/QA"));
 const ResearchTeam = lazy(() => import("./pages/ResearchTeam"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const AdminSetup = lazy(() => import("./pages/AdminSetup"));
 
 const queryClient = new QueryClient();
 
@@ -147,6 +148,7 @@ const App = () => (
               <Route path="/ledger-security-incidents-analysis-and-recommendations" element={<LedgerSecurityReport />} />
               
               {/* Admin Routes */}
+              <Route path="/admin/setup" element={<AdminSetup />} />
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               
