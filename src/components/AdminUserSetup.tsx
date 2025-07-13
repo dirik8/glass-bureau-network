@@ -17,7 +17,18 @@ export const AdminUserSetup: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState<'setup' | 'complete'>('setup');
+  const [retryCountdown, setRetryCountdown] = useState(0);
   const { toast } = useToast();
+
+  // Handle retry countdown
+  React.useEffect(() => {
+    if (retryCountdown > 0) {
+      const timer = setTimeout(() => {
+        setRetryCountdown(retryCountdown - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [retryCountdown]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,11 +43,12 @@ export const AdminUserSetup: React.FC = () => {
         throw new Error('Password must be at least 8 characters long');
       }
 
-      // Create user in Supabase Auth
+      // Create user in Supabase Auth with email redirect
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
+          emailRedirectTo: `${window.location.origin}/admin/setup`,
           data: {
             username: formData.username,
             role: 'admin'
@@ -44,7 +56,23 @@ export const AdminUserSetup: React.FC = () => {
         }
       });
 
-      if (authError) throw authError;
+      if (authError) {
+        // Handle rate limiting specifically
+        if (authError.message?.includes('email_send_rate_limit') || 
+            authError.message?.includes('security purposes') ||
+            authError.message?.includes('rate_limit')) {
+          const match = authError.message.match(/(\d+)\s*seconds?/);
+          const waitTime = match ? parseInt(match[1]) : 60;
+          setRetryCountdown(waitTime);
+          toast({
+            title: "Rate Limited",
+            description: `Please wait ${waitTime} seconds before trying again. This is a security measure to prevent spam.`,
+            variant: "destructive",
+          });
+          return;
+        }
+        throw authError;
+      }
 
       if (authData.user) {
         // Create admin user record
@@ -66,9 +94,23 @@ export const AdminUserSetup: React.FC = () => {
         });
       }
     } catch (error: any) {
+      console.error('Error creating admin:', error);
+      
+      let errorMessage = "Failed to create admin account";
+      
+      if (error.message?.includes('email_send_rate_limit') || error.message?.includes('rate_limit')) {
+        errorMessage = "Too many email requests. Please wait before trying again.";
+      } else if (error.message?.includes('User already registered')) {
+        errorMessage = "An account with this email already exists. Try logging in instead.";
+      } else if (error.message?.includes('violates row-level security')) {
+        errorMessage = "Database permissions error. Please contact support.";
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
       toast({
         title: 'Setup Failed',
-        description: error.message,
+        description: errorMessage,
         variant: 'destructive'
       });
     } finally {
@@ -170,12 +212,21 @@ export const AdminUserSetup: React.FC = () => {
             />
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          {retryCountdown > 0 && (
+            <div className="text-center text-sm text-muted-foreground mb-4 p-3 bg-muted rounded-md">
+              🕐 Please wait {retryCountdown} seconds before trying again
+              <div className="text-xs mt-1">This prevents spam and protects our servers</div>
+            </div>
+          )}
+
+          <Button type="submit" className="w-full" disabled={isLoading || retryCountdown > 0}>
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Creating Account...
               </>
+            ) : retryCountdown > 0 ? (
+              `Wait ${retryCountdown}s`
             ) : (
               'Create Admin Account'
             )}
