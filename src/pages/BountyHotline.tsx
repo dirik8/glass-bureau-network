@@ -165,16 +165,7 @@ const BountyHotline: React.FC = () => {
                   </Card>
                 ))}
               </div>
-            </Card>
-
-          </div>
-        </div>
-      </div>
-    </Layout>
-  );
-};
-
-export default BountyHotline;
+            </div>
 
             {/* Reporting Methods */}
             <Card className="government-card p-8">

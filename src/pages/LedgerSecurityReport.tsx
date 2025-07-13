@@ -181,9 +181,7 @@ const LedgerSecurityReport: React.FC = () => {
                   </Card>
                 ))}
               </div>
-            </Card>
-
-            {/* Security Recommendations */}
+            </div>
 
             {/* Recent Incidents */}
             <Card className="government-card p-8">
@@ -236,16 +234,7 @@ const LedgerSecurityReport: React.FC = () => {
                   </Card>
                 ))}
               </div>
-            </Card>
-
-          </div>
-        </div>
-      </div>
-    </Layout>
-  );
-};
-
-export default LedgerSecurityReport;
+            </div>
 
             {/* Technical Analysis */}
             <Card className="government-card p-8 bg-muted/50">
