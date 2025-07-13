@@ -21,6 +21,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { PDFUploadManager } from '@/components/PDFUploadManager';
 import { DynamicSupabaseConfig } from '@/components/DynamicSupabaseConfig';
+import { EmailSettings } from '@/components/EmailSettings';
 
 const AdminDashboard: React.FC = () => {
   const [pdfs, setPdfs] = useState<any[]>([]);
@@ -157,9 +158,10 @@ const AdminDashboard: React.FC = () => {
 
         {/* Main Content */}
         <Tabs defaultValue="pdfs" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="pdfs">PDF Management</TabsTrigger>
             <TabsTrigger value="submissions">Form Submissions</TabsTrigger>
+            <TabsTrigger value="email">Email Settings</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
@@ -247,6 +249,15 @@ const AdminDashboard: React.FC = () => {
                           <Badge variant={submission.status === 'pending' ? 'secondary' : 'outline'}>
                             {submission.status}
                           </Badge>
+                          {submission.email_sent ? (
+                            <Badge variant="default" className="bg-green-100 text-green-800">
+                              Email Sent
+                            </Badge>
+                          ) : (
+                            <Badge variant="destructive">
+                              Email Failed
+                            </Badge>
+                          )}
                           <Button size="sm" variant="outline">
                             <Eye className="h-4 w-4" />
                           </Button>
@@ -271,6 +282,10 @@ const AdminDashboard: React.FC = () => {
                 </p>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="email" className="space-y-6">
+            <EmailSettings />
           </TabsContent>
 
           <TabsContent value="settings" className="space-y-6">

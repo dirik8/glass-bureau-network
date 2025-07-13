@@ -50,9 +50,10 @@ export function ContactForm({ formType = 'Contact Form', onSuccess }: ContactFor
 
       onSuccess?.();
     } catch (error: any) {
+      console.error('Form submission error:', error);
       toast({
-        title: "Error",
-        description: error.message || "Failed to send message. Please try again.",
+        title: "Submission Error",
+        description: "Your message was saved but there may have been an issue with email delivery. We'll still get back to you.",
         variant: "destructive",
       });
     } finally {

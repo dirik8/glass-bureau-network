@@ -44,6 +44,9 @@ export type Database = {
       form_submissions: {
         Row: {
           data: Json
+          email_error: string | null
+          email_sent: boolean | null
+          email_sent_at: string | null
           form_type: string
           id: string
           status: string | null
@@ -51,6 +54,9 @@ export type Database = {
         }
         Insert: {
           data: Json
+          email_error?: string | null
+          email_sent?: boolean | null
+          email_sent_at?: string | null
           form_type: string
           id?: string
           status?: string | null
@@ -58,6 +64,9 @@ export type Database = {
         }
         Update: {
           data?: Json
+          email_error?: string | null
+          email_sent?: boolean | null
+          email_sent_at?: string | null
           form_type?: string
           id?: string
           status?: string | null

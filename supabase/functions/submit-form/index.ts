@@ -36,7 +36,8 @@ const handler = async (req: Request): Promise<Response> => {
       .insert({
         form_type,
         data,
-        status: 'pending'
+        status: 'pending',
+        email_sent: false
       })
       .select()
       .single();
@@ -48,15 +49,36 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log('Form submission saved successfully:', submission);
 
+    // Check if email configuration is available
+    const adminEmail = Deno.env.get('ADMIN_EMAIL');
+    const resendApiKey = Deno.env.get('RESEND_API_KEY');
+    
+    console.log('Email configuration check:', {
+      adminEmailExists: !!adminEmail,
+      resendApiKeyExists: !!resendApiKey,
+      adminEmail: adminEmail ? `${adminEmail.substring(0, 3)}***` : 'not set'
+    });
+
     // Send email notification
+    let emailSent = false;
+    let emailError = null;
+    
     try {
+      if (!adminEmail) {
+        throw new Error('ADMIN_EMAIL environment variable not set');
+      }
+      
+      if (!resendApiKey) {
+        throw new Error('RESEND_API_KEY environment variable not set');
+      }
+
       const emailData = Object.entries(data)
         .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
         .join('<br>');
 
       const emailResponse = await resend.emails.send({
         from: 'Form Submissions <onboarding@resend.dev>',
-        to: [Deno.env.get('ADMIN_EMAIL') ?? ''],
+        to: [adminEmail],
         subject: `New ${form_type} Form Submission`,
         html: `
           <h2>New Form Submission</h2>
@@ -69,10 +91,30 @@ const handler = async (req: Request): Promise<Response> => {
         `,
       });
 
-      console.log('Email notification sent:', emailResponse);
-    } catch (emailError) {
-      console.error('Failed to send email notification:', emailError);
-      // Don't fail the whole request if email fails
+      console.log('Email notification sent successfully:', emailResponse);
+      emailSent = true;
+      
+      // Update form submission with email success
+      await supabase
+        .from('form_submissions')
+        .update({
+          email_sent: true,
+          email_sent_at: new Date().toISOString()
+        })
+        .eq('id', submission.id);
+        
+    } catch (emailError_) {
+      emailError = emailError_.message;
+      console.error('Failed to send email notification:', emailError_);
+      
+      // Update form submission with email failure
+      await supabase
+        .from('form_submissions')
+        .update({
+          email_sent: false,
+          email_error: emailError
+        })
+        .eq('id', submission.id);
     }
 
     return new Response(
