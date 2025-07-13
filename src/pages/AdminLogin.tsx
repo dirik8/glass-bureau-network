@@ -1,39 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Shield, Lock, Eye, EyeOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/useAuth';
 
 const AdminLogin: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: ''
   });
   const { toast } = useToast();
+  const { signIn, user, isAdmin } = useAuth();
+
+  // Redirect if already logged in as admin
+  useEffect(() => {
+    if (user && isAdmin) {
+      window.location.href = '/admin/dashboard';
+    }
+  }, [user, isAdmin]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Mock authentication - in real app, this would connect to Supabase
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    if (formData.username === 'admin' && formData.password === 'lgn2024') {
-      toast({
-        title: "Login Successful",
-        description: "Welcome to LGN Admin Panel",
-      });
-    // Redirect to admin dashboard
-    window.location.href = '/admin/dashboard';
-    } else {
+    try {
+      const { error } = await signIn(formData.email, formData.password);
+      
+      if (error) {
+        toast({
+          title: "Login Failed",
+          description: error.message || "Invalid email or password",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Login Successful",
+          description: "Welcome to the admin dashboard",
+        });
+        // Redirect will happen automatically via useEffect
+      }
+    } catch (error) {
       toast({
         title: "Login Failed",
-        description: "Invalid credentials. Please try again.",
-        variant: "destructive"
+        description: "An unexpected error occurred",
+        variant: "destructive",
       });
     }
 
@@ -49,21 +64,21 @@ const AdminLogin: React.FC = () => {
           </div>
           <CardTitle className="text-2xl font-bold">Admin Login</CardTitle>
           <CardDescription>
-            LGN Advanced Scam Recovery - Administrative Access
+            LGN Recovery Bureau - Administrative Access
           </CardDescription>
         </CardHeader>
         
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
-                id="username"
-                type="text"
-                value={formData.username}
-                onChange={(e) => setFormData(prev => ({ ...prev, username: e.target.value }))}
+                id="email"
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                 required
-                placeholder="Enter admin username"
+                placeholder="Enter admin email"
               />
             </div>
 
@@ -111,9 +126,8 @@ const AdminLogin: React.FC = () => {
 
           <div className="mt-6 p-4 bg-muted/30 rounded-lg">
             <div className="text-sm text-muted-foreground text-center">
-              <p className="font-medium mb-2">Demo Credentials:</p>
-              <p>Username: admin</p>
-              <p>Password: lgn2024</p>
+              <p className="font-medium mb-2">Admin Login Required:</p>
+              <p>Contact your administrator for login credentials.</p>
             </div>
           </div>
 

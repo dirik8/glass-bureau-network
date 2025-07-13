@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Phone, Mail, MessageSquare } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -28,24 +29,39 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      const { error } = await supabase.functions.invoke('submit-form', {
+        body: {
+          form_type: 'Contact Form',
+          data: formData
+        }
+      });
 
-    toast({
-      title: "Message Sent",
-      description: "We'll contact you within 24 hours. For emergencies, call (438) 602-5895.",
-    });
+      if (error) throw error;
 
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: '',
-      urgency: 'normal'
-    });
-    setIsSubmitting(false);
-    onClose();
+      toast({
+        title: "Message Sent",
+        description: "We'll contact you within 24 hours. For emergencies, call (438) 602-5895.",
+      });
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: '',
+        urgency: 'normal'
+      });
+      onClose();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleCall = () => {

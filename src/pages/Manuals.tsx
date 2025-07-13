@@ -6,24 +6,68 @@ import { Button } from '@/components/ui/button';
 import { BookOpen, Download, Shield, Users, Lock, FileText } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const Manuals = () => {
   const { toast } = useToast();
 
-  const downloadPDF = (title: string) => {
-    // Simulate PDF download
-    toast({
-      title: "Download Started",
-      description: `${title} is being downloaded...`,
-    });
-    
-    // In a real implementation, this would download the actual PDF
-    setTimeout(() => {
-      toast({
-        title: "Download Complete",
-        description: `${title} has been downloaded successfully.`,
+  const downloadPDF = async (title: string) => {
+    try {
+      // Check if there's a corresponding PDF in the database
+      const { data: pdfs } = await supabase
+        .from('pdfs')
+        .select('file_path')
+        .ilike('title', `%${title}%`)
+        .limit(1);
+
+      if (pdfs && pdfs.length > 0) {
+        // Download from Supabase Storage
+        const { data } = await supabase.storage
+          .from('pdfs')
+          .download(pdfs[0].file_path);
+
+        if (data) {
+          const url = URL.createObjectURL(data);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${title}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+
+          toast({
+            title: "Download Complete",
+            description: `${title} has been downloaded successfully.`,
+          });
+          return;
+        }
+      }
+
+      // Fallback: Submit form request for PDF
+      const { error } = await supabase.functions.invoke('submit-form', {
+        body: {
+          form_type: 'PDF Download Request',
+          data: {
+            requested_pdf: title,
+            timestamp: new Date().toISOString()
+          }
+        }
       });
-    }, 2000);
+
+      if (error) throw error;
+
+      toast({
+        title: "Download Requested",
+        description: `Your request for ${title} has been submitted. You will receive an email with the download link shortly.`,
+      });
+    } catch (error) {
+      toast({
+        title: "Download Failed",
+        description: "Unable to download PDF. Please try again later.",
+        variant: "destructive",
+      });
+    }
   };
   const manuals = [
     {
