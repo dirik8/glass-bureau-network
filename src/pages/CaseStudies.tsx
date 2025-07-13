@@ -157,7 +157,12 @@ const CaseStudies: React.FC = () => {
                       </ul>
                     </div>
 
-                    <Button variant="outline" size="sm" className="w-full mt-4">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full mt-4"
+                      onClick={() => window.location.href = `/case-studies/${case_.id}`}
+                    >
                       View Full Case Report
                     </Button>
                   </CardContent>
@@ -167,7 +172,14 @@ const CaseStudies: React.FC = () => {
 
             {/* Load More */}
             <div className="text-center mt-12">
-              <Button variant="outline" size="lg">
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => {
+                  // Simulate loading more cases
+                  alert('Loading more cases... This feature will be available soon.');
+                }}
+              >
                 Load More Cases
               </Button>
             </div>

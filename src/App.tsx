@@ -13,6 +13,7 @@ const About = lazy(() => import("./pages/About"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const CaseStudies = lazy(() => import("./pages/CaseStudies"));
+const CaseStudyDetail = lazy(() => import("./pages/CaseStudyDetail"));
 const CryptocurrencyScams = lazy(() => import("./pages/CryptocurrencyScams"));
 const CaliforniaStats = lazy(() => import("./pages/CaliforniaStats"));
 const ForexScams = lazy(() => import("./pages/ForexScams"));
@@ -75,6 +76,7 @@ const NewsRoom = lazy(() => import("./pages/NewsRoom"));
 const Manuals = lazy(() => import("./pages/Manuals"));
 const QA = lazy(() => import("./pages/QA"));
 const ResearchTeam = lazy(() => import("./pages/ResearchTeam"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 
 const queryClient = new QueryClient();
 
@@ -106,6 +108,7 @@ const App = () => (
               <Route path="/about" element={<About />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/case-studies" element={<CaseStudies />} />
+              <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
               
               {/* Scam Intelligence Routes */}
               <Route path="/cryptocurrency-scams" element={<CryptocurrencyScams />} />
@@ -141,6 +144,9 @@ const App = () => (
               <Route path="/qa" element={<QA />} />
               <Route path="/lionsgate-network-research-team" element={<ResearchTeam />} />
               <Route path="/ledger-security-incidents-analysis-and-recommendations" element={<LedgerSecurityReport />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin" element={<AdminLogin />} />
               
               {/* Legal Routes */}
               <Route path="/privacy-policy-2" element={<PrivacyPolicy />} />

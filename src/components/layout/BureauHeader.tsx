@@ -4,9 +4,13 @@ import { Button } from '@/components/ui/button';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Shield, Phone, Search } from 'lucide-react';
+import ContactModal from '@/components/ContactModal';
+import SearchModal from '@/components/SearchModal';
 
 const BureauHeader: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
 
   const navigationItems = [
     {
@@ -67,7 +71,7 @@ const BureauHeader: React.FC = () => {
           <Shield className="h-10 w-10 text-primary" />
           <div className="flex flex-col">
             <span className="font-bold text-xl leading-none vibrant-text">LGN ADVANCED SCAM RECOVERY</span>
-            <span className="text-xs text-muted-foreground leading-none font-bold">CYBERCRIME DIVISION</span>
+            <span className="text-xs text-muted-foreground leading-none font-bold">LGN CYBERCRIME DIVISION</span>
           </div>
         </Link>
 
@@ -105,11 +109,20 @@ const BureauHeader: React.FC = () => {
 
         {/* Action Buttons */}
         <div className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm" className="hidden md:flex text-muted-foreground hover:text-primary">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="hidden md:flex text-muted-foreground hover:text-primary"
+            onClick={() => setSearchModalOpen(true)}
+          >
             <Search className="h-4 w-4 mr-2" />
             Search
           </Button>
-          <Button size="sm" className="hidden md:flex button-vibrant">
+          <Button 
+            size="sm" 
+            className="hidden md:flex button-vibrant"
+            onClick={() => setContactModalOpen(true)}
+          >
             <Phone className="h-4 w-4 mr-2" />
             Get Help
           </Button>
@@ -145,6 +158,15 @@ const BureauHeader: React.FC = () => {
           </Sheet>
         </div>
       </div>
+      
+      <ContactModal 
+        isOpen={contactModalOpen} 
+        onClose={() => setContactModalOpen(false)} 
+      />
+      <SearchModal 
+        isOpen={searchModalOpen} 
+        onClose={() => setSearchModalOpen(false)} 
+      />
     </header>
   );
 };

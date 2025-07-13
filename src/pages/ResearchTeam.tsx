@@ -6,6 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Users, Award, BookOpen, Target, Linkedin, Mail } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 
+// Import team photos
+import sarahChenPhoto from '@/assets/team-sarah-chen.jpg';
+import marcusRodriguezPhoto from '@/assets/team-marcus-rodriguez.jpg';
+import emilyWatsonPhoto from '@/assets/team-emily-watson.jpg';
+import davidKimPhoto from '@/assets/team-david-kim.jpg';
+
 const ResearchTeam = () => {
   const teamMembers = [
     {
@@ -15,8 +21,9 @@ const ResearchTeam = () => {
       background: "Former NSA Cybersecurity Analyst, PhD Computer Science",
       publications: 24,
       cases: "500+",
-      linkedin: "#",
-      email: "s.chen@lgnrecovery.com"
+      linkedin: "https://linkedin.com/in/sarah-chen",
+      email: "s.chen@lgnrecovery.com",
+      photo: sarahChenPhoto
     },
     {
       name: "Marcus Rodriguez",
@@ -25,8 +32,9 @@ const ResearchTeam = () => {
       background: "Former FBI Financial Crimes Unit, 12 years experience",
       publications: 18,
       cases: "350+",
-      linkedin: "#",
-      email: "m.rodriguez@lgnrecovery.com"
+      linkedin: "https://linkedin.com/in/marcus-rodriguez",
+      email: "m.rodriguez@lgnrecovery.com",
+      photo: marcusRodriguezPhoto
     },
     {
       name: "Dr. Emily Watson",
@@ -35,8 +43,9 @@ const ResearchTeam = () => {
       background: "PhD Psychology, Former Interpol Consultant",
       publications: 31,
       cases: "200+",
-      linkedin: "#",
-      email: "e.watson@lgnrecovery.com"
+      linkedin: "https://linkedin.com/in/emily-watson",
+      email: "e.watson@lgnrecovery.com",
+      photo: emilyWatsonPhoto
     },
     {
       name: "David Kim",
@@ -45,8 +54,9 @@ const ResearchTeam = () => {
       background: "Former Chainalysis Principal Engineer",
       publications: 16,
       cases: "400+",
-      linkedin: "#",
-      email: "d.kim@lgnrecovery.com"
+      linkedin: "https://linkedin.com/in/david-kim",
+      email: "d.kim@lgnrecovery.com",
+      photo: davidKimPhoto
     }
   ];
 
@@ -152,20 +162,39 @@ const ResearchTeam = () => {
             {teamMembers.map((member, index) => (
               <Card key={index} className="border-primary/10 hover:border-primary/30 transition-colors">
                 <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle className="text-xl mb-1">{member.name}</CardTitle>
-                      <CardDescription className="text-primary font-medium">
-                        {member.role}
-                      </CardDescription>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline" className="p-2">
-                        <Linkedin className="h-4 w-4" />
-                      </Button>
-                      <Button size="sm" variant="outline" className="p-2">
-                        <Mail className="h-4 w-4" />
-                      </Button>
+                  <div className="flex items-start gap-4">
+                    <img 
+                      src={member.photo} 
+                      alt={member.name}
+                      className="w-20 h-20 rounded-full object-cover border-2 border-primary/20"
+                    />
+                    <div className="flex-1">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <CardTitle className="text-xl mb-1">{member.name}</CardTitle>
+                          <CardDescription className="text-primary font-medium">
+                            {member.role}
+                          </CardDescription>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            className="p-2"
+                            onClick={() => window.open(member.linkedin, '_blank')}
+                          >
+                            <Linkedin className="h-4 w-4" />
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            className="p-2"
+                            onClick={() => window.location.href = `mailto:${member.email}`}
+                          >
+                            <Mail className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardHeader>
