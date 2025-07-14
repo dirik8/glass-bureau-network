@@ -388,6 +388,60 @@ export type Database = {
         }
         Relationships: []
       }
+      state_intelligence: {
+        Row: {
+          average_loss: number
+          created_at: string
+          description: string | null
+          field_office: string
+          id: string
+          phone_number: string
+          regional_hotspots: Json
+          state_code: string
+          state_name: string
+          top_scam_types: Json
+          total_cases: number
+          total_losses: number
+          updated_at: string
+          year_over_year_increase: number
+          yearly_data: Json
+        }
+        Insert: {
+          average_loss: number
+          created_at?: string
+          description?: string | null
+          field_office: string
+          id?: string
+          phone_number: string
+          regional_hotspots: Json
+          state_code: string
+          state_name: string
+          top_scam_types: Json
+          total_cases: number
+          total_losses: number
+          updated_at?: string
+          year_over_year_increase: number
+          yearly_data: Json
+        }
+        Update: {
+          average_loss?: number
+          created_at?: string
+          description?: string | null
+          field_office?: string
+          id?: string
+          phone_number?: string
+          regional_hotspots?: Json
+          state_code?: string
+          state_name?: string
+          top_scam_types?: Json
+          total_cases?: number
+          total_losses?: number
+          updated_at?: string
+          year_over_year_increase?: number
+          yearly_data?: Json
+        }
+        Relationships: []
+      }
       team_members: {
         Row: {
           bio: string | null

@@ -191,9 +191,9 @@ const StatePageTemplate: React.FC<StatePageTemplateProps> = ({ data }) => {
         <section className="py-16">
           <div className="container">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <Card className="government-card border-red-200">
+              <Card className="border-destructive/20">
                 <CardHeader>
-                  <CardTitle className="text-xl text-red-600 flex items-center">
+                  <CardTitle className="text-xl text-destructive flex items-center">
                     <AlertCircle className="h-6 w-6 mr-2" />
                     If You're a Victim
                   </CardTitle>
