@@ -15,11 +15,9 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const CaseStudies = lazy(() => import("./pages/CaseStudies"));
 const CaseStudyDetail = lazy(() => import("./pages/CaseStudyDetail"));
 const CryptocurrencyScams = lazy(() => import("./pages/CryptocurrencyScams"));
-const CaliforniaStats = lazy(() => import("./pages/CaliforniaStats"));
 const ForexScams = lazy(() => import("./pages/ForexScams"));
 const RomanceScams = lazy(() => import("./pages/RomanceScams"));
 const AssetRecovery = lazy(() => import("./pages/AssetRecovery"));
-const TexasStats = lazy(() => import("./pages/TexasStats"));
 
 // Business & Legal Pages
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
@@ -34,24 +32,59 @@ const BountyHotline = lazy(() => import("./pages/BountyHotline"));
 const LedgerSecurityReport = lazy(() => import("./pages/LedgerSecurityReport"));
 
 // State Statistics Pages
+const AlabamaStats = lazy(() => import("./pages/AlabamaStats"));
+const AlaskaStats = lazy(() => import("./pages/AlaskaStats"));
 const ArizonaStats = lazy(() => import("./pages/ArizonaStats"));
+const ArkansasStats = lazy(() => import("./pages/ArkansasStats"));
+const CaliforniaStats = lazy(() => import("./pages/CaliforniaStats"));
 const ColoradoStats = lazy(() => import("./pages/ColoradoStats"));
+const ConnecticutStats = lazy(() => import("./pages/ConnecticutStats"));
+const DelawareStats = lazy(() => import("./pages/DelawareStats"));
 const FloridaStats = lazy(() => import("./pages/FloridaStats"));
+const FloridaStatsDynamic = lazy(() => import("./pages/FloridaStatsDynamic"));
 const GeorgiaStats = lazy(() => import("./pages/GeorgiaStats"));
+const HawaiiStats = lazy(() => import("./pages/HawaiiStats"));
+const IdahoStats = lazy(() => import("./pages/IdahoStats"));
 const IllinoisStats = lazy(() => import("./pages/IllinoisStats"));
 const IndianaStats = lazy(() => import("./pages/IndianaStats"));
+const IowaStats = lazy(() => import("./pages/IowaStats"));
+const KansasStats = lazy(() => import("./pages/KansasStats"));
+const KentuckyStats = lazy(() => import("./pages/KentuckyStats"));
+const LouisianaStats = lazy(() => import("./pages/LouisianaStats"));
+const MaineStats = lazy(() => import("./pages/MaineStats"));
 const MarylandStats = lazy(() => import("./pages/MarylandStats"));
 const MassachusettsStats = lazy(() => import("./pages/MassachusettsStats"));
 const MichiganStats = lazy(() => import("./pages/MichiganStats"));
+const MinnesotaStats = lazy(() => import("./pages/MinnesotaStats"));
+const MississippiStats = lazy(() => import("./pages/MississippiStats"));
+const MissouriStats = lazy(() => import("./pages/MissouriStats"));
+const MontanaStats = lazy(() => import("./pages/MontanaStats"));
+const NebraskaStats = lazy(() => import("./pages/NebraskaStats"));
 const NevadaStats = lazy(() => import("./pages/NevadaStats"));
+const NewHampshireStats = lazy(() => import("./pages/NewHampshireStats"));
 const NewJerseyStats = lazy(() => import("./pages/NewJerseyStats"));
+const NewMexicoStats = lazy(() => import("./pages/NewMexicoStats"));
 const NewYorkStats = lazy(() => import("./pages/NewYorkStats"));
 const NorthCarolinaStats = lazy(() => import("./pages/NorthCarolinaStats"));
+const NorthDakotaStats = lazy(() => import("./pages/NorthDakotaStats"));
 const OhioStats = lazy(() => import("./pages/OhioStats"));
+const OklahomaStats = lazy(() => import("./pages/OklahomaStats"));
+const OregonStats = lazy(() => import("./pages/OregonStats"));
 const PennsylvaniaStats = lazy(() => import("./pages/PennsylvaniaStats"));
+const RhodeIslandStats = lazy(() => import("./pages/RhodeIslandStats"));
+const SouthCarolinaStats = lazy(() => import("./pages/SouthCarolinaStats"));
+const SouthDakotaStats = lazy(() => import("./pages/SouthDakotaStats"));
 const TennesseeStats = lazy(() => import("./pages/TennesseeStats"));
+const TexasStats = lazy(() => import("./pages/TexasStats"));
+const TexasStatsDynamic = lazy(() => import("./pages/TexasStatsDynamic"));
+const UtahStats = lazy(() => import("./pages/UtahStats"));
+const VermontStats = lazy(() => import("./pages/VermontStats"));
 const VirginiaStats = lazy(() => import("./pages/VirginiaStats"));
 const WashingtonStats = lazy(() => import("./pages/WashingtonStats"));
+const WestVirginiaStats = lazy(() => import("./pages/WestVirginiaStats"));
+const WisconsinStats = lazy(() => import("./pages/WisconsinStats"));
+const WyomingStats = lazy(() => import("./pages/WyomingStats"));
+const StateDirectory = lazy(() => import("./pages/StateDirectory"));
 
 // New Scam Intelligence Pages
 const BinaryOptionsScams = lazy(() => import("./pages/BinaryOptionsScams"));
@@ -188,6 +221,41 @@ const App = () => (
               <Route path="/tennessee-cryptocurrency-scam-statistics-2020-2024" element={<TennesseeStats />} />
               <Route path="/virginia-cryptocurrency-scam-statistics-2020-2024" element={<VirginiaStats />} />
               <Route path="/washington-cryptocurrency-scam-statistics-2020-2024" element={<WashingtonStats />} />
+              
+              {/* All States Route Directory */}
+              <Route path="/state-intelligence" element={<StateDirectory />} />
+              
+              {/* Additional State Routes */}
+              <Route path="/alabama-cryptocurrency-scam-statistics-2020-2024" element={<AlabamaStats />} />
+              <Route path="/alaska-cryptocurrency-scam-statistics-2020-2024" element={<AlaskaStats />} />
+              <Route path="/arkansas-cryptocurrency-scam-statistics-2020-2024" element={<ArkansasStats />} />
+              <Route path="/connecticut-cryptocurrency-scam-statistics-2020-2024" element={<ConnecticutStats />} />
+              <Route path="/delaware-cryptocurrency-scam-statistics-2020-2024" element={<DelawareStats />} />
+              <Route path="/hawaii-cryptocurrency-scam-statistics-2020-2024" element={<HawaiiStats />} />
+              <Route path="/idaho-cryptocurrency-scam-statistics-2020-2024" element={<IdahoStats />} />
+              <Route path="/iowa-cryptocurrency-scam-statistics-2020-2024" element={<IowaStats />} />
+              <Route path="/kansas-cryptocurrency-scam-statistics-2020-2024" element={<KansasStats />} />
+              <Route path="/kentucky-cryptocurrency-scam-statistics-2020-2024" element={<KentuckyStats />} />
+              <Route path="/louisiana-cryptocurrency-scam-statistics-2020-2024" element={<LouisianaStats />} />
+              <Route path="/maine-cryptocurrency-scam-statistics-2020-2024" element={<MaineStats />} />
+              <Route path="/minnesota-cryptocurrency-scam-statistics-2020-2024" element={<MinnesotaStats />} />
+              <Route path="/mississippi-cryptocurrency-scam-statistics-2020-2024" element={<MississippiStats />} />
+              <Route path="/missouri-cryptocurrency-scam-statistics-2020-2024" element={<MissouriStats />} />
+              <Route path="/montana-cryptocurrency-scam-statistics-2020-2024" element={<MontanaStats />} />
+              <Route path="/nebraska-cryptocurrency-scam-statistics-2020-2024" element={<NebraskaStats />} />
+              <Route path="/new-hampshire-cryptocurrency-scam-statistics-2020-2024" element={<NewHampshireStats />} />
+              <Route path="/new-mexico-cryptocurrency-scam-statistics-2020-2024" element={<NewMexicoStats />} />
+              <Route path="/north-dakota-cryptocurrency-scam-statistics-2020-2024" element={<NorthDakotaStats />} />
+              <Route path="/oklahoma-cryptocurrency-scam-statistics-2020-2024" element={<OklahomaStats />} />
+              <Route path="/oregon-cryptocurrency-scam-statistics-2020-2024" element={<OregonStats />} />
+              <Route path="/rhode-island-cryptocurrency-scam-statistics-2020-2024" element={<RhodeIslandStats />} />
+              <Route path="/south-carolina-cryptocurrency-scam-statistics-2020-2024" element={<SouthCarolinaStats />} />
+              <Route path="/south-dakota-cryptocurrency-scam-statistics-2020-2024" element={<SouthDakotaStats />} />
+              <Route path="/utah-cryptocurrency-scam-statistics-2020-2024" element={<UtahStats />} />
+              <Route path="/vermont-cryptocurrency-scam-statistics-2020-2024" element={<VermontStats />} />
+              <Route path="/west-virginia-cryptocurrency-scam-statistics-2020-2024" element={<WestVirginiaStats />} />
+              <Route path="/wisconsin-cryptocurrency-scam-statistics-2020-2024" element={<WisconsinStats />} />
+              <Route path="/wyoming-cryptocurrency-scam-statistics-2020-2024" element={<WyomingStats />} />
               
               {/* Catch-all route */}
               <Route path="*" element={<NotFound />} />
