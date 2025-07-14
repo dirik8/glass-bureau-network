@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Phone, Mail } from 'lucide-react';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 const BureauFooter: React.FC = () => {
+  const { settings } = useSiteSettings();
   const footerSections = [
     {
       title: 'Investigations',
@@ -57,22 +59,21 @@ const BureauFooter: React.FC = () => {
               <div className="flex items-center space-x-2 mb-4">
                 <Shield className="h-8 w-8 text-primary" />
                 <div className="flex flex-col">
-                  <span className="font-bold text-lg leading-none vibrant-text">LGN ADVANCED SCAM RECOVERY</span>
-                  <span className="text-xs text-muted-foreground leading-none font-bold">CYBERCRIME DIVISION</span>
+                  <span className="font-bold text-lg leading-none vibrant-text">{settings.company_name || 'LGN ADVANCED SCAM RECOVERY'}</span>
+                  <span className="text-xs text-muted-foreground leading-none font-bold">{settings.division_name || 'CYBERCRIME DIVISION'}</span>
                 </div>
               </div>
             <p className="text-sm text-muted-foreground mb-4">
-              Elite cybercrime investigation and asset recovery specialists. 
-              Protecting victims and pursuing digital justice.
+              {settings.footer_description || 'Elite cybercrime investigation and asset recovery specialists. Protecting victims and pursuing digital justice.'}
             </p>
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-sm">
                 <Phone className="h-4 w-4 text-primary" />
-                <span>+1 (438) 602-5895</span>
+                <span>{settings.main_phone || '+1 (438) 602-5895'}</span>
               </div>
               <div className="flex items-center space-x-2 text-sm">
                 <Mail className="h-4 w-4 text-primary" />
-                <span>investigations@lionsgate.network</span>
+                <span>{settings.main_email || 'investigations@lionsgate.network'}</span>
               </div>
             </div>
           </div>
@@ -103,7 +104,7 @@ const BureauFooter: React.FC = () => {
         <div className="border-t border-border mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-muted-foreground">
-              © 2024 LGN ADVANCED SCAM RECOVERY Cybercrime Division. All rights reserved.
+              {settings.footer_copyright || '© 2024 LGN ADVANCED SCAM RECOVERY Cybercrime Division. All rights reserved.'}
             </div>
             <div className="flex space-x-6 text-sm text-muted-foreground">
               <Link to="/privacy-policy-2" className="hover:text-foreground transition-colors">

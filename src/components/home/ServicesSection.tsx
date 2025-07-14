@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Shield, Search, Users, TrendingUp, FileText, AlertTriangle, Globe, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 const ServicesSection: React.FC = () => {
+  const { settings } = useSiteSettings();
   const services = [
     {
       category: 'Investigation Units',
@@ -213,7 +215,7 @@ const ServicesSection: React.FC = () => {
                   <Link to="/contact-us">File Emergency Report</Link>
                 </Button>
                 <Button size="lg" variant="emergency">
-                  Emergency Hotline: (438) 602-5895
+                  Emergency Hotline: {settings.emergency_phone || '(438) 602-5895'}
                 </Button>
               </div>
             </CardContent>
@@ -223,19 +225,19 @@ const ServicesSection: React.FC = () => {
         {/* Statistics Footer */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
           <div className="space-y-2">
-            <div className="text-3xl font-bold text-fbi-blue">127</div>
+            <div className="text-3xl font-bold text-fbi-blue">{settings.total_cases_closed || '127'}</div>
             <div className="text-sm text-government-gray-600">Cases Closed (2024)</div>
           </div>
           <div className="space-y-2">
-            <div className="text-3xl font-bold text-fbi-blue">$24.8M</div>
+            <div className="text-3xl font-bold text-fbi-blue">{settings.assets_recovered || '$24.8M'}</div>
             <div className="text-sm text-government-gray-600">Assets Recovered</div>
           </div>
           <div className="space-y-2">
-            <div className="text-3xl font-bold text-fbi-blue">3,847</div>
+            <div className="text-3xl font-bold text-fbi-blue">{settings.victims_assisted || '3,847'}</div>
             <div className="text-sm text-government-gray-600">Victims Assisted</div>
           </div>
           <div className="space-y-2">
-            <div className="text-3xl font-bold text-fbi-blue">89%</div>
+            <div className="text-3xl font-bold text-fbi-blue">{settings.recovery_success_rate || '89%'}</div>
             <div className="text-sm text-government-gray-600">Recovery Success Rate</div>
           </div>
         </div>

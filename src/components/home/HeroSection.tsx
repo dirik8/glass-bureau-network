@@ -4,12 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Shield, TrendingUp, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import heroBackground from '@/assets/hero-background.jpg';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 const HeroSection: React.FC = () => {
+  const { settings } = useSiteSettings();
+  
   const stats = [
-    { icon: TrendingUp, label: 'Cases Solved', value: '2,847' },
-    { icon: Users, label: 'Victims Assisted', value: '15,439' },
-    { icon: Award, label: 'Assets Recovered', value: '$992.4M' },
+    { icon: TrendingUp, label: 'Cases Solved', value: settings.total_cases_closed || '2,847' },
+    { icon: Users, label: 'Victims Assisted', value: settings.victims_assisted || '15,439' },
+    { icon: Award, label: 'Assets Recovered', value: settings.assets_recovered || '$992.4M' },
   ];
 
   return (
@@ -28,28 +31,27 @@ const HeroSection: React.FC = () => {
             <div className="flex items-center justify-center lg:justify-start mb-6">
               <Shield className="h-16 w-16 text-fbi-blue mr-4" />
               <div className="text-left">
-                <h2 className="text-fbi-blue font-bold text-xl tracking-wider">FBI</h2>
-                <h3 className="text-gray-600 text-sm font-medium">CYBERCRIME DIVISION</h3>
+                <h2 className="text-fbi-blue font-bold text-xl tracking-wider">{settings.organization_type || 'FBI'}</h2>
+                <h3 className="text-gray-600 text-sm font-medium">{settings.division_name || 'CYBERCRIME DIVISION'}</h3>
               </div>
             </div>
 
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              MISSION FIRST:
-              <span className="block vibrant-text">Fighting Cybercrime</span>
+              {settings.hero_title || 'MISSION FIRST:'}
+              <span className="block vibrant-text">{settings.hero_subtitle || 'Fighting Cybercrime'}</span>
               <span className="block text-gray-700">Across the Globe</span>
             </h1>
 
             <p className="text-xl text-gray-600 mb-8 max-w-2xl leading-relaxed">
-              The FBI's Cybercrime Division investigates high-tech crimes, recovers stolen assets, 
-              and provides victim assistance through advanced digital forensics and nationwide coordination.
+              {settings.hero_description || 'The FBI\'s Cybercrime Division investigates high-tech crimes, recovers stolen assets, and provides victim assistance through advanced digital forensics and nationwide coordination.'}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
               <Button size="lg" variant="default" className="px-8 py-4 text-lg h-14" asChild>
-                <Link to="/contact-us" className="flex items-center">Report Scam or Request Help</Link>
+                <Link to="/contact-us" className="flex items-center">{settings.hero_cta_primary || 'Report Scam or Request Help'}</Link>
               </Button>
               <Button size="lg" variant="outline" className="px-8 py-4 text-lg h-14" asChild>
-                <Link to="/case-studies">View Closed Operations</Link>
+                <Link to="/case-studies">{settings.hero_cta_secondary || 'View Closed Operations'}</Link>
               </Button>
             </div>
 
@@ -71,21 +73,21 @@ const HeroSection: React.FC = () => {
               <div className="space-y-6">
                 <div className="flex items-center space-x-3">
                   <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <span className="text-gray-900 font-semibold">Active Investigation</span>
+                  <span className="text-gray-900 font-semibold">{settings.active_case_title || 'Active Investigation'}</span>
                 </div>
                 
                 <div className="space-y-4">
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-gray-600 font-medium">Case ID:</span>
-                    <span className="text-fbi-blue font-mono font-bold">#FBI-2024-0847</span>
+                    <span className="text-gray-600 font-medium">Case Details:</span>
+                    <span className="text-fbi-blue font-mono font-bold">{settings.active_case_description || 'Multi-jurisdictional investigation'}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
                     <span className="text-gray-600 font-medium">Assets Traced:</span>
-                    <span className="text-green-600 font-bold text-vibrant">$992.4M USD</span>
+                    <span className="text-green-600 font-bold text-vibrant">{settings.active_case_assets_traced || '$992.4M USD'}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
                     <span className="text-gray-600 font-medium">Recovery Status:</span>
-                    <span className="text-orange-600 font-semibold">In Progress</span>
+                    <span className="text-orange-600 font-semibold">{settings.active_case_recovery_status || 'In Progress'}</span>
                   </div>
                 </div>
 

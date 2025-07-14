@@ -6,8 +6,10 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Shield, Phone, Search } from 'lucide-react';
 import ContactModal from '@/components/ContactModal';
 import SearchModal from '@/components/SearchModal';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 const BureauHeader: React.FC = () => {
+  const { settings } = useSiteSettings();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
@@ -111,12 +113,12 @@ const BureauHeader: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
       <div className="container flex h-16 items-center justify-between">
-        {/* LGN ADVANCED SCAM RECOVERY Logo */}
+        {/* Dynamic Company Logo */}
         <Link to="/" className="flex items-center space-x-3">
           <Shield className="h-10 w-10 text-primary" />
           <div className="flex flex-col">
-            <span className="font-bold text-xl leading-none vibrant-text">LGN ADVANCED SCAM RECOVERY</span>
-            <span className="text-xs text-muted-foreground leading-none font-bold">LGN CYBERCRIME DIVISION</span>
+            <span className="font-bold text-xl leading-none vibrant-text">{settings.company_name || 'LGN ADVANCED SCAM RECOVERY'}</span>
+            <span className="text-xs text-muted-foreground leading-none font-bold">{settings.division_name || 'LGN CYBERCRIME DIVISION'}</span>
           </div>
         </Link>
 
