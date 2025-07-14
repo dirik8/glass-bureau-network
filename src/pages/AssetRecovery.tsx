@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -91,7 +90,11 @@ const AssetRecovery: React.FC = () => {
                 <Button size="lg" variant="secondary" asChild>
                   <Link to="/contact-us">Start Recovery Process</Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="bg-red-600 border-red-600 text-white hover:bg-red-700 hover:border-red-700 font-bold shadow-lg ring-2 ring-red-500/30"
+                >
                   Emergency: (438) 602-5895
                 </Button>
               </div>
@@ -279,7 +282,11 @@ const AssetRecovery: React.FC = () => {
               <Button size="lg" variant="secondary" asChild>
                 <Link to="/contact-us">Start Your Case</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="bg-red-600 border-red-600 text-white hover:bg-red-700 hover:border-red-700 font-bold shadow-lg ring-2 ring-red-500/30"
+              >
                 Call Now: (438) 602-5895
               </Button>
             </div>
