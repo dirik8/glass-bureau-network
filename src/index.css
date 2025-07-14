@@ -32,7 +32,7 @@
     --popover-foreground: 222.2 84% 4.9%;
     --primary: 208 80% 45%; /* More vibrant primary */
     --primary-foreground: 0 0% 100%; /* Pure white for contrast */
-    --secondary: 208 20% 95%; /* Subtle blue tint */
+    --secondary: 208 60% 50%; /* More vibrant secondary */
     --secondary-foreground: 222.2 60% 15%; /* Darker for better contrast */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 25% 25%; /* Much darker for better readability */
