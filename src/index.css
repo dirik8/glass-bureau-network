@@ -33,11 +33,11 @@
     --primary: 208 80% 45%; /* More vibrant primary */
     --primary-foreground: 0 0% 100%; /* Pure white for contrast */
     --secondary: 208 20% 95%; /* Subtle blue tint */
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary-foreground: 222.2 60% 15%; /* Darker for better contrast */
     --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 35%; /* Darker for better readability */
+    --muted-foreground: 215.4 25% 25%; /* Much darker for better readability */
     --accent: 208 40% 92%; /* Blue-tinted accent */
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent-foreground: 222.2 60% 15%; /* Darker for better contrast */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
