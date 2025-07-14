@@ -1,0 +1,25 @@
+-- Insert sample state intelligence data
+INSERT INTO public.state_intelligence (state_name, state_code, field_office, total_cases, total_losses, average_loss, year_over_year_increase, phone_number, yearly_data, top_scam_types, regional_hotspots, description) VALUES
+('New York', 'NY', 'New York Field Office', 8967, 742300000, 82800, 145, '(212) 384-1000', 
+'[{"year": 2020, "cases": 1456, "losses": 89200000}, {"year": 2021, "cases": 1823, "losses": 124800000}, {"year": 2022, "cases": 2234, "losses": 189400000}, {"year": 2023, "cases": 1678, "losses": 178600000}, {"year": 2024, "cases": 1776, "losses": 160300000}]', 
+'[{"type": "Investment Fraud", "cases": 2869, "percentage": 32}, {"type": "Romance Scams", "cases": 2152, "percentage": 24}, {"type": "Business Email Compromise", "cases": 1614, "percentage": 18}, {"type": "Real Estate Fraud", "cases": 1255, "percentage": 14}, {"type": "Online Shopping Fraud", "cases": 1077, "percentage": 12}]', 
+'[{"city": "New York City", "cases": 3847}, {"city": "Buffalo", "cases": 967}, {"city": "Rochester", "cases": 823}, {"city": "Syracuse", "cases": 734}, {"city": "Albany", "cases": 689}]', 
+'New York state leads the nation in sophisticated investment fraud schemes, with cybercriminals targeting the state''s large financial sector and affluent population.'),
+
+('Alabama', 'AL', 'Birmingham Field Office', 1842, 89420000, 48600, 156, '(205) 326-6166',
+'[{"year": 2020, "cases": 312, "losses": 15200000}, {"year": 2021, "cases": 398, "losses": 19800000}, {"year": 2022, "cases": 512, "losses": 26900000}, {"year": 2023, "cases": 620, "losses": 27520000}]',
+'[{"type": "Romance Scams", "cases": 423, "percentage": 23}, {"type": "Investment Fraud", "cases": 387, "percentage": 21}, {"type": "Business Email Compromise", "cases": 295, "percentage": 16}, {"type": "Tech Support Scams", "cases": 221, "percentage": 12}, {"type": "Online Shopping Fraud", "cases": 516, "percentage": 28}]',
+'[{"city": "Birmingham", "cases": 624}, {"city": "Mobile", "cases": 387}, {"city": "Montgomery", "cases": 298}, {"city": "Huntsville", "cases": 533}]',
+'Alabama has seen significant growth in cybercrime cases, particularly in rural areas where digital literacy education is limited.'),
+
+('California', 'CA', 'Los Angeles Field Office', 12567, 1240000000, 98700, 134, '(310) 477-6565',
+'[{"year": 2020, "cases": 2456, "losses": 234000000}, {"year": 2021, "cases": 2934, "losses": 298000000}, {"year": 2022, "cases": 3567, "losses": 354000000}, {"year": 2023, "cases": 3610, "losses": 354000000}]',
+'[{"type": "Investment Fraud", "cases": 3767, "percentage": 30}, {"type": "Business Email Compromise", "cases": 2011, "percentage": 16}, {"type": "Romance Scams", "cases": 2262, "percentage": 18}, {"type": "Real Estate Fraud", "cases": 1257, "percentage": 10}, {"type": "Online Shopping Fraud", "cases": 3270, "percentage": 26}]',
+'[{"city": "Los Angeles", "cases": 4234}, {"city": "San Francisco", "cases": 2867}, {"city": "San Diego", "cases": 1956}, {"city": "Sacramento", "cases": 1234}, {"city": "San Jose", "cases": 2276}]',
+'California leads the nation in cybercrime losses due to its large population and tech industry presence.');
+
+-- Insert SEO metadata for state pages
+INSERT INTO public.page_seo (page_path, page_title, meta_title, meta_description, og_title, og_description, focus_keywords) VALUES
+('/new-york-stats', 'New York Cybercrime Statistics | NCFRB', 'New York Cybercrime Statistics & Field Office Report | NCFRB', 'Comprehensive cybercrime statistics for New York state including IC3 reports, fraud trends, and FBI field office contact information.', 'New York Cybercrime Statistics | NCFRB Field Office Report', 'View detailed cybercrime statistics for New York state, including trends, losses, and how to report fraud to the FBI.', ARRAY['New York cybercrime', 'NYC fraud statistics', 'New York FBI field office', 'cybercrime reporting NY']),
+('/alabama-stats', 'Alabama Cybercrime Statistics | NCFRB', 'Alabama Cybercrime Statistics & Field Office Report | NCFRB', 'Comprehensive cybercrime statistics for Alabama including IC3 reports, fraud trends, and FBI Birmingham field office contact information.', 'Alabama Cybercrime Statistics | NCFRB Field Office Report', 'View detailed cybercrime statistics for Alabama, including trends, losses, and how to report fraud to the FBI.', ARRAY['Alabama cybercrime', 'Birmingham FBI office', 'Alabama fraud statistics', 'cybercrime reporting AL']),
+('/california-stats', 'California Cybercrime Statistics | NCFRB', 'California Cybercrime Statistics & Field Office Report | NCFRB', 'Comprehensive cybercrime statistics for California including IC3 reports, fraud trends, and FBI Los Angeles field office contact information.', 'California Cybercrime Statistics | NCFRB Field Office Report', 'View detailed cybercrime statistics for California, including trends, losses, and how to report fraud to the FBI.', ARRAY['California cybercrime', 'Los Angeles FBI office', 'California fraud statistics', 'cybercrime reporting CA']);
