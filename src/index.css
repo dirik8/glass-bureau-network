@@ -142,6 +142,31 @@
   .hero-gradient {
     background: var(--gradient-hero);
   }
+
+  /* Enhanced Button Interactions */
+  .btn-enhanced {
+    @apply transition-all duration-300 ease-in-out transform;
+  }
+  
+  .btn-enhanced:hover {
+    @apply scale-105 shadow-xl;
+  }
+  
+  .btn-enhanced:active {
+    @apply scale-95;
+  }
+  
+  .btn-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .btn-glow {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+  }
+  
+  .btn-glow:hover {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.6);
+  }
 }
 
 /* Remove all fancy animations and effects */

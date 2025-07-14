@@ -45,10 +45,10 @@ const HeroSection: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
-              <Button size="lg" className="button-vibrant px-8 py-4 text-lg">
+              <Button size="lg" variant="default" className="px-8 py-4 text-lg h-14" asChild>
                 <Link to="/contact-us" className="flex items-center">Report Scam or Request Help</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 text-lg font-bold">
+              <Button size="lg" variant="outline" className="px-8 py-4 text-lg h-14" asChild>
                 <Link to="/case-studies">View Closed Operations</Link>
               </Button>
             </div>

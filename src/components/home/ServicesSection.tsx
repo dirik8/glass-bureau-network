@@ -181,7 +181,7 @@ const ServicesSection: React.FC = () => {
                       </p>
                       <Button 
                         variant="outline" 
-                        className="w-full group-hover:bg-fbi-blue group-hover:text-white transition-colors"
+                        className="w-full btn-enhanced"
                         asChild
                       >
                         <Link to={service.link}>
@@ -209,10 +209,10 @@ const ServicesSection: React.FC = () => {
                 contact our emergency response team immediately.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white" asChild>
+                <Button size="lg" variant="emergency" asChild>
                   <Link to="/contact-us">File Emergency Report</Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white">
+                <Button size="lg" variant="emergency">
                   Emergency Hotline: (438) 602-5895
                 </Button>
               </div>

@@ -15,13 +15,13 @@ const EmergencyBanner: React.FC = () => {
           </span>
           <Button 
             size="sm" 
-            variant="secondary" 
+            variant="emergency" 
             asChild
-            className="bg-background text-destructive hover:bg-muted font-semibold"
+            className="font-bold shadow-xl"
           >
             <Link to="/contact-us" className="flex items-center space-x-1">
               <Phone className="h-4 w-4" />
-              <span>Call: +1 (438) 602-5895</span>
+              <span>EMERGENCY: +1 (438) 602-5895</span>
             </Link>
           </Button>
         </div>

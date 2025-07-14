@@ -145,7 +145,7 @@ const ContactUs: React.FC = () => {
                     />
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full">
+                  <Button type="submit" size="lg" variant="default" className="w-full btn-enhanced">
                     Submit Case for Investigation
                   </Button>
                 </form>
