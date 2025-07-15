@@ -33,7 +33,6 @@ export default defineConfig(({ mode }) => ({
     },
     // Optimize for cPanel hosting
     sourcemap: false,
-    minify: 'terser',
     chunkSizeWarningLimit: 1000,
   },
   // Configure base path for cPanel subdirectory if needed
