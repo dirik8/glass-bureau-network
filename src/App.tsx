@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { lazy, Suspense } from "react";
+import SocialProofPopup from "@/components/SocialProofPopup";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -130,10 +131,11 @@ const App = () => (
           <meta property="og:title" content="LGN Recovery - Elite Cybercrime Investigation" />
           <meta property="og:description" content="Professional cybercrime investigation and asset recovery specialists. Recovering stolen digital assets worldwide." />
           <meta property="og:type" content="website" />
-          <link rel="canonical" href="https://lionsgate.network" />
+          <link rel="canonical" href="https://lionsrecovery.com" />
         </Helmet>
         <Toaster />
         <Sonner />
+        <SocialProofPopup />
         <BrowserRouter>
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>

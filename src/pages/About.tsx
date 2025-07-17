@@ -69,7 +69,7 @@ const About: React.FC = () => {
               <div className="flex items-center space-x-3 mb-6">
                 <Shield className="h-12 w-12" />
                 <div>
-                  <h1 className="text-4xl font-bold">FBI Cybercrime Division</h1>
+                  <h1 className="text-4xl font-bold">LGN in conjunction with FBI's Cybercrime Division</h1>
                   <p className="text-fbi-blue-100">Protecting America in the Digital Age</p>
                 </div>
               </div>

@@ -159,7 +159,7 @@ const FakeTrading: React.FC = () => {
                 </Button>
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-red-600">
                   <Mail className="h-5 w-5 mr-2" />
-                  investigations@lionsgate.network
+                  investigations@lionsrecovery.com
                 </Button>
               </div>
             </div>

@@ -73,7 +73,7 @@ const BureauFooter: React.FC = () => {
               </div>
               <div className="flex items-center space-x-2 text-sm">
                 <Mail className="h-4 w-4 text-primary" />
-                <span>{settings.main_email || 'investigations@lionsgate.network'}</span>
+                <span>{settings.main_email || 'investigations@lionsrecovery.com'}</span>
               </div>
             </div>
           </div>

@@ -166,7 +166,7 @@ const CryptocurrencyScams: React.FC = () => {
                   <AlertDescription className="text-red-800">
                     <strong>IMMEDIATE ACTION REQUIRED:</strong> If you suspect you're being targeted 
                     by a cryptocurrency scam, cease all communication with the suspected fraudsters 
-                    and contact the FBI Internet Crime Complaint Center (IC3) immediately.
+                    and contact LGN in conjunction with FBI's Internet Crime Complaint Center (IC3) immediately.
                   </AlertDescription>
                 </Alert>
 

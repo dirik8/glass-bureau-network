@@ -3,11 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* FBI-Style Government Design System */
+/* LGN-FBI Government Design System */
 
 @layer base {
   :root {
-    /* Enhanced FBI Color Palette - HSL format for better vibrancy */
+    /* Enhanced LGN-FBI Color Palette - HSL format for better vibrancy */
     --fbi-blue: 208 66% 30%; /* #1f4e79 */
     --fbi-blue-light: 221 83% 58%; /* Enhanced brightness */
     --fbi-blue-dark: 222 47% 11%; /* #0f172a */
@@ -88,7 +88,7 @@
   }
 }
 
-/* Enhanced Government/FBI Style Components */
+/* Enhanced Government/LGN-FBI Style Components */
 @layer utilities {
   .government-card {
     background: hsl(var(--government-white));

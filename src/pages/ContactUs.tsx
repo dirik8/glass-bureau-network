@@ -175,7 +175,7 @@ const ContactUs: React.FC = () => {
                     <Mail className="h-8 w-8 text-trust-green" />
                     <div>
                       <h3 className="font-bold text-deep-navy">Investigation Email</h3>
-                      <p className="text-lg font-semibold text-calm-blue">investigations@lionsgate.network</p>
+                      <p className="text-lg font-semibold text-calm-blue">investigations@lionsrecovery.com</p>
                       <p className="text-steel-gray">Secure case communications</p>
                     </div>
                   </div>

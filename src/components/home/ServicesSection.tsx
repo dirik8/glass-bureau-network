@@ -138,12 +138,12 @@ const ServicesSection: React.FC = () => {
           <div className="flex items-center justify-center space-x-3 mb-6">
             <Shield className="h-12 w-12 text-fbi-blue" />
             <div>
-              <h2 className="text-4xl font-bold text-fbi-blue">Federal Cybercrime Services</h2>
+              <h2 className="text-4xl font-bold text-fbi-blue">LGN in conjunction with FBI's Cybercrime Services</h2>
               <p className="text-government-gray-600">Comprehensive investigation and victim assistance programs</p>
             </div>
           </div>
           <p className="text-xl text-government-gray-700 max-w-4xl mx-auto">
-            The FBI Cybercrime Division provides specialized investigation units, victim assistance programs, 
+            LGN in conjunction with FBI's Cybercrime Division provides specialized investigation units, victim assistance programs, 
             prevention resources, and cutting-edge digital forensics to combat cyber threats nationwide.
           </p>
         </div>
