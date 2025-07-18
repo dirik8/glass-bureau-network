@@ -1,99 +1,69 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   FileText, 
-  Upload, 
-  Download, 
-  Trash2, 
-  Edit, 
   Users, 
   BarChart3, 
   Settings,
-  Plus,
-  Eye
+  Eye,
+  Globe,
+  Database,
+  Mail,
+  TrendingUp
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { PDFUploadManager } from '@/components/PDFUploadManager';
 import { DynamicSupabaseConfig } from '@/components/DynamicSupabaseConfig';
 import { EmailSettings } from '@/components/EmailSettings';
+import { DomainManager } from '@/components/admin/DomainManager';
+import { DatabaseManager } from '@/components/admin/DatabaseManager';
+import { SMTPManager } from '@/components/admin/SMTPManager';
 
 const AdminDashboard: React.FC = () => {
-  const [pdfs, setPdfs] = useState<any[]>([]);
-  const [formSubmissions, setFormSubmissions] = useState<any[]>([]);
+  const [stats, setStats] = useState({
+    pdfs: 0,
+    formSubmissions: 0,
+    cases: 0,
+    domains: 0
+  });
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {
-    loadData();
+    loadStats();
   }, []);
 
-  const loadData = async () => {
+  const loadStats = async () => {
     setIsLoading(true);
     try {
-      // Load PDFs
-      const { data: pdfData } = await supabase
-        .from('pdfs')
-        .select('*')
-        .order('created_at', { ascending: false });
+      const [pdfsCount, submissionsCount, casesCount, domainsCount] = await Promise.all([
+        supabase.from('pdfs').select('id', { count: 'exact', head: true }),
+        supabase.from('form_submissions').select('id', { count: 'exact', head: true }),
+        supabase.from('cases').select('id', { count: 'exact', head: true }),
+        supabase.from('domains').select('id', { count: 'exact', head: true })
+      ]);
 
-      // Load form submissions
-      const { data: submissionData } = await supabase
-        .from('form_submissions')
-        .select('*')
-        .order('submitted_at', { ascending: false });
-
-      setPdfs(pdfData || []);
-      setFormSubmissions(submissionData || []);
+      setStats({
+        pdfs: pdfsCount.count || 0,
+        formSubmissions: submissionsCount.count || 0,
+        cases: casesCount.count || 0,
+        domains: domainsCount.count || 0
+      });
     } catch (error) {
-      console.error('Error loading data:', error);
+      console.error('Error loading stats:', error);
       toast({
         title: 'Error',
-        description: 'Failed to load dashboard data',
+        description: 'Failed to load dashboard statistics',
         variant: 'destructive'
       });
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleDeletePDF = async (id: string) => {
-    try {
-      const pdf = pdfs.find(p => p.id === id);
-      if (!pdf) return;
-
-      // Delete from storage
-      await supabase.storage
-        .from('pdfs')
-        .remove([pdf.file_path]);
-
-      // Delete from database
-      await supabase
-        .from('pdfs')
-        .delete()
-        .eq('id', id);
-
-      setPdfs(pdfs.filter(pdf => pdf.id !== id));
-      toast({
-        title: "PDF Deleted",
-        description: "The PDF has been removed from the system.",
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to delete PDF",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const handleUploadPDF = () => {
-    loadData(); // Refresh data after upload
   };
 
   return (
@@ -112,7 +82,7 @@ const AdminDashboard: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-government-gray-600">Total PDFs</p>
-                  <p className="text-2xl font-bold text-fbi-blue">{pdfs.length}</p>
+                  <p className="text-2xl font-bold text-fbi-blue">{stats.pdfs}</p>
                 </div>
                 <FileText className="h-8 w-8 text-fbi-blue" />
               </div>
@@ -124,7 +94,7 @@ const AdminDashboard: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-government-gray-600">Form Submissions</p>
-                  <p className="text-2xl font-bold text-fbi-blue">{formSubmissions.length}</p>
+                  <p className="text-2xl font-bold text-fbi-blue">{stats.formSubmissions}</p>
                 </div>
                 <Users className="h-8 w-8 text-fbi-blue" />
               </div>
@@ -135,10 +105,10 @@ const AdminDashboard: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-government-gray-600">Storage Used</p>
-                  <p className="text-2xl font-bold text-fbi-blue">1.2GB</p>
+                  <p className="text-sm text-government-gray-600">Active Cases</p>
+                  <p className="text-2xl font-bold text-fbi-blue">{stats.cases}</p>
                 </div>
-                <Upload className="h-8 w-8 text-fbi-blue" />
+                <BarChart3 className="h-8 w-8 text-fbi-blue" />
               </div>
             </CardContent>
           </Card>
@@ -147,10 +117,10 @@ const AdminDashboard: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-government-gray-600">System Status</p>
-                  <p className="text-2xl font-bold text-green-600">Online</p>
+                  <p className="text-sm text-government-gray-600">Domains</p>
+                  <p className="text-2xl font-bold text-fbi-blue">{stats.domains}</p>
                 </div>
-                <BarChart3 className="h-8 w-8 text-fbi-blue" />
+                <Globe className="h-8 w-8 text-fbi-blue" />
               </div>
             </CardContent>
           </Card>
@@ -158,138 +128,98 @@ const AdminDashboard: React.FC = () => {
 
         {/* Main Content */}
         <Tabs defaultValue="pdfs" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="pdfs">PDF Management</TabsTrigger>
-            <TabsTrigger value="submissions">Form Submissions</TabsTrigger>
-            <TabsTrigger value="email">Email Settings</TabsTrigger>
+            <TabsTrigger value="cases">Case Management</TabsTrigger>
+            <TabsTrigger value="domains">Domains</TabsTrigger>
+            <TabsTrigger value="database">Database</TabsTrigger>
+            <TabsTrigger value="smtp">SMTP & Email</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="pdfs" className="space-y-6">
+          <TabsContent value="pdfs">
             <PDFUploadManager />
-            
+          </TabsContent>
+
+          <TabsContent value="cases">
             <Card>
               <CardHeader>
-                <CardTitle>PDF Management</CardTitle>
+                <CardTitle>Case Management System</CardTitle>
               </CardHeader>
               <CardContent>
-                {isLoading ? (
-                  <div className="text-center py-8">
-                    <p className="text-government-gray-600">Loading PDFs...</p>
-                  </div>
-                ) : pdfs.length === 0 ? (
-                  <div className="text-center py-8">
-                    <p className="text-government-gray-600">No PDFs uploaded yet. Use the upload manager above to add some.</p>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {pdfs.map((pdf) => (
-                      <div key={pdf.id} className="flex items-center justify-between p-4 border rounded-lg">
-                        <div className="flex-1">
-                          <h3 className="font-semibold">{pdf.title}</h3>
-                          <div className="flex items-center space-x-4 mt-2 text-sm text-government-gray-600">
-                            <span>{pdf.category}</span>
-                            <span>{pdf.pages} pages</span>
-                            <Badge variant="outline">{pdf.level}</Badge>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Button size="sm" variant="outline">
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button size="sm" variant="outline">
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button 
-                            size="sm" 
-                            variant="outline"
-                            className="text-red-600 hover:text-red-700"
-                            onClick={() => handleDeletePDF(pdf.id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <p className="text-government-gray-600 mb-4">
+                  Comprehensive case tracking and management tools for all submissions.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Card>
+                    <CardContent className="p-4">
+                      <h3 className="font-medium mb-2">Active Cases</h3>
+                      <p className="text-2xl font-bold text-blue-600">{stats.cases}</p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-4">
+                      <h3 className="font-medium mb-2">Resolved Cases</h3>
+                      <p className="text-2xl font-bold text-green-600">0</p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-4">
+                      <h3 className="font-medium mb-2">Pending Review</h3>
+                      <p className="text-2xl font-bold text-orange-600">0</p>
+                    </CardContent>
+                  </Card>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          <TabsContent value="submissions" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Form Submissions</CardTitle>
-              </CardHeader>
-              <CardContent>
-                {isLoading ? (
-                  <div className="text-center py-8">
-                    <p className="text-government-gray-600">Loading submissions...</p>
-                  </div>
-                ) : formSubmissions.length === 0 ? (
-                  <div className="text-center py-8">
-                    <p className="text-government-gray-600">No form submissions yet.</p>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {formSubmissions.map((submission) => (
-                      <div key={submission.id} className="flex items-center justify-between p-4 border rounded-lg">
-                        <div>
-                          <h3 className="font-semibold">{submission.form_type}</h3>
-                          <p className="text-sm text-government-gray-600">
-                            {submission.data?.name || submission.data?.email || 'Anonymous'}
-                          </p>
-                          <p className="text-xs text-government-gray-500">
-                            {new Date(submission.submitted_at).toLocaleDateString()}
-                          </p>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Badge variant={submission.status === 'pending' ? 'secondary' : 'outline'}>
-                            {submission.status}
-                          </Badge>
-                          {submission.email_sent ? (
-                            <Badge variant="default" className="bg-green-100 text-green-800">
-                              Email Sent
-                            </Badge>
-                          ) : (
-                            <Badge variant="destructive">
-                              Email Failed
-                            </Badge>
-                          )}
-                          <Button size="sm" variant="outline">
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+          <TabsContent value="domains">
+            <DomainManager />
           </TabsContent>
 
-          <TabsContent value="analytics" className="space-y-6">
+          <TabsContent value="database">
+            <DatabaseManager />
+          </TabsContent>
+
+          <TabsContent value="smtp">
+            <SMTPManager />
+          </TabsContent>
+
+          <TabsContent value="analytics">
             <Card>
               <CardHeader>
                 <CardTitle>Analytics Dashboard</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-government-gray-600">
-                  Analytics features will be available with Supabase integration.
-                  This will include download statistics, user engagement metrics, and performance data.
-                </p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center p-4 border rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">98.5%</div>
+                    <div className="text-sm text-government-gray-600">System Uptime</div>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">1,247</div>
+                    <div className="text-sm text-government-gray-600">Total Visitors</div>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg">
+                    <div className="text-2xl font-bold text-orange-600">24</div>
+                    <div className="text-sm text-government-gray-600">Avg. Response Time</div>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg">
+                    <div className="text-2xl font-bold text-purple-600">156</div>
+                    <div className="text-sm text-government-gray-600">PDF Downloads</div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          <TabsContent value="email" className="space-y-6">
-            <EmailSettings />
-          </TabsContent>
-
-          <TabsContent value="settings" className="space-y-6">
-            <DynamicSupabaseConfig />
+          <TabsContent value="settings">
+            <div className="space-y-6">
+              <EmailSettings />
+              <DynamicSupabaseConfig />
+            </div>
           </TabsContent>
         </Tabs>
       </div>

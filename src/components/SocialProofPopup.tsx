@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { X, Shield, DollarSign } from 'lucide-react';
 import { generateNewCaseNumber, generateRecoveryAmount, getCaseScenarios } from '@/utils/caseNumberGenerator';
@@ -60,26 +61,26 @@ const SocialProofPopup: React.FC = () => {
     };
   }, [isEnabled]);
 
-  // Disable popups on mobile to avoid interference
+  // Enable on both desktop and mobile, but adjust positioning
   useEffect(() => {
-    const checkMobile = () => {
-      setIsEnabled(window.innerWidth >= 768);
+    const checkScreen = () => {
+      setIsEnabled(true); // Always enable, we'll handle positioning responsively
     };
     
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    checkScreen();
+    window.addEventListener('resize', checkScreen);
+    return () => window.removeEventListener('resize', checkScreen);
   }, []);
 
   if (!isEnabled) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-50 space-y-2">
+    <div className="fixed bottom-4 right-4 z-50 space-y-2 max-w-sm">
       {popups.map((popup) => (
         <div
           key={popup.id}
-          className="bg-white border border-trust-green shadow-xl rounded-lg p-4 max-w-sm animate-slide-in-right"
-          style={{ animation: 'slideIn 0.5s ease-out' }}
+          className="bg-white border border-trust-green shadow-xl rounded-lg p-4 animate-slide-in-up"
+          style={{ animation: 'slideInUp 0.5s ease-out' }}
         >
           <div className="flex items-start justify-between">
             <div className="flex items-start space-x-3">
@@ -126,13 +127,13 @@ const SocialProofPopup: React.FC = () => {
       
       <style>
         {`
-        @keyframes slideIn {
+        @keyframes slideInUp {
           from {
-            transform: translateX(100%);
+            transform: translateY(100%) translateX(0);
             opacity: 0;
           }
           to {
-            transform: translateX(0);
+            transform: translateY(0) translateX(0);
             opacity: 1;
           }
         }
