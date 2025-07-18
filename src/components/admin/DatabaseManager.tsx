@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -17,6 +16,8 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 
+type TableName = 'form_submissions' | 'cases' | 'content_blocks' | 'pdfs' | 'seo_analytics' | 'domains' | 'smtp_configs';
+
 export function DatabaseManager() {
   const [isPurging, setIsPurging] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
@@ -24,7 +25,7 @@ export function DatabaseManager() {
   const [purgeType, setPurgeType] = useState<string>('');
   const { toast } = useToast();
 
-  const exportData = async (table: string) => {
+  const exportData = async (table: TableName) => {
     setIsExporting(true);
     try {
       const { data, error } = await supabase
@@ -62,16 +63,28 @@ export function DatabaseManager() {
   const purgeData = async (table: string) => {
     setIsPurging(true);
     try {
-      const { error } = await supabase
-        .from(table)
-        .delete()
-        .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all records
+      if (table === 'all') {
+        const tables: TableName[] = ['form_submissions', 'cases', 'content_blocks', 'seo_analytics', 'domains', 'smtp_configs'];
+        for (const tableName of tables) {
+          const { error } = await supabase
+            .from(tableName)
+            .delete()
+            .neq('id', '00000000-0000-0000-0000-000000000000');
+          
+          if (error) throw error;
+        }
+      } else {
+        const { error } = await supabase
+          .from(table as TableName)
+          .delete()
+          .neq('id', '00000000-0000-0000-0000-000000000000');
 
-      if (error) throw error;
+        if (error) throw error;
+      }
 
       toast({
         title: 'Data Purged',
-        description: `All ${table} data has been permanently deleted`,
+        description: `All ${table === 'all' ? 'database' : table} data has been permanently deleted`,
       });
     } catch (error) {
       toast({
@@ -93,33 +106,45 @@ export function DatabaseManager() {
   const dataCategories = [
     {
       name: 'Form Submissions',
-      table: 'form_submissions',
+      table: 'form_submissions' as TableName,
       description: 'All contact forms and case submissions',
       color: 'bg-blue-100 text-blue-800'
     },
     {
       name: 'PDF Documents',
-      table: 'pdfs',
+      table: 'pdfs' as TableName,
       description: 'Uploaded PDF files and metadata',
       color: 'bg-green-100 text-green-800'
     },
     {
       name: 'Case Records',
-      table: 'cases',
+      table: 'cases' as TableName,
       description: 'Case tracking and progress data',
       color: 'bg-purple-100 text-purple-800'
     },
     {
       name: 'Analytics Data',
-      table: 'seo_analytics',
+      table: 'seo_analytics' as TableName,
       description: 'SEO and performance analytics',
       color: 'bg-orange-100 text-orange-800'
     },
     {
       name: 'Content Blocks',
-      table: 'content_blocks',
+      table: 'content_blocks' as TableName,
       description: 'Dynamic content and page blocks',
       color: 'bg-gray-100 text-gray-800'
+    },
+    {
+      name: 'Domains',
+      table: 'domains' as TableName,
+      description: 'Configured domain settings',
+      color: 'bg-teal-100 text-teal-800'
+    },
+    {
+      name: 'SMTP Configs',
+      table: 'smtp_configs' as TableName,
+      description: 'Email server configurations',
+      color: 'bg-indigo-100 text-indigo-800'
     }
   ];
 

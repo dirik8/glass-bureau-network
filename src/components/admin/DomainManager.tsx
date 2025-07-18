@@ -11,8 +11,8 @@ import { Globe, Plus, Trash2, CheckCircle, XCircle } from 'lucide-react';
 
 interface Domain {
   id: string;
-  domain: string;
-  is_verified: boolean;
+  domain_name: string;
+  is_primary: boolean;
   is_active: boolean;
   created_at: string;
 }
@@ -56,8 +56,8 @@ export function DomainManager() {
       const { error } = await supabase
         .from('domains')
         .insert({
-          domain: newDomain.trim(),
-          is_verified: false,
+          domain_name: newDomain.trim(),
+          is_primary: false,
           is_active: true
         });
 
@@ -171,22 +171,22 @@ export function DomainManager() {
                 <div className="flex items-center space-x-3">
                   <Globe className="h-4 w-4 text-muted-foreground" />
                   <div>
-                    <p className="font-medium">{domain.domain}</p>
+                    <p className="font-medium">{domain.domain_name}</p>
                     <p className="text-sm text-muted-foreground">
                       Added {new Date(domain.created_at).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
-                  {domain.is_verified ? (
+                  {domain.is_primary ? (
                     <Badge variant="default" className="bg-green-100 text-green-800">
                       <CheckCircle className="h-3 w-3 mr-1" />
-                      Verified
+                      Primary
                     </Badge>
                   ) : (
                     <Badge variant="secondary">
                       <XCircle className="h-3 w-3 mr-1" />
-                      Pending
+                      Secondary
                     </Badge>
                   )}
                   <Badge variant={domain.is_active ? "default" : "secondary"}>

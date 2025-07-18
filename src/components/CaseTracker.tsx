@@ -15,9 +15,9 @@ interface CaseDetails {
   created_at: string;
   updated_at: string;
   case_type: string;
-  progress_stages: any[];
+  progress_stages: any;
   user_details: any;
-  notes: string;
+  notes: string | null;
 }
 
 export function CaseTracker() {
@@ -44,7 +44,7 @@ export function CaseTracker() {
         .from('cases')
         .select('*')
         .eq('case_number', caseNumber.trim().toUpperCase())
-        .single();
+        .maybeSingle();
 
       if (error || !data) {
         toast({
@@ -56,7 +56,8 @@ export function CaseTracker() {
       }
 
       // Verify email matches (check in user_details or form data)
-      const userEmail = data.user_details?.email || data.user_details?.contact_email;
+      const userDetails = data.user_details as any;
+      const userEmail = userDetails?.email || userDetails?.contact_email;
       if (userEmail?.toLowerCase() !== verificationEmail.toLowerCase()) {
         toast({
           title: 'Verification Failed',
@@ -235,7 +236,7 @@ export function CaseTracker() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {caseDetails.progress_stages?.map((stage, index) => (
+                      {(caseDetails.progress_stages as any[])?.map((stage, index) => (
                         <div key={index} className="flex items-start gap-3">
                           <div className="flex-shrink-0 mt-1">
                             {stage.completed ? (

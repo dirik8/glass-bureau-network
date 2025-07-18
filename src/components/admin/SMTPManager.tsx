@@ -12,12 +12,18 @@ import { supabase } from '@/integrations/supabase/client';
 import { Mail, Send, Settings, TrendingUp, CheckCircle, XCircle } from 'lucide-react';
 
 interface SMTPConfig {
+  id?: string;
   host: string;
   port: number;
   username: string;
   password: string;
-  secure: boolean;
+  use_ssl: boolean;
   name: string;
+  is_active: boolean;
+  warmup_status: string;
+  daily_limit: number;
+  created_at?: string;
+  updated_at?: string;
 }
 
 interface WarmupCampaign {
@@ -41,8 +47,11 @@ export function SMTPManager() {
     port: 587,
     username: '',
     password: '',
-    secure: true,
-    name: ''
+    use_ssl: true,
+    name: '',
+    is_active: true,
+    warmup_status: 'not_started',
+    daily_limit: 50
   });
   const [isTesting, setIsTesting] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -67,16 +76,8 @@ export function SMTPManager() {
   };
 
   const loadWarmupCampaigns = async () => {
-    try {
-      const { data } = await supabase
-        .from('warmup_campaigns')
-        .select('*')
-        .order('created_at', { ascending: false });
-      
-      setWarmupCampaigns(data || []);
-    } catch (error) {
-      console.error('Error loading warmup campaigns:', error);
-    }
+    // For now, just set empty array since warmup_campaigns table doesn't exist yet
+    setWarmupCampaigns([]);
   };
 
   const saveSMTPConfig = async () => {
@@ -102,8 +103,11 @@ export function SMTPManager() {
         port: 587,
         username: '',
         password: '',
-        secure: true,
-        name: ''
+        use_ssl: true,
+        name: '',
+        is_active: true,
+        warmup_status: 'not_started',
+        daily_limit: 50
       });
       
       loadSMTPConfigs();
@@ -276,7 +280,7 @@ export function SMTPManager() {
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => startWarmupCampaign(config.name)}
+                          onClick={() => startWarmupCampaign(config.id || '')}
                         >
                           <TrendingUp className="h-4 w-4 mr-2" />
                           Start Warmup

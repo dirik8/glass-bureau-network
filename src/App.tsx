@@ -7,20 +7,20 @@ import { HelmetProvider } from 'react-helmet-async';
 import SocialProofPopup from '@/components/SocialProofPopup';
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
-import Contact from "@/pages/Contact";
+import ContactUs from "@/pages/ContactUs";
 import Services from "@/pages/Services";
 import Career from "@/pages/Career";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsConditions from "@/pages/TermsConditions";
-import AssetRecoverySolutions from "@/pages/AssetRecoverySolutions";
+import AssetRecovery from "@/pages/AssetRecovery";
 import BlockchainForensic from "@/pages/BlockchainForensic";
 import CryptoInvestigation from "@/pages/CryptoInvestigation";
 import ScamPrevention from "@/pages/ScamPrevention";
 import BlockchainAnalyst from "@/pages/BlockchainAnalyst";
 import CryptocurrencyScams from "@/pages/CryptocurrencyScams";
 import RomanceScams from "@/pages/RomanceScams";
-import FakeTradingScam from "@/pages/FakeTradingScam";
-import PigButcheringScam from "@/pages/PigButcheringScam";
+import FakeTrading from "@/pages/FakeTrading";
+import PigButchering from "@/pages/PigButchering";
 import BinaryOptionsScams from "@/pages/BinaryOptionsScams";
 import JobScam from "@/pages/JobScam";
 import AdminLogin from "@/pages/AdminLogin";
@@ -42,20 +42,20 @@ const App = () => {
             <SocialProofPopup />
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/contact-us" element={<Contact />} />
+              <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/services" element={<Services />} />
               <Route path="/career" element={<Career />} />
               <Route path="/privacy-policy-2" element={<PrivacyPolicy />} />
               <Route path="/terms-conditions" element={<TermsConditions />} />
-              <Route path="/asset-recovery-solutions" element={<AssetRecoverySolutions />} />
+              <Route path="/asset-recovery-solutions" element={<AssetRecovery />} />
               <Route path="/blockchain-forensic" element={<BlockchainForensic />} />
               <Route path="/crypto-investigation" element={<CryptoInvestigation />} />
               <Route path="/scam-prevention" element={<ScamPrevention />} />
               <Route path="/blockchain-analyst" element={<BlockchainAnalyst />} />
               <Route path="/cryptocurrency-scams" element={<CryptocurrencyScams />} />
               <Route path="/romance-scams" element={<RomanceScams />} />
-              <Route path="/fake-trading-scam" element={<FakeTradingScam />} />
-              <Route path="/pig-butchering-scam" element={<PigButcheringScam />} />
+              <Route path="/fake-trading-scam" element={<FakeTrading />} />
+              <Route path="/pig-butchering-scam" element={<PigButchering />} />
               <Route path="/binary-options-scams" element={<BinaryOptionsScams />} />
               <Route path="/job-scam" element={<JobScam />} />
               <Route path="/case-tracker" element={<CaseTracker />} />

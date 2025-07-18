@@ -41,6 +41,42 @@ export type Database = {
         }
         Relationships: []
       }
+      cases: {
+        Row: {
+          case_number: string
+          case_type: string
+          created_at: string
+          id: string
+          notes: string | null
+          progress_stages: Json | null
+          status: string
+          updated_at: string
+          user_details: Json
+        }
+        Insert: {
+          case_number: string
+          case_type: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          progress_stages?: Json | null
+          status?: string
+          updated_at?: string
+          user_details: Json
+        }
+        Update: {
+          case_number?: string
+          case_type?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          progress_stages?: Json | null
+          status?: string
+          updated_at?: string
+          user_details?: Json
+        }
+        Relationships: []
+      }
       content_blocks: {
         Row: {
           block_key: string
@@ -91,6 +127,33 @@ export type Database = {
           page_path?: string | null
           subtitle?: string | null
           title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      domains: {
+        Row: {
+          created_at: string
+          domain_name: string
+          id: string
+          is_active: boolean
+          is_primary: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          domain_name: string
+          id?: string
+          is_active?: boolean
+          is_primary?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          domain_name?: string
+          id?: string
+          is_active?: boolean
+          is_primary?: boolean
           updated_at?: string
         }
         Relationships: []
@@ -385,6 +448,51 @@ export type Database = {
           key?: string
           updated_at?: string
           value?: string
+        }
+        Relationships: []
+      }
+      smtp_configs: {
+        Row: {
+          created_at: string
+          daily_limit: number | null
+          host: string
+          id: string
+          is_active: boolean
+          name: string
+          password: string
+          port: number
+          updated_at: string
+          use_ssl: boolean
+          username: string
+          warmup_status: string | null
+        }
+        Insert: {
+          created_at?: string
+          daily_limit?: number | null
+          host: string
+          id?: string
+          is_active?: boolean
+          name: string
+          password: string
+          port?: number
+          updated_at?: string
+          use_ssl?: boolean
+          username: string
+          warmup_status?: string | null
+        }
+        Update: {
+          created_at?: string
+          daily_limit?: number | null
+          host?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          password?: string
+          port?: number
+          updated_at?: string
+          use_ssl?: boolean
+          username?: string
+          warmup_status?: string | null
         }
         Relationships: []
       }
