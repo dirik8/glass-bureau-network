@@ -9,6 +9,7 @@ import Layout from '@/components/layout/Layout';
 import { LiquidGlassCard } from '@/components/LiquidGlassCard';
 import { Phone, Mail, MapPin, Clock, AlertTriangle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const ContactUs: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -19,15 +20,96 @@ const ContactUs: React.FC = () => {
     urgency: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Case Submission Received",
-      description: "Our investigation team will contact you within 24 hours.",
-    });
+    setIsSubmitting(true);
+
+    try {
+      // Store the form submission directly in the database
+      const { data: submissionData, error: submissionError } = await supabase
+        .from('form_submissions')
+        .insert({
+          form_type: 'Cybercrime Report',
+          data: formData,
+          status: 'pending'
+        })
+        .select()
+        .single();
+
+      if (submissionError) {
+        console.error('Database submission error:', submissionError);
+        throw submissionError;
+      }
+
+      console.log('Cybercrime report submission stored:', submissionData);
+
+      // Try to send email notification
+      try {
+        const { error: emailError } = await supabase.functions.invoke('submit-form', {
+          body: {
+            form_type: 'Cybercrime Report',
+            data: formData,
+            submission_id: submissionData.id
+          }
+        });
+
+        if (emailError) {
+          console.error('Email sending error:', emailError);
+          await supabase
+            .from('form_submissions')
+            .update({ 
+              email_sent: false,
+              email_error: emailError.message 
+            })
+            .eq('id', submissionData.id);
+        } else {
+          await supabase
+            .from('form_submissions')
+            .update({ 
+              email_sent: true,
+              email_sent_at: new Date().toISOString()
+            })
+            .eq('id', submissionData.id);
+        }
+      } catch (emailError: any) {
+        console.error('Email function error:', emailError);
+        await supabase
+          .from('form_submissions')
+          .update({ 
+            email_sent: false,
+            email_error: emailError.message 
+          })
+          .eq('id', submissionData.id);
+      }
+
+      toast({
+        title: "Case Submission Received",
+        description: "Our investigation team will contact you within 24 hours.",
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        caseType: '',
+        urgency: '',
+        message: ''
+      });
+    } catch (error: any) {
+      console.error('Form submission error:', error);
+      toast({
+        title: "Submission Error",
+        description: "There was an error submitting your case. Please try again or call our emergency line.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -145,8 +227,14 @@ const ContactUs: React.FC = () => {
                     />
                   </div>
 
-                  <Button type="submit" size="lg" variant="default" className="w-full btn-enhanced">
-                    Submit Case for Investigation
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    variant="default" 
+                    className="w-full btn-enhanced"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Submitting Case...' : 'Submit Case for Investigation'}
                   </Button>
                 </form>
               </LiquidGlassCard>

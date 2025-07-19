@@ -77,30 +77,16 @@ const CaseStudies: React.FC = () => {
       date: 'July 2023',
       description: 'Instagram and TikTok investment scam targeting young adults.',
       outcomes: ['7 arrests', 'Platform cooperation', 'Awareness campaign']
-    },
-    {
-      id: 'OP-2023-006',
-      title: 'Operation Mining Trap',
-      type: 'Cloud Mining Fraud',
-      status: 'Closed',
-      recoveredAmount: '$4.7M',
-      victims: 1123,
-      date: 'June 2023',
-      description: 'Fake cryptocurrency mining operation with fabricated mining facilities.',
-      outcomes: ['15 arrests', 'Equipment seizure', 'Victim compensation']
-    },
-    {
-      id: 'OP-2023-003',
-      title: 'Operation Tech Support',
-      type: 'Tech Support Scam',
-      status: 'Closed',
-      recoveredAmount: '$2.8M',
-      victims: 789,
-      date: 'May 2023',
-      description: 'Call center operation targeting elderly with fake computer virus warnings.',
-      outcomes: ['22 arrests', 'Call center shutdown', 'International cooperation']
     }
   ];
+
+  const handleLoadMore = async () => {
+    setLoading(true);
+    // Simulate loading delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setVisibleCases(prev => Math.min(prev + 4, allCases.length));
+    setLoading(false);
+  };
 
   return (
     <Layout>
@@ -208,9 +194,11 @@ const CaseStudies: React.FC = () => {
                       variant="outline" 
                       size="sm" 
                       className="w-full mt-4"
-                      onClick={() => window.location.href = `/case-studies/${case_.id}`}
+                      asChild
                     >
-                      View Full Case Report
+                      <Link to={`/case-studies/${case_.id}`}>
+                        View Full Case Report
+                      </Link>
                     </Button>
                   </CardContent>
                 </Card>
@@ -224,13 +212,7 @@ const CaseStudies: React.FC = () => {
                   variant="outline" 
                   size="lg"
                   disabled={loading}
-                  onClick={async () => {
-                    setLoading(true);
-                    // Simulate loading delay
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                    setVisibleCases(prev => Math.min(prev + 4, allCases.length));
-                    setLoading(false);
-                  }}
+                  onClick={handleLoadMore}
                 >
                   {loading ? (
                     <>

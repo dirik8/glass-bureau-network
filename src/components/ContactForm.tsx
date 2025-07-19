@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,17 +27,68 @@ export function ContactForm({ formType = 'Contact Form', onSuccess }: ContactFor
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke('submit-form', {
-        body: {
+      // First, store the form submission directly in the database
+      const { data: submissionData, error: submissionError } = await supabase
+        .from('form_submissions')
+        .insert({
           form_type: formType,
-          data: formData
-        }
-      });
+          data: formData,
+          status: 'pending'
+        })
+        .select()
+        .single();
 
-      if (error) throw error;
+      if (submissionError) {
+        console.error('Database submission error:', submissionError);
+        throw submissionError;
+      }
+
+      console.log('Form submission stored:', submissionData);
+
+      // Try to send email notification, but don't fail if it doesn't work
+      try {
+        const { error: emailError } = await supabase.functions.invoke('submit-form', {
+          body: {
+            form_type: formType,
+            data: formData,
+            submission_id: submissionData.id
+          }
+        });
+
+        if (emailError) {
+          console.error('Email sending error:', emailError);
+          // Update submission to indicate email failed
+          await supabase
+            .from('form_submissions')
+            .update({ 
+              email_sent: false,
+              email_error: emailError.message 
+            })
+            .eq('id', submissionData.id);
+        } else {
+          // Update submission to indicate email was sent
+          await supabase
+            .from('form_submissions')
+            .update({ 
+              email_sent: true,
+              email_sent_at: new Date().toISOString()
+            })
+            .eq('id', submissionData.id);
+        }
+      } catch (emailError: any) {
+        console.error('Email function error:', emailError);
+        // Update submission to indicate email failed
+        await supabase
+          .from('form_submissions')
+          .update({ 
+            email_sent: false,
+            email_error: emailError.message 
+          })
+          .eq('id', submissionData.id);
+      }
 
       toast({
-        title: "Message Sent",
+        title: "Message Sent Successfully",
         description: "Thank you for your message. We'll get back to you soon.",
       });
 
@@ -53,7 +105,7 @@ export function ContactForm({ formType = 'Contact Form', onSuccess }: ContactFor
       console.error('Form submission error:', error);
       toast({
         title: "Submission Error",
-        description: "Your message was saved but there may have been an issue with email delivery. We'll still get back to you.",
+        description: "There was an error submitting your form. Please try again.",
         variant: "destructive",
       });
     } finally {

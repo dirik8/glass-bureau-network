@@ -13,7 +13,8 @@ import {
   Globe,
   Database,
   Mail,
-  TrendingUp
+  TrendingUp,
+  MessageSquare
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -23,6 +24,7 @@ import { EmailSettings } from '@/components/EmailSettings';
 import { DomainManager } from '@/components/admin/DomainManager';
 import { DatabaseManager } from '@/components/admin/DatabaseManager';
 import { SMTPManager } from '@/components/admin/SMTPManager';
+import { FormSubmissionViewer } from '@/components/admin/FormSubmissionViewer';
 
 const AdminDashboard: React.FC = () => {
   const [stats, setStats] = useState({
@@ -96,7 +98,7 @@ const AdminDashboard: React.FC = () => {
                   <p className="text-sm text-government-gray-600">Form Submissions</p>
                   <p className="text-2xl font-bold text-fbi-blue">{stats.formSubmissions}</p>
                 </div>
-                <Users className="h-8 w-8 text-fbi-blue" />
+                <MessageSquare className="h-8 w-8 text-fbi-blue" />
               </div>
             </CardContent>
           </Card>
@@ -127,16 +129,20 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Main Content */}
-        <Tabs defaultValue="pdfs" className="space-y-6">
+        <Tabs defaultValue="submissions" className="space-y-6">
           <TabsList className="grid w-full grid-cols-7">
+            <TabsTrigger value="submissions">Form Submissions</TabsTrigger>
             <TabsTrigger value="pdfs">PDF Management</TabsTrigger>
             <TabsTrigger value="cases">Case Management</TabsTrigger>
             <TabsTrigger value="domains">Domains</TabsTrigger>
             <TabsTrigger value="database">Database</TabsTrigger>
             <TabsTrigger value="smtp">SMTP & Email</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="submissions">
+            <FormSubmissionViewer />
+          </TabsContent>
 
           <TabsContent value="pdfs">
             <PDFUploadManager />
@@ -185,34 +191,6 @@ const AdminDashboard: React.FC = () => {
 
           <TabsContent value="smtp">
             <SMTPManager />
-          </TabsContent>
-
-          <TabsContent value="analytics">
-            <Card>
-              <CardHeader>
-                <CardTitle>Analytics Dashboard</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="text-center p-4 border rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">98.5%</div>
-                    <div className="text-sm text-government-gray-600">System Uptime</div>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">1,247</div>
-                    <div className="text-sm text-government-gray-600">Total Visitors</div>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg">
-                    <div className="text-2xl font-bold text-orange-600">24</div>
-                    <div className="text-sm text-government-gray-600">Avg. Response Time</div>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">156</div>
-                    <div className="text-sm text-government-gray-600">PDF Downloads</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </TabsContent>
 
           <TabsContent value="settings">
