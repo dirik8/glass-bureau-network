@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Shield, Phone, Search } from 'lucide-react';
+import { Menu, Shield, Phone, Search, FileSearch } from 'lucide-react';
 import ContactModal from '@/components/ContactModal';
 import SearchModal from '@/components/SearchModal';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
@@ -166,6 +166,17 @@ const BureauHeader: React.FC = () => {
             Search
           </Button>
           <Button 
+            variant="outline"
+            size="sm" 
+            className="hidden md:flex"
+            asChild
+          >
+            <Link to="/case-tracker">
+              <FileSearch className="h-4 w-4 mr-2" />
+              Check Case Progress
+            </Link>
+          </Button>
+          <Button 
             size="sm" 
             className="hidden md:flex button-vibrant"
             onClick={() => setContactModalOpen(true)}
@@ -183,6 +194,14 @@ const BureauHeader: React.FC = () => {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background">
               <div className="flex flex-col space-y-4 mt-8">
+                <Link
+                  to="/case-tracker"
+                  className="flex items-center space-x-2 p-3 bg-accent rounded-md text-accent-foreground font-semibold"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <FileSearch className="h-5 w-5" />
+                  <span>Check Case Progress</span>
+                </Link>
                 {navigationItems.map((item) => (
                   <div key={item.title} className="space-y-2">
                     <h3 className="font-semibold text-lg text-primary">{item.title}</h3>

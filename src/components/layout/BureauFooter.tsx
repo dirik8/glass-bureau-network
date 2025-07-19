@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Phone, Mail } from 'lucide-react';
@@ -38,8 +39,9 @@ const BureauFooter: React.FC = () => {
       ]
     },
     {
-      title: 'Business',
+      title: 'Support',
       links: [
+        { title: 'Check Case Progress', href: '/case-tracker' },
         { title: 'Contact Us', href: '/contact-us' },
         { title: 'Careers', href: '/career' },
         { title: 'Services', href: '/services' },
