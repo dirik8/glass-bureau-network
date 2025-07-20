@@ -77,6 +77,61 @@ const CaseStudies: React.FC = () => {
       date: 'July 2023',
       description: 'Instagram and TikTok investment scam targeting young adults.',
       outcomes: ['7 arrests', 'Platform cooperation', 'Awareness campaign']
+    },
+    {
+      id: 'OP-2023-006',
+      title: 'Operation Binary Strike',
+      type: 'Binary Options Fraud',
+      status: 'Closed',
+      recoveredAmount: '$4.7M',
+      victims: 923,
+      date: 'May 2023',
+      description: 'International binary options trading scam with fake brokers and manipulated trading platforms.',
+      outcomes: ['31 arrests', 'Cross-border cooperation', 'Platform shutdown']
+    },
+    {
+      id: 'OP-2023-003',
+      title: 'Operation Task Hunter',
+      type: 'Task-Based Scam',
+      status: 'Closed',
+      recoveredAmount: '$2.9M',
+      victims: 1145,
+      date: 'March 2023',
+      description: 'Sophisticated task-based scam requiring upfront payments for fake micro-job opportunities.',
+      outcomes: ['19 arrests', 'Payment processor cooperation', 'Victim restitution']
+    },
+    {
+      id: 'OP-2022-024',
+      title: 'Operation Pig Farm',
+      type: 'Pig Butchering Scam',
+      status: 'Closed',
+      recoveredAmount: '$8.1M',
+      victims: 456,
+      date: 'December 2022',
+      description: 'Large-scale pig butchering operation targeting wealthy individuals through dating apps and social media.',
+      outcomes: ['42 arrests', 'Cryptocurrency seizure', 'International task force']
+    },
+    {
+      id: 'OP-2022-019',
+      title: 'Operation Forex Phantom',
+      type: 'Forex Trading Scam',
+      status: 'Closed',
+      recoveredAmount: '$6.3M',
+      victims: 789,
+      date: 'October 2022',
+      description: 'Fake forex trading education and signal services targeting inexperienced traders.',
+      outcomes: ['25 arrests', 'Educational resources', 'Regulatory cooperation']
+    },
+    {
+      id: 'OP-2022-015',
+      title: 'Operation Wallet Poison',
+      type: 'Wallet Poisoning',
+      status: 'Closed',
+      recoveredAmount: '$1.5M',
+      victims: 234,
+      date: 'August 2022',
+      description: 'Advanced wallet poisoning attacks targeting high-value cryptocurrency holders.',
+      outcomes: ['12 arrests', 'Technical analysis', 'Security improvements']
     }
   ];
 

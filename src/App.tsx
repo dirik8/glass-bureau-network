@@ -32,6 +32,7 @@ import LedgerSecurityReport from "@/pages/LedgerSecurityReport";
 import QA from "@/pages/QA";
 import Manuals from "@/pages/Manuals";
 import CaseStudies from "@/pages/CaseStudies";
+import CaseStudyDetail from "@/pages/CaseStudyDetail";
 import NewsRoom from "@/pages/NewsRoom";
 import ResearchTeam from "@/pages/ResearchTeam";
 import StateDirectory from "@/pages/StateDirectory";
@@ -137,6 +138,7 @@ const App = () => {
               <Route path="/qa" element={<QA />} />
               <Route path="/manuals" element={<Manuals />} />
               <Route path="/case-studies" element={<CaseStudies />} />
+              <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
               <Route path="/news-room" element={<NewsRoom />} />
               <Route path="/lionsgate-network-research-team" element={<ResearchTeam />} />
               <Route path="/state-intelligence" element={<StateDirectory />} />

@@ -60,11 +60,22 @@ Set proper permissions:
 - Force HTTPS redirects
 - Update any hardcoded HTTP URLs
 
-## Step 5: Testing
+## Step 5: Admin Setup & Testing
+
+### 5.1 Initial Admin Setup
+1. Visit: `https://yoursite.com/admin/setup`
+2. Create first admin account
+3. Save credentials securely
+
+### 5.2 Testing Checklist
 - Test all routes work correctly
 - Verify API connections to Supabase
 - Check console for errors
 - Test form submissions
+- Verify admin dashboard access
+- Test case study detail pages
+- Check all buttons are functional
+- Verify mobile responsiveness
 
 ## Troubleshooting
 
