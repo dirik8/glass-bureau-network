@@ -88,69 +88,38 @@ const getEmailTemplate = (formType: string, formData: any) => {
       `
     },
     'case-update': {
-      subject: 'Case Update: ' + (formData.caseNumber || 'Your Case') + ' - Status Changed',
-      html: 
-        '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; padding: 20px;">' +
-          '<div style="text-align: center; margin-bottom: 30px;">' +
-            '<h1 style="color: #1a365d; margin: 0;">Legion Global Network</h1>' +
-            '<p style="color: #666; margin: 5px 0;">Case Status Update</p>' +
-          '</div>' +
+      subject: \`Case Update: \${formData.caseNumber || 'Your Case'} - Status Changed\`,
+      html: \`
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; padding: 20px;">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #1a365d; margin: 0;">Legion Global Network</h1>
+            <p style="color: #666; margin: 5px 0;">Case Status Update</p>
+          </div>
           
-          '<div style="background: #3182ce; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px;">' +
-            '<h2 style="margin: 0; font-size: 24px;">Case Update</h2>' +
-            '<p style="margin: 10px 0 0 0; font-size: 18px;">Case #' + (formData.caseNumber || 'N/A') + '</p>' +
-          '</div>' +
+          <div style="background: #3182ce; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
+            <h2 style="margin: 0; font-size: 24px;">Case Update</h2>
+            <p style="margin: 10px 0 0 0; font-size: 18px;">Case #\${formData.caseNumber}</p>
+          </div>
           
-          '<div style="background: #e6fffa; padding: 20px; border-radius: 8px; border-left: 4px solid #38b2ac;">' +
-            '<h3 style="color: #234e52; margin-top: 0;">Status: ' + (formData.status || 'Updated') + '</h3>' +
-            '<p style="color: #234e52; margin: 0;">' + (formData.message || 'Case has been updated') + '</p>' +
-          '</div>' +
+          <div style="background: #e6fffa; padding: 20px; border-radius: 8px; border-left: 4px solid #38b2ac;">
+            <h3 style="color: #234e52; margin-top: 0;">Status: \${formData.status || 'Updated'}</h3>
+            <p style="color: #234e52; margin: 0;">\${formData.message}</p>
+          </div>
           
-          '<div style="margin: 20px 0;">' +
-            '<p><strong>What you can do:</strong></p>' +
-            '<ul>' +
-              '<li>Track your case progress anytime at our Case Tracker</li>' +
-              '<li>Contact us if you have questions</li>' +
-              '<li>Check your email for future updates</li>' +
-            '</ul>' +
-          '</div>' +
+          <div style="margin: 20px 0;">
+            <p><strong>What you can do:</strong></p>
+            <ul>
+              <li>Track your case progress anytime at our Case Tracker</li>
+              <li>Contact us if you have questions</li>
+              <li>Check your email for future updates</li>
+            </ul>
+          </div>
           
-          '<div style="background: #1a365d; color: white; padding: 15px; border-radius: 8px; text-align: center;">' +
-            '<p style="margin: 0;">Need assistance? Contact our team 24/7</p>' +
-          '</div>' +
-        '</div>'
-    },
-    'admin-setup': {
-      subject: 'Admin Account Setup - Legion Global Network',
-      html: 
-        '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; padding: 20px;">' +
-          '<div style="text-align: center; margin-bottom: 30px;">' +
-            '<h1 style="color: #1a365d; margin: 0;">🔐 Admin Setup Complete</h1>' +
-            '<p style="color: #666; margin: 5px 0;">Legion Global Network</p>' +
-          '</div>' +
-          
-          '<div style="background: #d4edda; color: #155724; padding: 20px; border-radius: 8px; border: 1px solid #c3e6cb;">' +
-            '<h2 style="margin-top: 0;">✅ Admin Account Created!</h2>' +
-            '<p>Your admin account has been successfully created and configured.</p>' +
-            '<p><strong>Username:</strong> ' + (formData.username || 'Admin') + '</p>' +
-            '<p><strong>Setup Time:</strong> ' + new Date().toISOString() + '</p>' +
-          '</div>' +
-          
-          '<div style="margin: 20px 0;">' +
-            '<p><strong>What you can do now:</strong></p>' +
-            '<ul>' +
-              '<li>Access the admin dashboard</li>' +
-              '<li>Configure system settings</li>' +
-              '<li>Manage user accounts</li>' +
-              '<li>Monitor case submissions</li>' +
-            '</ul>' +
-          '</div>' +
-          
-          '<div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #28a745;">' +
-            '<p style="margin: 0;"><strong>Security Notice:</strong></p>' +
-            '<p style="margin: 5px 0 0 0;">Keep your admin credentials secure and change your password regularly.</p>' +
-          '</div>' +
-        '</div>'
+          <div style="background: #1a365d; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+            <p style="margin: 0;">Need assistance? Contact our team 24/7</p>
+          </div>
+        </div>
+      \`
     }
   };
   

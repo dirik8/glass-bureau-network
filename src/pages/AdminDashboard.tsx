@@ -19,7 +19,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { PDFUploadManager } from '@/components/PDFUploadManager';
-import AdvancedSupabaseConfig from '@/components/admin/AdvancedSupabaseConfig';
+import { DynamicSupabaseConfig } from '@/components/DynamicSupabaseConfig';
 import { EmailSettings } from '@/components/EmailSettings';
 import { DomainManager } from '@/components/admin/DomainManager';
 import { DatabaseManager } from '@/components/admin/DatabaseManager';
@@ -196,7 +196,7 @@ const AdminDashboard: React.FC = () => {
           <TabsContent value="settings">
             <div className="space-y-6">
               <EmailSettings />
-              <AdvancedSupabaseConfig />
+              <DynamicSupabaseConfig />
             </div>
           </TabsContent>
         </Tabs>
