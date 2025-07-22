@@ -25,6 +25,7 @@ import BinaryOptionsScams from "@/pages/BinaryOptionsScams";
 import JobScam from "@/pages/JobScam";
 import AdminLogin from "@/pages/AdminLogin";
 import AdminSetup from "@/pages/AdminSetup";
+import Setup from "@/pages/Setup";
 import Install from "@/pages/Install";
 import AdminDashboard from "@/pages/AdminDashboard";
 import CaseTracker from "@/pages/CaseTracker";
@@ -216,6 +217,7 @@ const App = () => {
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/setup" element={<AdminSetup />} />
+              <Route path="/setup" element={<Setup />} />
               <Route path="/install" element={<Install />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

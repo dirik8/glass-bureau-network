@@ -25,6 +25,8 @@ import { DomainManager } from '@/components/admin/DomainManager';
 import { DatabaseManager } from '@/components/admin/DatabaseManager';
 import { SMTPManager } from '@/components/admin/SMTPManager';
 import { FormSubmissionViewer } from '@/components/admin/FormSubmissionViewer';
+import AuditLogger from '@/components/admin/AuditLogger';
+import SecurityManager from '@/components/admin/SecurityManager';
 
 const AdminDashboard: React.FC = () => {
   const [stats, setStats] = useState({
@@ -130,13 +132,15 @@ const AdminDashboard: React.FC = () => {
 
         {/* Main Content */}
         <Tabs defaultValue="submissions" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-7">
-            <TabsTrigger value="submissions">Form Submissions</TabsTrigger>
-            <TabsTrigger value="pdfs">PDF Management</TabsTrigger>
-            <TabsTrigger value="cases">Case Management</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-9">
+            <TabsTrigger value="submissions">Forms</TabsTrigger>
+            <TabsTrigger value="pdfs">PDFs</TabsTrigger>
+            <TabsTrigger value="cases">Cases</TabsTrigger>
             <TabsTrigger value="domains">Domains</TabsTrigger>
             <TabsTrigger value="database">Database</TabsTrigger>
-            <TabsTrigger value="smtp">SMTP & Email</TabsTrigger>
+            <TabsTrigger value="smtp">SMTP</TabsTrigger>
+            <TabsTrigger value="security">Security</TabsTrigger>
+            <TabsTrigger value="audit">Audit</TabsTrigger>
             <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
 
@@ -191,6 +195,14 @@ const AdminDashboard: React.FC = () => {
 
           <TabsContent value="smtp">
             <SMTPManager />
+          </TabsContent>
+
+          <TabsContent value="security">
+            <SecurityManager />
+          </TabsContent>
+          
+          <TabsContent value="audit">
+            <AuditLogger />
           </TabsContent>
 
           <TabsContent value="settings">
