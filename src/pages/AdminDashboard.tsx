@@ -27,6 +27,8 @@ import { SMTPManager } from '@/components/admin/SMTPManager';
 import { FormSubmissionViewer } from '@/components/admin/FormSubmissionViewer';
 import AuditLogger from '@/components/admin/AuditLogger';
 import SecurityManager from '@/components/admin/SecurityManager';
+import ContactManager from '@/components/admin/ContactManager';
+import AccessCodeGate from '@/components/AccessCodeGate';
 
 const AdminDashboard: React.FC = () => {
   const [stats, setStats] = useState({
@@ -71,149 +73,160 @@ const AdminDashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="container mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-fbi-blue mb-2">Admin Dashboard</h1>
-          <p className="text-government-gray-600">LGN Cybercrime Division - Administrative Panel</p>
-        </div>
+    <AccessCodeGate
+      title="Admin Dashboard Access"
+      description="Enter access code to proceed to admin dashboard"
+      settingKey="admin_access_code"
+    >
+      <div className="min-h-screen bg-background p-6">
+        <div className="container mx-auto">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-fbi-blue mb-2">Admin Dashboard</h1>
+            <p className="text-government-gray-600">LGN Cybercrime Division - Administrative Panel</p>
+          </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-government-gray-600">Total PDFs</p>
-                  <p className="text-2xl font-bold text-fbi-blue">{stats.pdfs}</p>
-                </div>
-                <FileText className="h-8 w-8 text-fbi-blue" />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-government-gray-600">Form Submissions</p>
-                  <p className="text-2xl font-bold text-fbi-blue">{stats.formSubmissions}</p>
-                </div>
-                <MessageSquare className="h-8 w-8 text-fbi-blue" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-government-gray-600">Active Cases</p>
-                  <p className="text-2xl font-bold text-fbi-blue">{stats.cases}</p>
-                </div>
-                <BarChart3 className="h-8 w-8 text-fbi-blue" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-government-gray-600">Domains</p>
-                  <p className="text-2xl font-bold text-fbi-blue">{stats.domains}</p>
-                </div>
-                <Globe className="h-8 w-8 text-fbi-blue" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Main Content */}
-        <Tabs defaultValue="submissions" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-9">
-            <TabsTrigger value="submissions">Forms</TabsTrigger>
-            <TabsTrigger value="pdfs">PDFs</TabsTrigger>
-            <TabsTrigger value="cases">Cases</TabsTrigger>
-            <TabsTrigger value="domains">Domains</TabsTrigger>
-            <TabsTrigger value="database">Database</TabsTrigger>
-            <TabsTrigger value="smtp">SMTP</TabsTrigger>
-            <TabsTrigger value="security">Security</TabsTrigger>
-            <TabsTrigger value="audit">Audit</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="submissions">
-            <FormSubmissionViewer />
-          </TabsContent>
-
-          <TabsContent value="pdfs">
-            <PDFUploadManager />
-          </TabsContent>
-
-          <TabsContent value="cases">
+          {/* Stats Overview */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <Card>
-              <CardHeader>
-                <CardTitle>Case Management System</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-government-gray-600 mb-4">
-                  Comprehensive case tracking and management tools for all submissions.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Card>
-                    <CardContent className="p-4">
-                      <h3 className="font-medium mb-2">Active Cases</h3>
-                      <p className="text-2xl font-bold text-blue-600">{stats.cases}</p>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardContent className="p-4">
-                      <h3 className="font-medium mb-2">Resolved Cases</h3>
-                      <p className="text-2xl font-bold text-green-600">0</p>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardContent className="p-4">
-                      <h3 className="font-medium mb-2">Pending Review</h3>
-                      <p className="text-2xl font-bold text-orange-600">0</p>
-                    </CardContent>
-                  </Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-government-gray-600">Total PDFs</p>
+                    <p className="text-2xl font-bold text-fbi-blue">{stats.pdfs}</p>
+                  </div>
+                  <FileText className="h-8 w-8 text-fbi-blue" />
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
+            
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-government-gray-600">Form Submissions</p>
+                    <p className="text-2xl font-bold text-fbi-blue">{stats.formSubmissions}</p>
+                  </div>
+                  <MessageSquare className="h-8 w-8 text-fbi-blue" />
+                </div>
+              </CardContent>
+            </Card>
 
-          <TabsContent value="domains">
-            <DomainManager />
-          </TabsContent>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-government-gray-600">Active Cases</p>
+                    <p className="text-2xl font-bold text-fbi-blue">{stats.cases}</p>
+                  </div>
+                  <BarChart3 className="h-8 w-8 text-fbi-blue" />
+                </div>
+              </CardContent>
+            </Card>
 
-          <TabsContent value="database">
-            <DatabaseManager />
-          </TabsContent>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-government-gray-600">Domains</p>
+                    <p className="text-2xl font-bold text-fbi-blue">{stats.domains}</p>
+                  </div>
+                  <Globe className="h-8 w-8 text-fbi-blue" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
-          <TabsContent value="smtp">
-            <SMTPManager />
-          </TabsContent>
+          {/* Main Content */}
+          <Tabs defaultValue="submissions" className="space-y-6">
+            <TabsList className="grid w-full grid-cols-10">
+              <TabsTrigger value="submissions">Forms</TabsTrigger>
+              <TabsTrigger value="pdfs">PDFs</TabsTrigger>
+              <TabsTrigger value="cases">Cases</TabsTrigger>
+              <TabsTrigger value="contacts">Contacts</TabsTrigger>
+              <TabsTrigger value="domains">Domains</TabsTrigger>
+              <TabsTrigger value="database">Database</TabsTrigger>
+              <TabsTrigger value="smtp">SMTP</TabsTrigger>
+              <TabsTrigger value="security">Security</TabsTrigger>
+              <TabsTrigger value="audit">Audit</TabsTrigger>
+              <TabsTrigger value="settings">Settings</TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="security">
-            <SecurityManager />
-          </TabsContent>
-          
-          <TabsContent value="audit">
-            <AuditLogger />
-          </TabsContent>
+            <TabsContent value="submissions">
+              <FormSubmissionViewer />
+            </TabsContent>
 
-          <TabsContent value="settings">
-            <div className="space-y-6">
-              <EmailSettings />
-              <DynamicSupabaseConfig />
-            </div>
-          </TabsContent>
-        </Tabs>
+            <TabsContent value="pdfs">
+              <PDFUploadManager />
+            </TabsContent>
+
+            <TabsContent value="cases">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Case Management System</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-government-gray-600 mb-4">
+                    Comprehensive case tracking and management tools for all submissions.
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Card>
+                      <CardContent className="p-4">
+                        <h3 className="font-medium mb-2">Active Cases</h3>
+                        <p className="text-2xl font-bold text-blue-600">{stats.cases}</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-4">
+                        <h3 className="font-medium mb-2">Resolved Cases</h3>
+                        <p className="text-2xl font-bold text-green-600">0</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-4">
+                        <h3 className="font-medium mb-2">Pending Review</h3>
+                        <p className="text-2xl font-bold text-orange-600">0</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="contacts">
+              <ContactManager />
+            </TabsContent>
+
+            <TabsContent value="domains">
+              <DomainManager />
+            </TabsContent>
+
+            <TabsContent value="database">
+              <DatabaseManager />
+            </TabsContent>
+
+            <TabsContent value="smtp">
+              <SMTPManager />
+            </TabsContent>
+
+            <TabsContent value="security">
+              <SecurityManager />
+            </TabsContent>
+            
+            <TabsContent value="audit">
+              <AuditLogger />
+            </TabsContent>
+
+            <TabsContent value="settings">
+              <div className="space-y-6">
+                <EmailSettings />
+                <DynamicSupabaseConfig />
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
-    </div>
+    </AccessCodeGate>
   );
 };
 

@@ -3,16 +3,26 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Shield, Phone, Search, FileSearch } from 'lucide-react';
+import { Menu, Shield, Phone, Search, FileSearch, LogOut } from 'lucide-react';
 import ContactModal from '@/components/ContactModal';
 import SearchModal from '@/components/SearchModal';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
+import { useAuth } from '@/hooks/useAuth';
 
 const BureauHeader: React.FC = () => {
   const { settings } = useSiteSettings();
+  const { user, isAdmin, signOut } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
+
+  const handleLogout = async () => {
+    await signOut();
+    // Clear access granted sessions
+    sessionStorage.removeItem('access_granted_admin_access_code');
+    sessionStorage.removeItem('access_granted_setup_access_code');
+    window.location.href = '/';
+  };
 
   const navigationItems = [
     {
@@ -184,6 +194,19 @@ const BureauHeader: React.FC = () => {
             <Phone className="h-4 w-4 mr-2" />
             Get Help
           </Button>
+
+          {/* Admin Logout Button */}
+          {user && isAdmin && (
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="hidden md:flex text-destructive hover:text-destructive"
+              onClick={handleLogout}
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Logout
+            </Button>
+          )}
 
           {/* Mobile Menu */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
