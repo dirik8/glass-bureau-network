@@ -77,6 +77,48 @@ export type Database = {
         }
         Relationships: []
       }
+      contacts: {
+        Row: {
+          contact_type: string
+          created_at: string
+          description: string | null
+          display_order: number | null
+          id: string
+          is_active: boolean | null
+          is_primary: boolean | null
+          label: string
+          page_location: string | null
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          contact_type: string
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_primary?: boolean | null
+          label: string
+          page_location?: string | null
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          contact_type?: string
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_primary?: boolean | null
+          label?: string
+          page_location?: string | null
+          updated_at?: string
+          value?: string
+        }
+        Relationships: []
+      }
       content_blocks: {
         Row: {
           block_key: string
