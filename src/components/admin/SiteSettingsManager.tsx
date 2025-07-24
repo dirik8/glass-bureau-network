@@ -21,17 +21,24 @@ export function SiteSettingsManager() {
 
   const defaultSettings = {
     // Company Information
-    company_name: 'Cryptocurrency Investigation Bureau',
+    company_name: 'LGN ADVANCED SCAM RECOVERY',
+    division_name: 'CYBERCRIME DIVISION',
     company_tagline: 'Expert Digital Asset Recovery & Blockchain Forensics',
     company_description: 'Leading cryptocurrency investigation firm specializing in blockchain forensics, digital asset recovery, and crypto fraud prevention.',
-    company_email: 'contact@cryptoinvestigationbureau.com',
-    company_phone: '+1 (555) 123-4567',
+    company_email: 'investigations@lionsrecovery.com',
+    company_phone: '+1 (438) 602-5895',
     company_address: '123 Investigation Ave, Digital City, DC 12345',
     
     // Website Configuration
     site_logo: '',
     site_favicon: '',
-    site_footer_text: '© 2024 Cryptocurrency Investigation Bureau. All rights reserved.',
+    site_footer_text: '© 2024 LGN ADVANCED SCAM RECOVERY Cybercrime Division. All rights reserved.',
+    
+    // Footer Contact Details
+    main_phone: '+1 (438) 602-5895',
+    main_email: 'investigations@lionsrecovery.com',
+    footer_description: 'Elite cybercrime investigation and asset recovery specialists. Protecting victims and pursuing digital justice.',
+    footer_copyright: '© 2024 LGN ADVANCED SCAM RECOVERY Cybercrime Division. All rights reserved.',
     
     // Social Media
     social_linkedin: '',
@@ -209,12 +216,20 @@ export function SiteSettingsManager() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Tagline</label>
+                  <label className="block text-sm font-medium mb-1">Division Name</label>
                   <Input
-                    value={settings.company_tagline || ''}
-                    onChange={(e) => handleSetting('company_tagline', e.target.value)}
+                    value={settings.division_name || ''}
+                    onChange={(e) => handleSetting('division_name', e.target.value)}
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Tagline</label>
+                <Input
+                  value={settings.company_tagline || ''}
+                  onChange={(e) => handleSetting('company_tagline', e.target.value)}
+                />
               </div>
 
               <div>
@@ -294,6 +309,41 @@ export function SiteSettingsManager() {
                   value={settings.company_address || ''}
                   onChange={(e) => handleSetting('company_address', e.target.value)}
                   rows={2}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Footer Phone</label>
+                  <Input
+                    value={settings.main_phone || ''}
+                    onChange={(e) => handleSetting('main_phone', e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Footer Email</label>
+                  <Input
+                    type="email"
+                    value={settings.main_email || ''}
+                    onChange={(e) => handleSetting('main_email', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Footer Description</label>
+                <Textarea
+                  value={settings.footer_description || ''}
+                  onChange={(e) => handleSetting('footer_description', e.target.value)}
+                  rows={2}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Footer Copyright</label>
+                <Input
+                  value={settings.footer_copyright || ''}
+                  onChange={(e) => handleSetting('footer_copyright', e.target.value)}
                 />
               </div>
             </CardContent>

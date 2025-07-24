@@ -29,6 +29,7 @@ import AuditLogger from '@/components/admin/AuditLogger';
 import SecurityManager from '@/components/admin/SecurityManager';
 import ContactManager from '@/components/admin/ContactManager';
 import CaseNumberManager from '@/components/admin/CaseNumberManager';
+import { SiteSettingsManager } from '@/components/admin/SiteSettingsManager';
 import AccessCodeGate from '@/components/AccessCodeGate';
 
 const AdminDashboard: React.FC = () => {
@@ -191,6 +192,7 @@ const AdminDashboard: React.FC = () => {
 
             <TabsContent value="settings">
               <div className="space-y-6">
+                <SiteSettingsManager />
                 <EmailSettings />
                 <DynamicSupabaseConfig />
               </div>
