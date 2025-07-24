@@ -28,6 +28,7 @@ import { FormSubmissionViewer } from '@/components/admin/FormSubmissionViewer';
 import AuditLogger from '@/components/admin/AuditLogger';
 import SecurityManager from '@/components/admin/SecurityManager';
 import ContactManager from '@/components/admin/ContactManager';
+import CaseNumberManager from '@/components/admin/CaseNumberManager';
 import AccessCodeGate from '@/components/AccessCodeGate';
 
 const AdminDashboard: React.FC = () => {
@@ -161,36 +162,7 @@ const AdminDashboard: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="cases">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Case Management System</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-government-gray-600 mb-4">
-                    Comprehensive case tracking and management tools for all submissions.
-                  </p>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Card>
-                      <CardContent className="p-4">
-                        <h3 className="font-medium mb-2">Active Cases</h3>
-                        <p className="text-2xl font-bold text-blue-600">{stats.cases}</p>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-4">
-                        <h3 className="font-medium mb-2">Resolved Cases</h3>
-                        <p className="text-2xl font-bold text-green-600">0</p>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-4">
-                        <h3 className="font-medium mb-2">Pending Review</h3>
-                        <p className="text-2xl font-bold text-orange-600">0</p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CardContent>
-              </Card>
+              <CaseNumberManager />
             </TabsContent>
 
             <TabsContent value="contacts">
