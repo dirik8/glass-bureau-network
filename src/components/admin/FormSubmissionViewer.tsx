@@ -178,7 +178,7 @@ export function FormSubmissionViewer() {
       {/* Filters */}
       <Card>
         <CardContent className="p-4">
-          <div className="flex gap-4 items-center">
+          <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -190,39 +190,41 @@ export function FormSubmissionViewer() {
                 />
               </div>
             </div>
-            <div className="w-48">
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Filter by status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Statuses</SelectItem>
-                  <SelectItem value="pending">Pending</SelectItem>
-                  <SelectItem value="reviewed">Reviewed</SelectItem>
-                  <SelectItem value="resolved">Resolved</SelectItem>
-                  <SelectItem value="rejected">Rejected</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="w-48">
-              <Select value={typeFilter} onValueChange={setTypeFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Filter by type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  {getFormTypes().map(type => (
-                    <SelectItem key={type} value={type}>{type}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <div className="flex flex-col sm:flex-row gap-4 lg:w-auto">
+              <div className="w-full sm:w-48">
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Filter by status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Statuses</SelectItem>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="reviewed">Reviewed</SelectItem>
+                    <SelectItem value="resolved">Resolved</SelectItem>
+                    <SelectItem value="rejected">Rejected</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="w-full sm:w-48">
+                <Select value={typeFilter} onValueChange={setTypeFilter}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Filter by type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Types</SelectItem>
+                    {getFormTypes().map(type => (
+                      <SelectItem key={type} value={type}>{type}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Statistics */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold">{submissions.length}</div>
@@ -260,7 +262,7 @@ export function FormSubmissionViewer() {
         {filteredSubmissions.map((submission) => (
           <Card key={submission.id}>
             <CardContent className="p-4">
-              <div className="flex items-start justify-between">
+              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <h3 className="font-semibold">{submission.form_type}</h3>
@@ -273,10 +275,15 @@ export function FormSubmissionViewer() {
                     </span>
                   </div>
                   
-                  <div className="text-sm text-muted-foreground">
-                    {submission.data.name && <span>Name: {submission.data.name}</span>}
-                    {submission.data.email && <span className="ml-4">Email: {submission.data.email}</span>}
-                    {submission.data.phone && <span className="ml-4">Phone: {submission.data.phone}</span>}
+                  <div className="text-sm text-muted-foreground space-y-1">
+                    <div className="flex flex-wrap gap-x-4 gap-y-1">
+                      {submission.data.name && <span>Name: {submission.data.name}</span>}
+                      {submission.data.email && <span>Email: {submission.data.email}</span>}
+                      {submission.data.phone && <span>Phone: {submission.data.phone}</span>}
+                    </div>
+                    {submission.data.case_type && <div>Case Type: {submission.data.case_type}</div>}
+                    {submission.data.amount_lost && <div>Amount Lost: ${submission.data.amount_lost}</div>}
+                    {submission.data.incident_date && <div>Incident Date: {submission.data.incident_date}</div>}
                   </div>
                   
                   {submission.data.message && (
@@ -289,12 +296,12 @@ export function FormSubmissionViewer() {
                   )}
                 </div>
                 
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2 mt-2 sm:mt-0">
                   <Select 
                     value={submission.status} 
                     onValueChange={(value) => updateSubmissionStatus(submission.id, value)}
                   >
-                    <SelectTrigger className="w-32">
+                    <SelectTrigger className="w-full sm:w-32">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -315,13 +322,13 @@ export function FormSubmissionViewer() {
                         <Eye className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto mx-4 sm:mx-auto">
                       <DialogHeader>
                         <DialogTitle>Form Submission Details</DialogTitle>
                       </DialogHeader>
                       {selectedSubmission && (
                         <div className="space-y-4">
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                               <strong>Type:</strong> {selectedSubmission.form_type}
                             </div>

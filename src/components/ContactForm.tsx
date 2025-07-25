@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,7 +12,7 @@ interface ContactFormProps {
   onSuccess?: () => void;
 }
 
-export function ContactForm({ formType = 'Contact Form', onSuccess }: ContactFormProps) {
+export function ContactForm({ formType = 'contact', onSuccess }: ContactFormProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,7 +20,31 @@ export function ContactForm({ formType = 'Contact Form', onSuccess }: ContactFor
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formTemplate, setFormTemplate] = useState<any>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    loadFormTemplate();
+  }, [formType]);
+
+  const loadFormTemplate = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('form_templates')
+        .select('*')
+        .eq('form_type', formType)
+        .eq('is_active', true)
+        .single();
+
+      if (error && error.code !== 'PGRST116') { // Not found error is ok
+        console.error('Error loading form template:', error);
+      } else if (data) {
+        setFormTemplate(data);
+      }
+    } catch (error) {
+      console.error('Error fetching form template:', error);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +57,8 @@ export function ContactForm({ formType = 'Contact Form', onSuccess }: ContactFor
         .insert({
           form_type: formType,
           data: formData,
-          status: 'pending'
+          status: 'pending',
+          template_id: formTemplate?.id || null
         })
         .select()
         .single();
@@ -87,9 +112,11 @@ export function ContactForm({ formType = 'Contact Form', onSuccess }: ContactFor
           .eq('id', submissionData.id);
       }
 
+      const successMessage = formTemplate?.success_message || "Thank you for your message. We'll get back to you soon.";
+      
       toast({
         title: "Message Sent Successfully",
-        description: "Thank you for your message. We'll get back to you soon.",
+        description: successMessage,
       });
 
       // Reset form

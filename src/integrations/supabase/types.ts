@@ -210,6 +210,7 @@ export type Database = {
           id: string
           status: string | null
           submitted_at: string | null
+          template_id: string | null
         }
         Insert: {
           data: Json
@@ -220,6 +221,7 @@ export type Database = {
           id?: string
           status?: string | null
           submitted_at?: string | null
+          template_id?: string | null
         }
         Update: {
           data?: Json
@@ -230,8 +232,17 @@ export type Database = {
           id?: string
           status?: string | null
           submitted_at?: string | null
+          template_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "form_submissions_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "form_templates"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       form_templates: {
         Row: {

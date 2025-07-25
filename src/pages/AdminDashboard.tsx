@@ -30,6 +30,7 @@ import SecurityManager from '@/components/admin/SecurityManager';
 import ContactManager from '@/components/admin/ContactManager';
 import CaseNumberManager from '@/components/admin/CaseNumberManager';
 import { SiteSettingsManager } from '@/components/admin/SiteSettingsManager';
+import { FormTemplateManager } from '@/components/admin/FormTemplateManager';
 import AccessCodeGate from '@/components/AccessCodeGate';
 
 const AdminDashboard: React.FC = () => {
@@ -89,7 +90,7 @@ const AdminDashboard: React.FC = () => {
           </div>
 
           {/* Stats Overview */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -141,21 +142,28 @@ const AdminDashboard: React.FC = () => {
 
           {/* Main Content */}
           <Tabs defaultValue="submissions" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-10">
-              <TabsTrigger value="submissions">Forms</TabsTrigger>
-              <TabsTrigger value="pdfs">PDFs</TabsTrigger>
-              <TabsTrigger value="cases">Cases</TabsTrigger>
-              <TabsTrigger value="contacts">Contacts</TabsTrigger>
-              <TabsTrigger value="domains">Domains</TabsTrigger>
-              <TabsTrigger value="database">Database</TabsTrigger>
-              <TabsTrigger value="smtp">SMTP</TabsTrigger>
-              <TabsTrigger value="security">Security</TabsTrigger>
-              <TabsTrigger value="audit">Audit</TabsTrigger>
-              <TabsTrigger value="settings">Settings</TabsTrigger>
-            </TabsList>
+            <div className="overflow-x-auto">
+              <TabsList className="grid w-full min-w-[800px] grid-cols-11 md:min-w-0">
+                <TabsTrigger value="submissions" className="text-xs md:text-sm">Forms</TabsTrigger>
+                <TabsTrigger value="templates" className="text-xs md:text-sm">Templates</TabsTrigger>
+                <TabsTrigger value="pdfs" className="text-xs md:text-sm">PDFs</TabsTrigger>
+                <TabsTrigger value="cases" className="text-xs md:text-sm">Cases</TabsTrigger>
+                <TabsTrigger value="contacts" className="text-xs md:text-sm">Contacts</TabsTrigger>
+                <TabsTrigger value="domains" className="text-xs md:text-sm">Domains</TabsTrigger>
+                <TabsTrigger value="database" className="text-xs md:text-sm">Database</TabsTrigger>
+                <TabsTrigger value="smtp" className="text-xs md:text-sm">SMTP</TabsTrigger>
+                <TabsTrigger value="security" className="text-xs md:text-sm">Security</TabsTrigger>
+                <TabsTrigger value="audit" className="text-xs md:text-sm">Audit</TabsTrigger>
+                <TabsTrigger value="settings" className="text-xs md:text-sm">Settings</TabsTrigger>
+              </TabsList>
+            </div>
 
             <TabsContent value="submissions">
               <FormSubmissionViewer />
+            </TabsContent>
+
+            <TabsContent value="templates">
+              <FormTemplateManager />
             </TabsContent>
 
             <TabsContent value="pdfs">
