@@ -131,33 +131,33 @@ const ServicesSection: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-20 bg-government-gray-50">
-      <div className="container">
+    <section id="services" className="py-12 sm:py-16 lg:py-20 bg-government-gray-50">
+      <div className="container px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center space-x-3 mb-6">
-            <Shield className="h-12 w-12 text-fbi-blue" />
-            <div>
-              <h2 className="text-4xl font-bold text-fbi-blue">LGN in conjunction with FBI's Cybercrime Services</h2>
-              <p className="text-government-gray-600">Comprehensive investigation and victim assistance programs</p>
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-3 mb-4 sm:mb-6">
+            <Shield className="h-10 w-10 sm:h-12 sm:w-12 text-fbi-blue flex-shrink-0" />
+            <div className="text-center sm:text-left">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-fbi-blue">LGN in conjunction with FBI's Cybercrime Services</h2>
+              <p className="text-sm sm:text-base text-government-gray-600">Comprehensive investigation and victim assistance programs</p>
             </div>
           </div>
-          <p className="text-xl text-government-gray-700 max-w-4xl mx-auto">
+          <p className="text-lg sm:text-xl text-government-gray-700 max-w-4xl mx-auto">
             LGN in conjunction with FBI's Cybercrime Division provides specialized investigation units, victim assistance programs, 
             prevention resources, and cutting-edge digital forensics to combat cyber threats nationwide.
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="space-y-16">
+        <div className="space-y-12 sm:space-y-16">
           {services.map((category) => (
             <div key={category.category}>
-              <div className="flex items-center space-x-3 mb-8">
-                <category.icon className="h-8 w-8 text-fbi-blue" />
-                <h3 className="text-2xl font-bold text-fbi-blue">{category.category}</h3>
+              <div className="flex items-center space-x-3 mb-6 sm:mb-8">
+                <category.icon className="h-6 w-6 sm:h-8 sm:w-8 text-fbi-blue flex-shrink-0" />
+                <h3 className="text-xl sm:text-2xl font-bold text-fbi-blue">{category.category}</h3>
               </div>
               
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 {category.services.map((service, index) => (
                   <Card key={index} className="government-card hover:shadow-lg transition-all duration-300 group">
                     <CardHeader>
@@ -199,23 +199,24 @@ const ServicesSection: React.FC = () => {
         </div>
 
         {/* Emergency Contact Section */}
-        <div className="mt-16 text-center">
+        <div className="mt-12 sm:mt-16 text-center">
           <Card className="government-card border-red-200 bg-red-50">
-            <CardContent className="p-8">
-              <div className="flex items-center justify-center space-x-3 mb-4">
-                <AlertTriangle className="h-8 w-8 text-red-600" />
-                <h3 className="text-2xl font-bold text-red-600">Emergency Cybercrime Reporting</h3>
+            <CardContent className="p-6 sm:p-8">
+              <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-3 mb-4">
+                <AlertTriangle className="h-6 w-6 sm:h-8 sm:w-8 text-red-600 flex-shrink-0" />
+                <h3 className="text-xl sm:text-2xl font-bold text-red-600 text-center sm:text-left">Emergency Cybercrime Reporting</h3>
               </div>
-              <p className="text-government-gray-700 mb-6 max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base text-government-gray-700 mb-4 sm:mb-6 max-w-2xl mx-auto">
                 If you are currently being victimized by cybercrime or have suffered recent financial losses, 
                 contact our emergency response team immediately.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="emergency" asChild>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                <Button size="lg" variant="emergency" asChild className="text-sm sm:text-base">
                   <Link to="/contact-us">File Emergency Report</Link>
                 </Button>
-                <Button size="lg" variant="emergency">
-                  Emergency Hotline: {settings.emergency_phone || '(438) 602-5895'}
+                <Button size="lg" variant="emergency" className="text-sm sm:text-base">
+                  <span className="hidden sm:inline">Emergency Hotline: {settings.emergency_phone || '(438) 602-5895'}</span>
+                  <span className="sm:hidden">Call: {settings.emergency_phone || '(438) 602-5895'}</span>
                 </Button>
               </div>
             </CardContent>
@@ -223,22 +224,22 @@ const ServicesSection: React.FC = () => {
         </div>
 
         {/* Statistics Footer */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+        <div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
           <div className="space-y-2">
-            <div className="text-3xl font-bold text-fbi-blue">{settings.total_cases_closed || '127'}</div>
-            <div className="text-sm text-government-gray-600">Cases Closed (2024)</div>
+            <div className="text-2xl sm:text-3xl font-bold text-fbi-blue">{settings.total_cases_closed || '127'}</div>
+            <div className="text-xs sm:text-sm text-government-gray-600">Cases Closed (2024)</div>
           </div>
           <div className="space-y-2">
-            <div className="text-3xl font-bold text-fbi-blue">{settings.assets_recovered || '$24.8M'}</div>
-            <div className="text-sm text-government-gray-600">Assets Recovered</div>
+            <div className="text-2xl sm:text-3xl font-bold text-fbi-blue">{settings.assets_recovered || '$24.8M'}</div>
+            <div className="text-xs sm:text-sm text-government-gray-600">Assets Recovered</div>
           </div>
           <div className="space-y-2">
-            <div className="text-3xl font-bold text-fbi-blue">{settings.victims_assisted || '3,847'}</div>
-            <div className="text-sm text-government-gray-600">Victims Assisted</div>
+            <div className="text-2xl sm:text-3xl font-bold text-fbi-blue">{settings.victims_assisted || '3,847'}</div>
+            <div className="text-xs sm:text-sm text-government-gray-600">Victims Assisted</div>
           </div>
           <div className="space-y-2">
-            <div className="text-3xl font-bold text-fbi-blue">{settings.recovery_success_rate || '89%'}</div>
-            <div className="text-sm text-government-gray-600">Recovery Success Rate</div>
+            <div className="text-2xl sm:text-3xl font-bold text-fbi-blue">{settings.recovery_success_rate || '89%'}</div>
+            <div className="text-xs sm:text-sm text-government-gray-600">Recovery Success Rate</div>
           </div>
         </div>
       </div>

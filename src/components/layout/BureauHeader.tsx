@@ -122,13 +122,13 @@ const BureauHeader: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-16 items-center justify-between px-4 sm:px-6">
         {/* Dynamic Company Logo */}
-        <Link to="/" className="flex items-center space-x-3">
-          <Shield className="h-10 w-10 text-primary" />
+        <Link to="/" className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+          <Shield className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
           <div className="flex flex-col">
-            <span className="font-bold text-xl leading-none vibrant-text">{settings.company_name || 'LGN ADVANCED SCAM RECOVERY'}</span>
-            <span className="text-xs text-muted-foreground leading-none font-bold">{settings.division_name || 'LGN CYBERCRIME DIVISION'}</span>
+            <span className="font-bold text-sm sm:text-lg lg:text-xl leading-none vibrant-text">{settings.company_name || 'LGN ADVANCED SCAM RECOVERY'}</span>
+            <span className="text-xs text-muted-foreground leading-none font-bold hidden sm:block">{settings.division_name || 'LGN CYBERCRIME DIVISION'}</span>
           </div>
         </Link>
 
@@ -165,11 +165,11 @@ const BureauHeader: React.FC = () => {
         </NavigationMenu>
 
         {/* Action Buttons */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1 sm:space-x-2">
           <Button 
             variant="ghost" 
             size="sm" 
-            className="hidden md:flex text-muted-foreground hover:text-primary"
+            className="hidden lg:flex text-muted-foreground hover:text-primary"
             onClick={() => setSearchModalOpen(true)}
           >
             <Search className="h-4 w-4 mr-2" />
@@ -178,21 +178,23 @@ const BureauHeader: React.FC = () => {
           <Button 
             variant="outline"
             size="sm" 
-            className="hidden md:flex"
+            className="hidden lg:flex"
             asChild
           >
             <Link to="/case-tracker">
-              <FileSearch className="h-4 w-4 mr-2" />
-              Check Case Progress
+              <FileSearch className="h-4 w-4 mr-1 lg:mr-2" />
+              <span className="hidden xl:inline">Check Case Progress</span>
+              <span className="xl:hidden">Cases</span>
             </Link>
           </Button>
           <Button 
             size="sm" 
-            className="hidden md:flex button-vibrant"
+            className="hidden lg:flex button-vibrant"
             onClick={() => setContactModalOpen(true)}
           >
-            <Phone className="h-4 w-4 mr-2" />
-            Get Help
+            <Phone className="h-4 w-4 mr-1 lg:mr-2" />
+            <span className="hidden xl:inline">Get Help</span>
+            <span className="xl:hidden">Help</span>
           </Button>
 
           {/* Admin Logout Button */}
@@ -200,11 +202,12 @@ const BureauHeader: React.FC = () => {
             <Button 
               variant="outline" 
               size="sm" 
-              className="hidden md:flex text-destructive hover:text-destructive"
+              className="hidden lg:flex text-destructive hover:text-destructive"
               onClick={handleLogout}
             >
-              <LogOut className="h-4 w-4 mr-2" />
-              Logout
+              <LogOut className="h-4 w-4 mr-1 lg:mr-2" />
+              <span className="hidden xl:inline">Logout</span>
+              <span className="xl:hidden">Out</span>
             </Button>
           )}
 

@@ -13,22 +13,25 @@ const EmergencyBanner: React.FC = () => {
   }
 
   return (
-    <div className="bg-destructive text-destructive-foreground py-3">
-      <div className="container">
-        <div className="flex items-center justify-center space-x-4 text-center">
-          <AlertTriangle className="h-5 w-5" />
-          <span className="font-semibold">
-            {settings.emergency_banner_text || 'FRAUD VICTIM? Report immediately to LGN Recovery Division for asset recovery assistance.'}
-          </span>
+    <div className="bg-destructive text-destructive-foreground py-2 sm:py-3">
+      <div className="container px-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-center">
+          <div className="flex items-center space-x-2">
+            <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+            <span className="font-semibold text-sm sm:text-base">
+              {settings.emergency_banner_text || 'FRAUD VICTIM? Report immediately to LGN Recovery Division for asset recovery assistance.'}
+            </span>
+          </div>
           <Button 
             size="sm" 
             variant="emergency" 
             asChild
-            className="font-bold shadow-xl"
+            className="font-bold shadow-xl text-xs sm:text-sm flex-shrink-0"
           >
             <Link to="/contact-us" className="flex items-center space-x-1">
-              <Phone className="h-4 w-4" />
-              <span>EMERGENCY: {settings.emergency_phone || '+1 (438) 602-5895'}</span>
+              <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">EMERGENCY: {settings.emergency_phone || '+1 (438) 602-5895'}</span>
+              <span className="sm:hidden">EMERGENCY</span>
             </Link>
           </Button>
         </div>
