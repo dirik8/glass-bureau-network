@@ -141,60 +141,50 @@ export function ContactForm({ formType = 'contact', onSuccess }: ContactFormProp
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-        <div>
-          <Label htmlFor="name" className="text-sm font-medium">Name *</Label>
-          <Input
-            id="name"
-            value={formData.name}
-            onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-            required
-            className="mt-1 h-10 sm:h-11"
-          />
-        </div>
-        
-        <div>
-          <Label htmlFor="email" className="text-sm font-medium">Email *</Label>
-          <Input
-            id="email"
-            type="email"
-            value={formData.email}
-            onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-            required
-            className="mt-1 h-10 sm:h-11"
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <Label htmlFor="name">Name *</Label>
+        <Input
+          id="name"
+          value={formData.name}
+          onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+          required
+        />
       </div>
       
       <div>
-        <Label htmlFor="phone" className="text-sm font-medium">Phone</Label>
+        <Label htmlFor="email">Email *</Label>
+        <Input
+          id="email"
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+          required
+        />
+      </div>
+      
+      <div>
+        <Label htmlFor="phone">Phone</Label>
         <Input
           id="phone"
           type="tel"
           value={formData.phone}
           onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-          className="mt-1 h-10 sm:h-11"
         />
       </div>
       
       <div>
-        <Label htmlFor="message" className="text-sm font-medium">Message *</Label>
+        <Label htmlFor="message">Message *</Label>
         <Textarea
           id="message"
           rows={4}
           value={formData.message}
           onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
           required
-          className="mt-1 min-h-[100px] resize-none"
         />
       </div>
 
-      <Button 
-        type="submit" 
-        disabled={isSubmitting} 
-        className="w-full h-11 sm:h-12 text-sm sm:text-base font-semibold"
-      >
+      <Button type="submit" disabled={isSubmitting} className="w-full">
         {isSubmitting ? 'Sending...' : 'Send Message'}
       </Button>
     </form>

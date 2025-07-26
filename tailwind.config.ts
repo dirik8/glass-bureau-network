@@ -13,32 +13,10 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: {
-        DEFAULT: "1rem",
-        xs: "1rem",
-        sm: "1.5rem", 
-        md: "2rem",
-        lg: "2.5rem",
-        xl: "3rem",
-        "2xl": "4rem",
-      },
+      padding: '2rem',
       screens: {
-        xs: "375px",
-        sm: "640px",
-        md: "768px", 
-        lg: "1024px",
-        xl: "1280px",
-        "2xl": "1400px",
-      },
-    },
-    screens: {
-      xs: "375px",
-      sm: "640px", 
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
-      "3xl": "1920px",
+        '2xl': '1400px'
+      }
     },
     extend: {
       colors: {
@@ -143,25 +121,6 @@ export default {
       fontSize: {
         'government-xl': 'clamp(2.5rem, 5vw, 4rem)',
         'government-lg': 'clamp(1.75rem, 3vw, 2.5rem)',
-        'xs': ['clamp(0.7rem, 0.8vw, 0.75rem)', { lineHeight: '1.2' }],
-        'sm': ['clamp(0.8rem, 1vw, 0.875rem)', { lineHeight: '1.3' }], 
-        'base': ['clamp(0.9rem, 1.2vw, 1rem)', { lineHeight: '1.5' }],
-        'lg': ['clamp(1rem, 1.4vw, 1.125rem)', { lineHeight: '1.5' }],
-        'xl': ['clamp(1.1rem, 1.6vw, 1.25rem)', { lineHeight: '1.4' }],
-        '2xl': ['clamp(1.3rem, 2vw, 1.5rem)', { lineHeight: '1.3' }],
-        '3xl': ['clamp(1.6rem, 2.5vw, 1.875rem)', { lineHeight: '1.2' }],
-        '4xl': ['clamp(2rem, 3vw, 2.25rem)', { lineHeight: '1.1' }],
-        '5xl': ['clamp(2.5rem, 4vw, 3rem)', { lineHeight: '1' }],
-        '6xl': ['clamp(3rem, 5vw, 3.75rem)', { lineHeight: '1' }],
-      },
-      spacing: {
-        'fluid-xs': 'clamp(0.5rem, 1vw, 0.75rem)',
-        'fluid-sm': 'clamp(0.75rem, 1.5vw, 1rem)', 
-        'fluid-md': 'clamp(1rem, 2vw, 1.5rem)',
-        'fluid-lg': 'clamp(1.5rem, 3vw, 2rem)',
-        'fluid-xl': 'clamp(2rem, 4vw, 3rem)',
-        'fluid-2xl': 'clamp(3rem, 5vw, 4rem)',
-        'fluid-3xl': 'clamp(4rem, 6vw, 6rem)',
       }
     }
   },

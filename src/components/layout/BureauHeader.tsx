@@ -122,26 +122,26 @@ const BureauHeader: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
-      <div className="container flex h-14 sm:h-16 md:h-18 items-center justify-between px-2 sm:px-4 md:px-6">
+      <div className="container flex h-16 items-center justify-between px-4 sm:px-6">
         {/* Dynamic Company Logo */}
-        <Link to="/" className="flex items-center space-x-2 sm:space-x-3 flex-shrink min-w-0">
-          <Shield className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-primary flex-shrink-0" />
-          <div className="flex flex-col min-w-0">
-            <span className="font-bold text-xs sm:text-sm md:text-lg lg:text-xl leading-none vibrant-text truncate">{settings.company_name || 'LGN ADVANCED SCAM RECOVERY'}</span>
-            <span className="text-xs text-muted-foreground leading-none font-bold hidden xs:block truncate">{settings.division_name || 'LGN CYBERCRIME DIVISION'}</span>
+        <Link to="/" className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+          <Shield className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
+          <div className="flex flex-col">
+            <span className="font-bold text-sm sm:text-lg lg:text-xl leading-none vibrant-text">{settings.company_name || 'LGN ADVANCED SCAM RECOVERY'}</span>
+            <span className="text-xs text-muted-foreground leading-none font-bold hidden sm:block">{settings.division_name || 'LGN CYBERCRIME DIVISION'}</span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <NavigationMenu className="hidden lg:flex flex-1 justify-center">
-          <NavigationMenuList className="space-x-1 xl:space-x-2">
+        <NavigationMenu className="hidden lg:flex">
+          <NavigationMenuList>
             {navigationItems.map((item) => (
               <NavigationMenuItem key={item.title}>
-                <NavigationMenuTrigger className="h-8 lg:h-9 px-2 lg:px-3 xl:px-4 py-2 text-xs lg:text-sm text-foreground hover:text-primary font-medium">
+                <NavigationMenuTrigger className="h-9 px-4 py-2 text-foreground hover:text-primary font-medium">
                   {item.title}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid w-[300px] gap-2 p-3 sm:w-[400px] sm:gap-3 sm:p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] xl:w-[700px] bg-background border border-border">
+                  <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-background border border-border">
                     {item.items.map((subItem) => (
                       <NavigationMenuLink
                         key={subItem.href}
@@ -149,9 +149,9 @@ const BureauHeader: React.FC = () => {
                       >
                         <Link
                           to={subItem.href}
-                          className="block select-none space-y-1 rounded-md p-2 xl:p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                         >
-                          <div className="text-xs xl:text-sm font-medium leading-none">
+                          <div className="text-sm font-medium leading-none">
                             {subItem.title}
                           </div>
                         </Link>
@@ -165,35 +165,36 @@ const BureauHeader: React.FC = () => {
         </NavigationMenu>
 
         {/* Action Buttons */}
-        <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
+        <div className="flex items-center space-x-1 sm:space-x-2">
           <Button 
             variant="ghost" 
             size="sm" 
-            className="hidden md:flex text-muted-foreground hover:text-primary px-2 lg:px-3"
+            className="hidden lg:flex text-muted-foreground hover:text-primary"
             onClick={() => setSearchModalOpen(true)}
           >
-            <Search className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
-            <span className="hidden lg:inline text-xs lg:text-sm">Search</span>
+            <Search className="h-4 w-4 mr-2" />
+            Search
           </Button>
           <Button 
             variant="outline"
             size="sm" 
-            className="hidden md:flex px-2 lg:px-3"
+            className="hidden lg:flex"
             asChild
           >
             <Link to="/case-tracker">
-              <FileSearch className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
-              <span className="hidden lg:inline text-xs lg:text-sm">Cases</span>
-              <span className="lg:hidden text-xs">Track</span>
+              <FileSearch className="h-4 w-4 mr-1 lg:mr-2" />
+              <span className="hidden xl:inline">Check Case Progress</span>
+              <span className="xl:hidden">Cases</span>
             </Link>
           </Button>
           <Button 
             size="sm" 
-            className="button-vibrant px-2 sm:px-3"
+            className="hidden lg:flex button-vibrant"
             onClick={() => setContactModalOpen(true)}
           >
-            <Phone className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-            <span className="text-xs sm:text-sm">Help</span>
+            <Phone className="h-4 w-4 mr-1 lg:mr-2" />
+            <span className="hidden xl:inline">Get Help</span>
+            <span className="xl:hidden">Help</span>
           </Button>
 
           {/* Admin Logout Button */}
@@ -201,46 +202,36 @@ const BureauHeader: React.FC = () => {
             <Button 
               variant="outline" 
               size="sm" 
-              className="hidden lg:flex text-destructive hover:text-destructive px-2 lg:px-3"
+              className="hidden lg:flex text-destructive hover:text-destructive"
               onClick={handleLogout}
             >
-              <LogOut className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
-              <span className="text-xs lg:text-sm">Out</span>
+              <LogOut className="h-4 w-4 mr-1 lg:mr-2" />
+              <span className="hidden xl:inline">Logout</span>
+              <span className="xl:hidden">Out</span>
             </Button>
           )}
 
           {/* Mobile Menu */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="sm" className="p-1 sm:p-2">
-                <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
+              <Button variant="ghost" size="sm">
+                <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[280px] xs:w-[320px] sm:w-[400px] bg-background overflow-y-auto">
-              <div className="flex flex-col space-y-4 mt-6">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background">
+              <div className="flex flex-col space-y-4 mt-8">
                 <Link
                   to="/case-tracker"
                   className="flex items-center space-x-2 p-3 bg-accent rounded-md text-accent-foreground font-semibold"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <FileSearch className="h-5 w-5" />
-                  <span className="text-sm">Check Case Progress</span>
+                  <span>Check Case Progress</span>
                 </Link>
-                <Button 
-                  variant="ghost"
-                  className="w-full justify-start p-3 text-left"
-                  onClick={() => {
-                    setSearchModalOpen(true);
-                    setMobileMenuOpen(false);
-                  }}
-                >
-                  <Search className="h-5 w-5 mr-2" />
-                  <span className="text-sm">Search</span>
-                </Button>
                 {navigationItems.map((item) => (
                   <div key={item.title} className="space-y-2">
-                    <h3 className="font-semibold text-base sm:text-lg text-primary">{item.title}</h3>
-                    <div className="grid gap-1 pl-4">
+                    <h3 className="font-semibold text-lg text-primary">{item.title}</h3>
+                    <div className="grid gap-2 pl-4">
                       {item.items.map((subItem) => (
                         <Link
                           key={subItem.href}
@@ -254,19 +245,6 @@ const BureauHeader: React.FC = () => {
                     </div>
                   </div>
                 ))}
-                {user && isAdmin && (
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start p-3 text-destructive hover:text-destructive"
-                    onClick={() => {
-                      handleLogout();
-                      setMobileMenuOpen(false);
-                    }}
-                  >
-                    <LogOut className="h-5 w-5 mr-2" />
-                    <span className="text-sm">Logout</span>
-                  </Button>
-                )}
               </div>
             </SheetContent>
           </Sheet>
