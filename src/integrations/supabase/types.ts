@@ -283,6 +283,30 @@ export type Database = {
         }
         Relationships: []
       }
+      generic_table: {
+        Row: {
+          created_at: string | null
+          data_key: string
+          data_value: string | null
+          id: number
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          data_key: string
+          data_value?: string | null
+          id?: never
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          data_key?: string
+          data_value?: string | null
+          id?: never
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       navigation_items: {
         Row: {
           created_at: string
@@ -479,27 +503,27 @@ export type Database = {
       }
       site_settings: {
         Row: {
-          created_at: string
+          created_at: string | null
           description: string | null
           id: string
           key: string
-          updated_at: string
+          updated_at: string | null
           value: string
         }
         Insert: {
-          created_at?: string
+          created_at?: string | null
           description?: string | null
           id?: string
           key: string
-          updated_at?: string
+          updated_at?: string | null
           value: string
         }
         Update: {
-          created_at?: string
+          created_at?: string | null
           description?: string | null
           id?: string
           key?: string
-          updated_at?: string
+          updated_at?: string | null
           value?: string
         }
         Relationships: []

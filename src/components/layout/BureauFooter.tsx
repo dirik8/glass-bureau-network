@@ -53,16 +53,16 @@ const BureauFooter: React.FC = () => {
 
   return (
     <footer className="bg-muted text-muted-foreground">
-      <div className="container py-12">
+      <div className="container py-8 sm:py-12 px-4 sm:px-6">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
           {/* Company Info */}
-          <div className="lg:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-1">
               <div className="flex items-center space-x-2 mb-4">
-                <Shield className="h-8 w-8 text-primary" />
-                <div className="flex flex-col">
-                  <span className="font-bold text-lg leading-none vibrant-text">{settings.company_name || 'LGN ADVANCED SCAM RECOVERY'}</span>
-                  <span className="text-xs text-muted-foreground leading-none font-bold">{settings.division_name || 'CYBERCRIME DIVISION'}</span>
+                <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-primary flex-shrink-0" />
+                <div className="flex flex-col min-w-0">
+                  <span className="font-bold text-fluid-base sm:text-fluid-lg leading-tight vibrant-text truncate">{settings.company_name || 'LGN ADVANCED SCAM RECOVERY'}</span>
+                  <span className="text-fluid-xs text-muted-foreground leading-tight font-bold truncate">{settings.division_name || 'CYBERCRIME DIVISION'}</span>
                 </div>
               </div>
             <p className="text-sm text-muted-foreground mb-4">
@@ -103,8 +103,8 @@ const BureauFooter: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-border mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="border-t border-border mt-8 sm:mt-12 pt-6 sm:pt-8">
+          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 text-center sm:text-left">
             <div className="text-sm text-muted-foreground">
               {settings.footer_copyright || '© 2024 LGN ADVANCED SCAM RECOVERY Cybercrime Division. All rights reserved.'}
             </div>

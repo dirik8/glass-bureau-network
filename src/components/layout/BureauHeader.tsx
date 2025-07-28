@@ -122,13 +122,13 @@ const BureauHeader: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
-      <div className="container flex h-14 sm:h-16 md:h-18 items-center justify-between px-2 sm:px-4 md:px-6">
+      <div className="container flex h-16 sm:h-18 lg:h-20 items-center justify-between px-4 sm:px-6">
         {/* Dynamic Company Logo */}
-        <Link to="/" className="flex items-center space-x-2 sm:space-x-3 flex-shrink min-w-0">
-          <Shield className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-primary flex-shrink-0" />
+        <Link to="/" className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0 min-w-0 max-w-[60%] sm:max-w-none">
+          <Shield className="h-7 w-7 sm:h-9 sm:w-9 lg:h-10 lg:w-10 text-primary flex-shrink-0" />
           <div className="flex flex-col min-w-0">
-            <span className="font-bold text-xs sm:text-sm md:text-lg lg:text-xl leading-none vibrant-text truncate">{settings.company_name || 'LGN ADVANCED SCAM RECOVERY'}</span>
-            <span className="text-xs text-muted-foreground leading-none font-bold hidden xs:block truncate">{settings.division_name || 'LGN CYBERCRIME DIVISION'}</span>
+            <span className="font-bold text-fluid-xs sm:text-fluid-sm lg:text-fluid-lg leading-tight vibrant-text truncate">{settings.company_name || 'LGN ADVANCED SCAM RECOVERY'}</span>
+            <span className="text-fluid-xs text-muted-foreground leading-tight font-bold hidden sm:block truncate">{settings.division_name || 'LGN CYBERCRIME DIVISION'}</span>
           </div>
         </Link>
 
@@ -165,7 +165,7 @@ const BureauHeader: React.FC = () => {
         </NavigationMenu>
 
         {/* Action Buttons */}
-        <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
+        <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0 min-w-0">
           <Button 
             variant="ghost" 
             size="sm" 

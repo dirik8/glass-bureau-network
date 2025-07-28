@@ -75,49 +75,49 @@ const SocialProofPopup: React.FC = () => {
   if (!isEnabled) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 space-y-2 max-w-sm">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 space-y-2 w-[calc(100vw-2rem)] max-w-[280px] sm:max-w-sm">
       {popups.map((popup) => (
         <div
           key={popup.id}
-          className="bg-white border border-trust-green shadow-xl rounded-lg p-4 animate-slide-in-up"
+          className="bg-white border border-green-500 shadow-xl rounded-lg p-3 sm:p-4 animate-slide-in-up"
           style={{ animation: 'slideInUp 0.5s ease-out' }}
         >
           <div className="flex items-start justify-between">
-            <div className="flex items-start space-x-3">
+            <div className="flex items-start space-x-2 sm:space-x-3">
               <div className="flex-shrink-0">
-                <div className="w-10 h-10 bg-trust-green rounded-full flex items-center justify-center">
-                  <Shield className="h-5 w-5 text-white" />
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-500 rounded-full flex items-center justify-center">
+                  <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                 </div>
               </div>
               
               <div className="flex-1 min-w-0">
                 <div className="flex items-center space-x-1 mb-1">
-                  <DollarSign className="h-4 w-4 text-trust-green" />
-                  <span className="text-xs font-medium text-trust-green uppercase tracking-wide">
+                  <DollarSign className="h-3 w-3 sm:h-4 sm:w-4 text-green-500" />
+                  <span className="text-xs font-medium text-green-500 uppercase tracking-wide">
                     Case Closed
                   </span>
                 </div>
                 
-                <p className="text-sm font-medium text-steel-gray mb-1">
+                <p className="text-xs sm:text-sm font-medium text-gray-700 mb-1 truncate">
                   {popup.caseNumber}
                 </p>
                 
-                <p className="text-xs text-steel-gray mb-2">
+                <p className="text-xs text-gray-600 mb-2 line-clamp-2">
                   {popup.scenario}
                 </p>
                 
                 <div className="flex items-center space-x-1">
-                  <span className="text-lg font-bold text-trust-green">
+                  <span className="text-sm sm:text-lg font-bold text-green-500">
                     {popup.amount}
                   </span>
-                  <span className="text-xs text-steel-gray">recovered</span>
+                  <span className="text-xs text-gray-600">recovered</span>
                 </div>
               </div>
             </div>
             
             <button
               onClick={() => dismissPopup(popup.id)}
-              className="flex-shrink-0 text-steel-gray hover:text-deep-navy transition-colors"
+              className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors touch-manipulation"
             >
               <X className="h-4 w-4" />
             </button>

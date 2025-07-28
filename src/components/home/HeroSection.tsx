@@ -38,13 +38,13 @@ const HeroSection: React.FC = () => {
               </div>
             </div>
 
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 sm:mb-4 md:mb-6 leading-tight">
+            <h1 className="text-hero-title font-bold text-gray-900 mb-fluid-md leading-tight">
               {settings.hero_title || 'MISSION FIRST:'}
               <span className="block vibrant-text">{settings.hero_subtitle || 'Fighting Cybercrime'}</span>
               <span className="block text-gray-700">Across the Globe</span>
             </h1>
 
-            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-gray-600 mb-4 sm:mb-6 md:mb-8 max-w-2xl leading-relaxed">
+            <p className="text-fluid-base sm:text-fluid-lg text-gray-600 mb-fluid-lg max-w-2xl leading-relaxed">
               {settings.hero_description || 'LGN in conjunction with FBI\'s Cybercrime Division investigates high-tech crimes, recovers stolen assets, and provides victim assistance through advanced digital forensics and nationwide coordination.'}
             </p>
 
