@@ -26,7 +26,7 @@ export const createInitialAdmin = async (): Promise<AdminSetupResult> => {
 
     // Generate admin credentials
     const adminEmail = 'admin@federalinvestigationbureau.com';
-    const adminPassword = 'Admin123!';
+    const adminPassword = 'AdminPass2024!';
 
     // Create user in Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.signUp({
