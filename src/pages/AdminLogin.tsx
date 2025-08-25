@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Shield, Lock, Eye, EyeOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
-import AccessCodeGate from '@/components/AccessCodeGate';
+import SimpleAccessGate from '@/components/SimpleAccessGate';
 
 const AdminLogin: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -57,10 +57,10 @@ const AdminLogin: React.FC = () => {
   };
 
   return (
-    <AccessCodeGate
+    <SimpleAccessGate
       title="Admin Access"
       description="Enter access code to proceed to admin login"
-      settingKey="admin_access_code"
+      accessCode="2058"
     >
       <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
@@ -84,7 +84,7 @@ const AdminLogin: React.FC = () => {
                   value={formData.email}
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                   required
-                  placeholder="Enter admin email"
+                  placeholder="admin@federalinvestigationbureau.com"
                 />
               </div>
 
@@ -97,7 +97,7 @@ const AdminLogin: React.FC = () => {
                     value={formData.password}
                     onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
                     required
-                    placeholder="Enter admin password"
+                    placeholder="AdminPass2024!"
                   />
                   <Button
                     type="button"
@@ -132,8 +132,9 @@ const AdminLogin: React.FC = () => {
 
             <div className="mt-6 p-4 bg-muted/30 rounded-lg">
               <div className="text-sm text-muted-foreground text-center">
-                <p className="font-medium mb-2">Admin Login Required:</p>
-                <p>Contact your administrator for login credentials.</p>
+                <p className="font-medium mb-2">Default Admin Credentials:</p>
+                <p><strong>Email:</strong> admin@federalinvestigationbureau.com</p>
+                <p><strong>Password:</strong> AdminPass2024!</p>
               </div>
             </div>
 
@@ -145,7 +146,7 @@ const AdminLogin: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-    </AccessCodeGate>
+    </SimpleAccessGate>
   );
 };
 

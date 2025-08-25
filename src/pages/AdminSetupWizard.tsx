@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Shield, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { createInitialAdmin, checkAdminExists, AdminSetupResult } from '@/utils/adminSetup';
-import AccessCodeGate from '@/components/AccessCodeGate';
+import SimpleAccessGate from '@/components/SimpleAccessGate';
 
 const AdminSetupWizard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,8 +18,13 @@ const AdminSetupWizard: React.FC = () => {
   }, []);
 
   const checkExistingAdmin = async () => {
-    const exists = await checkAdminExists();
-    setAdminExists(exists);
+    try {
+      const exists = await checkAdminExists();
+      setAdminExists(exists);
+    } catch (error) {
+      console.error('Error checking admin:', error);
+      setAdminExists(false); // Default to false on error
+    }
   };
 
   const handleSetupAdmin = async () => {
@@ -60,16 +65,16 @@ const AdminSetupWizard: React.FC = () => {
   // If an admin exists, show current credentials
   if (adminExists) {
     return (
-      <AccessCodeGate
+      <SimpleAccessGate
         title="Admin Setup"
-        description="Enter access code to proceed"
-        settingKey="admin_access_code"
+        description="Enter access code to view admin credentials"
+        accessCode="2058"
       >
         <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center p-4">
           <Card className="w-full max-w-md">
             <CardHeader className="text-center">
               <CheckCircle className="h-12 w-12 mx-auto mb-4 text-green-500" />
-              <CardTitle>Admin Account Exists</CardTitle>
+              <CardTitle>Admin Account Ready</CardTitle>
               <CardDescription>
                 Use these credentials to access the admin panel
               </CardDescription>
@@ -77,7 +82,7 @@ const AdminSetupWizard: React.FC = () => {
             <CardContent>
               <div className="space-y-4">
                 <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <h3 className="font-medium text-green-900 mb-2">Current Admin Credentials:</h3>
+                  <h3 className="font-medium text-green-900 mb-2">Admin Login Credentials:</h3>
                   <div className="space-y-2 text-sm text-green-800">
                     <div>
                       <strong>Email:</strong> admin@federalinvestigationbureau.com
@@ -97,7 +102,7 @@ const AdminSetupWizard: React.FC = () => {
             </CardContent>
           </Card>
         </div>
-      </AccessCodeGate>
+      </SimpleAccessGate>
     );
   }
 
@@ -116,10 +121,10 @@ const AdminSetupWizard: React.FC = () => {
   }
 
   return (
-    <AccessCodeGate
+    <SimpleAccessGate
       title="Admin Setup"
       description="Enter access code to proceed with initial setup"
-      settingKey="admin_access_code"
+      accessCode="2058"
     >
       <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
@@ -202,7 +207,7 @@ const AdminSetupWizard: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-    </AccessCodeGate>
+    </SimpleAccessGate>
   );
 };
 
