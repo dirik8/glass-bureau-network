@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
+import AdminProtectedRoute from "@/components/layout/AdminProtectedRoute";
 import SocialProofPopup from '@/components/SocialProofPopup';
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
@@ -25,6 +26,7 @@ import BinaryOptionsScams from "@/pages/BinaryOptionsScams";
 import JobScam from "@/pages/JobScam";
 import AdminLogin from "@/pages/AdminLogin";
 import AdminSetup from "@/pages/AdminSetup";
+import AdminSetupWizard from "@/pages/AdminSetupWizard";
 import Setup from "@/pages/Setup";
 import Install from "@/pages/Install";
 import AdminDashboard from "@/pages/AdminDashboard";
@@ -214,11 +216,33 @@ const App = () => {
               <Route path="/wyoming-cryptocurrency-scam-statistics-2020-2024" element={<WyomingStats />} />
               
               {/* Admin Routes */}
-              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin" element={
+                <AdminProtectedRoute>
+                  <AdminDashboard />
+                </AdminProtectedRoute>
+              } />
+              <Route path="/admin/dashboard" element={
+                <AdminProtectedRoute>
+                  <AdminDashboard />
+                </AdminProtectedRoute>
+              } />
               <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin/setup" element={<AdminSetup />} />
-              <Route path="/setup" element={<Setup />} />
-              <Route path="/install" element={<Install />} />
+              <Route path="/admin/setup" element={
+                <AdminProtectedRoute requireAuth={false}>
+                  <AdminSetup />
+                </AdminProtectedRoute>
+              } />
+              <Route path="/admin/wizard" element={<AdminSetupWizard />} />
+              <Route path="/setup" element={
+                <AdminProtectedRoute requireAuth={false}>
+                  <Setup />
+                </AdminProtectedRoute>
+              } />
+              <Route path="/install" element={
+                <AdminProtectedRoute requireAuth={false}>
+                  <Install />
+                </AdminProtectedRoute>
+              } />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
