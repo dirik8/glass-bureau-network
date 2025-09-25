@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
+import { AuthProvider } from "@/hooks/useAuth";
 import AdminProtectedRoute from "@/components/layout/AdminProtectedRoute";
 import SocialProofPopup from '@/components/SocialProofPopup';
 import Index from "@/pages/Index";
@@ -115,8 +116,9 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <SocialProofPopup />
-            <Routes>
+            <AuthProvider>
+              <SocialProofPopup />
+              <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/services" element={<Services />} />
@@ -245,6 +247,7 @@ const App = () => {
               } />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </AuthProvider>
           </BrowserRouter>
         </TooltipProvider>
       </HelmetProvider>

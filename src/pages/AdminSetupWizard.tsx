@@ -65,44 +65,36 @@ const AdminSetupWizard: React.FC = () => {
   // If an admin exists, show current credentials
   if (adminExists) {
     return (
-      <SimpleAccessGate
-        title="Admin Setup"
-        description="Enter access code to view admin credentials"
-        accessCode="2058"
-      >
-        <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center p-4">
-          <Card className="w-full max-w-md">
-            <CardHeader className="text-center">
-              <CheckCircle className="h-12 w-12 mx-auto mb-4 text-green-500" />
-              <CardTitle>Admin Account Ready</CardTitle>
-              <CardDescription>
-                Use these credentials to access the admin panel
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <h3 className="font-medium text-green-900 mb-2">Admin Login Credentials:</h3>
-                  <div className="space-y-2 text-sm text-green-800">
-                    <div>
-                      <strong>Email:</strong> admin@federalinvestigationbureau.com
-                    </div>
-                    <div>
-                      <strong>Password:</strong> AdminPass2024!
-                    </div>
-                    <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-xs">
-                      <strong>Access Code:</strong> 2058
-                    </div>
-                  </div>
-                </div>
-                <Button onClick={handleGoToLogin} className="w-full">
-                  Go to Admin Login
-                </Button>
+    <SimpleAccessGate
+      title="Admin Setup"
+      description="Enter access code to proceed with admin setup"
+      accessCode="2058"
+    >
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CheckCircle className="h-12 w-12 mx-auto mb-4 text-green-500" />
+            <CardTitle>Admin Account Ready</CardTitle>
+            <CardDescription>
+              Admin account is configured and ready for use
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-center">
+                <h3 className="font-medium text-green-900 mb-2">System Status: Ready</h3>
+                <p className="text-sm text-green-800">
+                  Admin access is available. Use your secure login credentials to proceed.
+                </p>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-      </SimpleAccessGate>
+              <Button onClick={handleGoToLogin} className="w-full">
+                Go to Admin Login
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </SimpleAccessGate>
     );
   }
 
@@ -150,23 +142,11 @@ const AdminSetupWizard: React.FC = () => {
           <CardContent>
             {setupComplete && adminCredentials ? (
               <div className="space-y-4">
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <h3 className="font-medium text-green-900 mb-2">Admin Login Credentials:</h3>
-                  <div className="space-y-2 text-sm text-green-800">
-                    <div>
-                      <strong>Email:</strong> {adminCredentials.email}
-                    </div>
-                    <div>
-                      <strong>Password:</strong> {adminCredentials.password}
-                    </div>
-                    <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-xs">
-                      <strong>Access Code for Admin Pages:</strong> 2058
-                    </div>
-                  </div>
-                  <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
-                    <AlertCircle className="h-4 w-4 inline mr-1" />
-                    Please save these credentials securely and change the password after first login.
-                  </div>
+                <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-center">
+                  <h3 className="font-medium text-green-900 mb-2">Setup Complete!</h3>
+                  <p className="text-sm text-green-800">
+                    Admin account created successfully. Your credentials have been configured securely.
+                  </p>
                 </div>
                 
                 <Button onClick={handleGoToLogin} className="w-full">
@@ -176,12 +156,12 @@ const AdminSetupWizard: React.FC = () => {
             ) : (
               <div className="space-y-4">
                 <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                  <h3 className="font-medium text-blue-900 mb-2">What will be created:</h3>
+                  <h3 className="font-medium text-blue-900 mb-2">Setup Process:</h3>
                   <ul className="text-sm text-blue-800 space-y-1">
-                    <li>• Administrator account in Supabase Auth</li>
-                    <li>• Admin user record in the database</li>
-                    <li>• Email: admin@federalinvestigationbureau.com</li>
-                    <li>• Password: AdminPass2024!</li>
+                    <li>• Create administrator account in Supabase Auth</li>
+                    <li>• Configure admin user record in database</li>
+                    <li>• Set up secure access controls</li>
+                    <li>• Enable admin dashboard functionality</li>
                   </ul>
                 </div>
                 

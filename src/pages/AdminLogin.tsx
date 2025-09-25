@@ -84,7 +84,7 @@ const AdminLogin: React.FC = () => {
                   value={formData.email}
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                   required
-                  placeholder="admin@federalinvestigationbureau.com"
+                  placeholder="Enter admin email"
                 />
               </div>
 
@@ -97,7 +97,7 @@ const AdminLogin: React.FC = () => {
                     value={formData.password}
                     onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
                     required
-                    placeholder="AdminPass2024!"
+                    placeholder="Enter admin password"
                   />
                   <Button
                     type="button"
@@ -132,9 +132,9 @@ const AdminLogin: React.FC = () => {
 
             <div className="mt-6 p-4 bg-muted/30 rounded-lg">
               <div className="text-sm text-muted-foreground text-center">
-                <p className="font-medium mb-2">Default Admin Credentials:</p>
-                <p><strong>Email:</strong> admin@federalinvestigationbureau.com</p>
-                <p><strong>Password:</strong> AdminPass2024!</p>
+                <p className="font-medium mb-2">Secure Admin Access</p>
+                <p>Use your administrator credentials to log in</p>
+                <p className="text-xs mt-2">Access Code: <span className="font-mono">2058</span></p>
               </div>
             </div>
 

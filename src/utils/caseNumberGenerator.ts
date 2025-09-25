@@ -53,16 +53,23 @@ export const generateNewCaseNumber = (): string => {
   return generateCaseComponents().fullNumber;
 };
 
-// Generate recovery amount with realistic increment
+// Generate recovery amount with smaller realistic amounts
 export const generateRecoveryAmount = (): string => {
-  const baseAmount = 655897.92;
-  const increment = Math.floor(Math.random() * 50000) + 10000; // $10k-$60k increment
-  const totalAmount = baseAmount + increment;
+  const amounts = [
+    70000, 75000, 80000, 85000, 90000, 95000,
+    100000, 125000, 150000, 175000, 200000, 225000, 250000, 275000,
+    300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000,
+    500000, 525000, 550000, 575000
+  ];
+  
+  const selectedAmount = amounts[Math.floor(Math.random() * amounts.length)];
+  const variation = Math.floor(Math.random() * 5000) + 1000; // $1k-$6k variation
+  const totalAmount = selectedAmount + variation;
   
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    minimumFractionDigits: 2
+    minimumFractionDigits: 0
   }).format(totalAmount);
 };
 
