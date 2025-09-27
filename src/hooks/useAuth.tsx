@@ -22,20 +22,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (event, session) => {
+        console.log('useAuth: Auth state changed', { event, user: session?.user ? 'exists' : 'null' });
+        
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          // Check if user is admin
-          const { data: adminData } = await supabase
-            .from('admin_users')
-            .select('*')
-            .eq('user_id', session.user.id)
-            .single();
-          
-          setIsAdmin(!!adminData);
+          // Check if user is admin using setTimeout to avoid deadlock
+          setTimeout(async () => {
+            try {
+              console.log('useAuth: Checking admin status for user:', session.user.id);
+              const { data: adminData, error } = await supabase
+                .from('admin_users')
+                .select('*')
+                .eq('user_id', session.user.id)
+                .maybeSingle();
+              
+              if (error) {
+                console.error('useAuth: Error checking admin status:', error);
+                setIsAdmin(false);
+              } else {
+                const isAdminUser = !!adminData;
+                console.log('useAuth: Admin check result:', { isAdminUser, adminData });
+                setIsAdmin(isAdminUser);
+              }
+            } catch (error) {
+              console.error('useAuth: Unexpected error checking admin status:', error);
+              setIsAdmin(false);
+            }
+          }, 0);
         } else {
+          console.log('useAuth: No session, setting admin to false');
           setIsAdmin(false);
         }
         
@@ -45,6 +63,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('useAuth: Initial session check', { user: session?.user ? 'exists' : 'null' });
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);

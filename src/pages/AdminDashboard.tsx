@@ -31,7 +31,7 @@ import ContactManager from '@/components/admin/ContactManager';
 import CaseNumberManager from '@/components/admin/CaseNumberManager';
 import { SiteSettingsManager } from '@/components/admin/SiteSettingsManager';
 import { FormTemplateManager } from '@/components/admin/FormTemplateManager';
-import AccessCodeGate from '@/components/AccessCodeGate';
+import SimpleAccessGate from '@/components/SimpleAccessGate';
 
 const AdminDashboard: React.FC = () => {
   const [stats, setStats] = useState({
@@ -50,12 +50,20 @@ const AdminDashboard: React.FC = () => {
   const loadStats = async () => {
     setIsLoading(true);
     try {
+      console.log('AdminDashboard: Loading stats...');
       const [pdfsCount, submissionsCount, casesCount, domainsCount] = await Promise.all([
         supabase.from('pdfs').select('id', { count: 'exact', head: true }),
         supabase.from('form_submissions').select('id', { count: 'exact', head: true }),
         supabase.from('cases').select('id', { count: 'exact', head: true }),
         supabase.from('domains').select('id', { count: 'exact', head: true })
       ]);
+
+      console.log('AdminDashboard: Stats loaded successfully', {
+        pdfs: pdfsCount.count,
+        submissions: submissionsCount.count,
+        cases: casesCount.count,
+        domains: domainsCount.count
+      });
 
       setStats({
         pdfs: pdfsCount.count || 0,
@@ -64,10 +72,10 @@ const AdminDashboard: React.FC = () => {
         domains: domainsCount.count || 0
       });
     } catch (error) {
-      console.error('Error loading stats:', error);
+      console.error('AdminDashboard: Error loading stats:', error);
       toast({
         title: 'Error',
-        description: 'Failed to load dashboard statistics',
+        description: 'Failed to load dashboard statistics. Please check console for details.',
         variant: 'destructive'
       });
     } finally {
@@ -76,10 +84,10 @@ const AdminDashboard: React.FC = () => {
   };
 
   return (
-    <AccessCodeGate
+    <SimpleAccessGate
       title="Admin Dashboard Access"
       description="Enter access code to proceed to admin dashboard"
-      settingKey="admin_access_code"
+      accessCode="2058"
     >
       <div className="min-h-screen bg-background p-6">
         <div className="container mx-auto">
@@ -208,7 +216,7 @@ const AdminDashboard: React.FC = () => {
           </Tabs>
         </div>
       </div>
-    </AccessCodeGate>
+    </SimpleAccessGate>
   );
 };
 
