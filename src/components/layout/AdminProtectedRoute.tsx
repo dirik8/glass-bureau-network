@@ -18,9 +18,9 @@ const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({
   const { user, isAdmin, loading } = useAuth();
 
   console.log('AdminProtectedRoute: Auth state check', { 
-    user: user ? 'exists' : 'null', 
+    user: user?.id, 
     isAdmin, 
-    loading,
+    loading, 
     requireAuth 
   });
 
@@ -55,15 +55,17 @@ const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({
             <CardHeader className="text-center">
               <AlertTriangle className="w-12 h-12 mx-auto mb-4 text-destructive" />
               <CardTitle>Access Denied</CardTitle>
-              <CardDescription>You don't have admin privileges to access this area.</CardDescription>
-            </CardHeader>
-            <CardContent className="text-center">
-              <button
-                onClick={() => window.location.href = redirectTo}
-                className="text-primary hover:underline"
-              >
-                Go to Login
-              </button>
+            <CardDescription>
+              You don't have admin permissions to access this area.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="text-center">
+            <button 
+              onClick={() => window.location.href = '/'}
+              className="bg-primary text-primary-foreground px-4 py-2 rounded hover:bg-primary/90"
+            >
+              Return to Home
+            </button>
             </CardContent>
           </Card>
         </div>
@@ -74,7 +76,7 @@ const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({
   // For routes that should be hidden from search engines but don't require auth
   // (like setup pages that should be admin-only but don't have formal auth)
   if (!requireAuth) {
-    console.log('AdminProtectedRoute: Auth not required, showing content');
+    console.log('AdminProtectedRoute: No auth required, showing content');
     return (
       <>
         {children}

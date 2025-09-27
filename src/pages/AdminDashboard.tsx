@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -50,7 +49,7 @@ const AdminDashboard: React.FC = () => {
   const loadStats = async () => {
     setIsLoading(true);
     try {
-      console.log('AdminDashboard: Loading stats...');
+      console.log('AdminDashboard: Loading statistics...');
       const [pdfsCount, submissionsCount, casesCount, domainsCount] = await Promise.all([
         supabase.from('pdfs').select('id', { count: 'exact', head: true }),
         supabase.from('form_submissions').select('id', { count: 'exact', head: true }),
@@ -58,7 +57,7 @@ const AdminDashboard: React.FC = () => {
         supabase.from('domains').select('id', { count: 'exact', head: true })
       ]);
 
-      console.log('AdminDashboard: Stats loaded successfully', {
+      console.log('AdminDashboard: Statistics loaded successfully', {
         pdfs: pdfsCount.count,
         submissions: submissionsCount.count,
         cases: casesCount.count,
@@ -75,7 +74,7 @@ const AdminDashboard: React.FC = () => {
       console.error('AdminDashboard: Error loading stats:', error);
       toast({
         title: 'Error',
-        description: 'Failed to load dashboard statistics. Please check console for details.',
+        description: 'Failed to load dashboard statistics',
         variant: 'destructive'
       });
     } finally {

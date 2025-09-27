@@ -23,12 +23,12 @@ export const createInitialAdmin = async (): Promise<AdminSetupResult> => {
       console.error('AdminSetup: Error checking existing admins:', checkError);
       return {
         success: false,
-        message: `Database error: ${checkError.message}`
+        message: `Failed to check existing admins: ${checkError.message}`
       };
     }
 
     if (existingAdmins && existingAdmins.length > 0) {
-      console.log('AdminSetup: Admin already exists');
+      console.log('AdminSetup: Admin user already exists');
       return {
         success: false,
         message: 'Admin user already exists'
@@ -51,7 +51,7 @@ export const createInitialAdmin = async (): Promise<AdminSetupResult> => {
     });
 
     if (authError) {
-      console.error('AdminSetup: Supabase Auth error:', authError);
+      console.error('AdminSetup: Auth creation error:', authError);
       return {
         success: false,
         message: `Failed to create admin user: ${authError.message}`
@@ -59,16 +59,16 @@ export const createInitialAdmin = async (): Promise<AdminSetupResult> => {
     }
 
     if (!authData.user) {
-      console.error('AdminSetup: No user data returned from Supabase Auth');
+      console.error('AdminSetup: No user data returned from auth');
       return {
         success: false,
         message: 'Failed to create admin user: No user data returned'
       };
     }
 
-    console.log('AdminSetup: Supabase Auth user created, linking to admin_users...');
+    console.log('AdminSetup: Auth user created, linking to admin_users table...');
 
-    // Link the auth user to admin_users table using our database function
+    // Use the new link_admin_user function to link the auth user to admin_users record
     const { data: linkResult, error: linkError } = await supabase.rpc('link_admin_user', {
       auth_user_id: authData.user.id
     });
@@ -77,15 +77,15 @@ export const createInitialAdmin = async (): Promise<AdminSetupResult> => {
       console.error('AdminSetup: Error linking admin user:', linkError);
       return {
         success: false,
-        message: `Failed to link admin user: ${linkError.message}`
+        message: `Failed to link admin record: ${linkError.message}`
       };
     }
 
     if (!linkResult) {
-      console.error('AdminSetup: Failed to link admin user - no admin_users record found');
+      console.error('AdminSetup: Failed to link admin user - no record updated');
       return {
         success: false,
-        message: 'Failed to link admin user: No admin record available for linking'
+        message: 'Failed to link admin record: No admin record found to update'
       };
     }
 
@@ -128,7 +128,7 @@ export const checkAdminExists = async (): Promise<boolean> => {
     
     return exists;
   } catch (error) {
-    console.error('AdminSetup: Unexpected error checking admin existence:', error);
+    console.error('AdminSetup: Error checking admin existence:', error);
     return false;
   }
 };
