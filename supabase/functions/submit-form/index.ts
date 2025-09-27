@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-import { Resend } from 'npm:resend@2.0.0';
+import { Resend } from 'https://esm.sh/resend@4.0.0';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -122,7 +122,7 @@ const getEmailTemplate = (formType: string, formData: any) => {
     }
   };
   
-  return templates[formType] || templates.contact;
+  return templates[formType as keyof typeof templates] || templates.contact;
 };
 
 interface FormSubmissionRequest {
@@ -235,7 +235,7 @@ const handler = async (req: Request): Promise<Response> => {
         .eq('id', submission.id);
         
     } catch (emailError_) {
-      emailError = emailError_.message;
+      emailError = emailError_ instanceof Error ? emailError_.message : String(emailError_);
       console.error('Failed to send email notification:', emailError_);
       
       // Update form submission with email failure
