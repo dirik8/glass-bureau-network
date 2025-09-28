@@ -6,6 +6,15 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { z } from 'zod';
+
+// Input validation schema
+const contactFormSchema = z.object({
+  name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
+  email: z.string().trim().email('Invalid email address').max(255, 'Email must be less than 255 characters'),
+  phone: z.string().trim().max(20, 'Phone number must be less than 20 characters').optional().or(z.literal('')),
+  message: z.string().trim().min(1, 'Message is required').max(2000, 'Message must be less than 2000 characters')
+});
 
 interface ContactFormProps {
   formType?: string;
@@ -51,12 +60,28 @@ export function ContactForm({ formType = 'contact', onSuccess }: ContactFormProp
     setIsSubmitting(true);
 
     try {
+      // Check rate limiting
+      const rateLimitCheck = await supabase.functions.invoke('rate-limit', {
+        body: { identifier: `form_${formType}_${new Date().getMinutes()}` }
+      });
+
+      if (rateLimitCheck.data?.rateLimited) {
+        toast({
+          title: "Rate Limit Exceeded",
+          description: "Too many submissions. Please wait 15 minutes before trying again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Validate form data
+      const validatedData = contactFormSchema.parse(formData);
       // First, store the form submission directly in the database
       const { data: submissionData, error: submissionError } = await supabase
         .from('form_submissions')
         .insert({
           form_type: formType,
-          data: formData,
+          data: validatedData,
           status: 'pending',
           template_id: formTemplate?.id || null
         })
@@ -64,24 +89,20 @@ export function ContactForm({ formType = 'contact', onSuccess }: ContactFormProp
         .single();
 
       if (submissionError) {
-        console.error('Database submission error:', submissionError);
         throw submissionError;
       }
-
-      console.log('Form submission stored:', submissionData);
 
       // Try to send email notification, but don't fail if it doesn't work
       try {
         const { error: emailError } = await supabase.functions.invoke('submit-form', {
           body: {
             form_type: formType,
-            data: formData,
+            data: validatedData,
             submission_id: submissionData.id
           }
         });
 
         if (emailError) {
-          console.error('Email sending error:', emailError);
           // Update submission to indicate email failed
           await supabase
             .from('form_submissions')
@@ -100,8 +121,7 @@ export function ContactForm({ formType = 'contact', onSuccess }: ContactFormProp
             })
             .eq('id', submissionData.id);
         }
-      } catch (emailError: any) {
-        console.error('Email function error:', emailError);
+        } catch (emailError: any) {
         // Update submission to indicate email failed
         await supabase
           .from('form_submissions')
@@ -129,10 +149,15 @@ export function ContactForm({ formType = 'contact', onSuccess }: ContactFormProp
 
       onSuccess?.();
     } catch (error: any) {
-      console.error('Form submission error:', error);
+      let errorMessage = "There was an error submitting your form. Please try again.";
+      
+      if (error.name === 'ZodError') {
+        errorMessage = error.errors[0]?.message || "Please check your input and try again.";
+      }
+      
       toast({
         title: "Submission Error",
-        description: "There was an error submitting your form. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {

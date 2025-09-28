@@ -49,7 +49,7 @@ const AdminDashboard: React.FC = () => {
   const loadStats = async () => {
     setIsLoading(true);
     try {
-      console.log('AdminDashboard: Loading statistics...');
+      // Loading statistics
       const [pdfsCount, submissionsCount, casesCount, domainsCount] = await Promise.all([
         supabase.from('pdfs').select('id', { count: 'exact', head: true }),
         supabase.from('form_submissions').select('id', { count: 'exact', head: true }),
@@ -57,12 +57,7 @@ const AdminDashboard: React.FC = () => {
         supabase.from('domains').select('id', { count: 'exact', head: true })
       ]);
 
-      console.log('AdminDashboard: Statistics loaded successfully', {
-        pdfs: pdfsCount.count,
-        submissions: submissionsCount.count,
-        cases: casesCount.count,
-        domains: domainsCount.count
-      });
+      // Statistics loaded successfully
 
       setStats({
         pdfs: pdfsCount.count || 0,

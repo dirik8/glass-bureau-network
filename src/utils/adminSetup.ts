@@ -11,7 +11,7 @@ export interface AdminSetupResult {
 
 export const createInitialAdmin = async (): Promise<AdminSetupResult> => {
   try {
-    console.log('AdminSetup: Starting admin creation process...');
+    // Starting admin creation process
     
     // Check if admin already exists
     const { data: existingAdmins, error: checkError } = await supabase
@@ -28,18 +28,18 @@ export const createInitialAdmin = async (): Promise<AdminSetupResult> => {
     }
 
     if (existingAdmins && existingAdmins.length > 0) {
-      console.log('AdminSetup: Admin user already exists');
       return {
         success: false,
         message: 'Admin user already exists'
       };
     }
 
-    // Generate admin credentials
-    const adminEmail = 'admin@federalinvestigationbureau.com';
-    const adminPassword = 'AdminPass2024!';
+    // Generate secure admin credentials
+    const adminEmail = `admin@${window.location.hostname || 'example.com'}`;
+    // Use environment-based password or generate a secure random one
+    const adminPassword = crypto.randomUUID().substring(0, 12) + 'A1!';
 
-    console.log('AdminSetup: Creating Supabase Auth user...');
+    // Creating Supabase Auth user
     
     // Create user in Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -66,7 +66,7 @@ export const createInitialAdmin = async (): Promise<AdminSetupResult> => {
       };
     }
 
-    console.log('AdminSetup: Auth user created, linking to admin_users table...');
+    // Auth user created, linking to admin_users table
 
     // Use the new link_admin_user function to link the auth user to admin_users record
     const { data: linkResult, error: linkError } = await supabase.rpc('link_admin_user', {
@@ -89,7 +89,7 @@ export const createInitialAdmin = async (): Promise<AdminSetupResult> => {
       };
     }
 
-    console.log('AdminSetup: Admin user created and linked successfully');
+    // Admin user created and linked successfully
 
     return {
       success: true,
@@ -111,7 +111,7 @@ export const createInitialAdmin = async (): Promise<AdminSetupResult> => {
 
 export const checkAdminExists = async (): Promise<boolean> => {
   try {
-    console.log('AdminSetup: Checking if admin exists...');
+    // Checking if admin exists
     
     const { data, error } = await supabase
       .from('admin_users')
@@ -124,7 +124,6 @@ export const checkAdminExists = async (): Promise<boolean> => {
     }
 
     const exists = data && data.length > 0;
-    console.log('AdminSetup: Admin exists check result:', { exists, data });
     
     return exists;
   } catch (error) {

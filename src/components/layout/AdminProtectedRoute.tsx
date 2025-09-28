@@ -17,16 +17,18 @@ const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({
 }) => {
   const { user, isAdmin, loading } = useAuth();
 
-  console.log('AdminProtectedRoute: Auth state check', { 
-    user: user?.id, 
-    isAdmin, 
-    loading, 
-    requireAuth 
-  });
+  // Auth state check for debugging in development only
+  if (process.env.NODE_ENV === 'development') {
+    console.log('AdminProtectedRoute: Auth state', { 
+      hasUser: !!user, 
+      isAdmin, 
+      loading,
+      requireAuth 
+    });
+  }
 
   // Show loading state while checking authentication
   if (loading) {
-    console.log('AdminProtectedRoute: Showing loading state');
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <Card className="w-full max-w-md">
@@ -43,12 +45,10 @@ const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({
   // For routes that require authentication
   if (requireAuth) {
     if (!user) {
-      console.log('AdminProtectedRoute: No user found, redirecting to login');
       return <Navigate to={redirectTo} replace />;
     }
     
     if (!isAdmin) {
-      console.log('AdminProtectedRoute: User is not admin, redirecting to login');
       return (
         <div className="min-h-screen bg-background flex items-center justify-center p-6">
           <Card className="w-full max-w-md">
@@ -76,7 +76,6 @@ const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({
   // For routes that should be hidden from search engines but don't require auth
   // (like setup pages that should be admin-only but don't have formal auth)
   if (!requireAuth) {
-    console.log('AdminProtectedRoute: No auth required, showing content');
     return (
       <>
         {children}
@@ -84,7 +83,7 @@ const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({
     );
   }
 
-  console.log('AdminProtectedRoute: All checks passed, showing protected content');
+  // All checks passed, showing protected content
   return <>{children}</>;
 };
 

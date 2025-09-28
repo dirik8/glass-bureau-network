@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           // Check if user is admin using setTimeout to avoid deadlock
           setTimeout(async () => {
             try {
-              console.log('useAuth: Checking admin status for user:', session.user.id);
+              // Checking admin status for user
               const { data: adminData, error } = await supabase
                 .from('admin_users')
                 .select('*')
@@ -44,7 +44,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 setIsAdmin(false);
               } else {
                 const isAdminUser = !!adminData;
-                console.log('useAuth: Admin check result:', { isAdminUser, adminData });
                 setIsAdmin(isAdminUser);
               }
             } catch (error) {
@@ -53,7 +52,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
           }, 0);
         } else {
-          console.log('useAuth: No session, setting admin to false');
           setIsAdmin(false);
         }
         

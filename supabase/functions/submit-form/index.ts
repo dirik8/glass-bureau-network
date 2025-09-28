@@ -2,6 +2,19 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { Resend } from 'https://esm.sh/resend@4.0.0';
 
+// Input validation schema
+interface FormSubmissionRequest {
+  form_type: string;
+  data: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    message?: string;
+    [key: string]: any;
+  };
+  submission_id?: string;
+}
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
@@ -125,10 +138,26 @@ const getEmailTemplate = (formType: string, formData: any) => {
   return templates[formType as keyof typeof templates] || templates.contact;
 };
 
-interface FormSubmissionRequest {
-  form_type: string;
-  data: Record<string, any>;
-}
+// Validation functions
+const validateFormData = (data: any) => {
+  if (data.name && typeof data.name !== 'string') {
+    throw new Error('Name must be a string');
+  }
+  if (data.email && (typeof data.email !== 'string' || !data.email.includes('@'))) {
+    throw new Error('Valid email is required');
+  }
+  if (data.message && typeof data.message !== 'string') {
+    throw new Error('Message must be a string');
+  }
+  
+  // Sanitize inputs
+  if (data.name) data.name = data.name.trim().substring(0, 100);
+  if (data.email) data.email = data.email.trim().toLowerCase().substring(0, 255);
+  if (data.phone) data.phone = data.phone.toString().trim().substring(0, 20);
+  if (data.message) data.message = data.message.trim().substring(0, 2000);
+  
+  return data;
+};
 
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
@@ -137,23 +166,42 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Get JWT token from Authorization header
+    const authHeader = req.headers.get('Authorization');
+    const token = authHeader?.replace('Bearer ', '');
+    
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
+      {
+        global: {
+          headers: token ? { Authorization: `Bearer ${token}` } : {}
+        }
+      }
     );
+
+    // Verify user authentication for admin operations
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    if (authError || !user) {
+      return new Response(
+        JSON.stringify({ error: 'Authentication required' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
     const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
 
     const { form_type, data }: FormSubmissionRequest = await req.json();
 
-    console.log('Received form submission:', { form_type, data });
+    // Validate and sanitize input
+    const sanitizedData = validateFormData(data);
 
     // Save form submission to database
     const { data: submission, error } = await supabase
       .from('form_submissions')
       .insert({
         form_type,
-        data,
+        data: sanitizedData,
         status: 'pending',
         email_sent: false
       })
@@ -165,17 +213,9 @@ const handler = async (req: Request): Promise<Response> => {
       throw error;
     }
 
-    console.log('Form submission saved successfully:', submission);
-
-    // Check if email configuration is available
+    // Check if email configuration is available (without logging sensitive data)
     const adminEmail = Deno.env.get('ADMIN_EMAIL');
     const resendApiKey = Deno.env.get('RESEND_API_KEY');
-    
-    console.log('Email configuration check:', {
-      adminEmailExists: !!adminEmail,
-      resendApiKeyExists: !!resendApiKey,
-      adminEmail: adminEmail ? adminEmail.substring(0, 3) + '***' : 'not set'
-    });
 
     // Send email notification
     let emailSent = false;
@@ -190,18 +230,18 @@ const handler = async (req: Request): Promise<Response> => {
         throw new Error('RESEND_API_KEY environment variable not set');
       }
 
-      const emailData = Object.entries(data)
-        .map(([key, value]) => '<strong>' + key + ':</strong> ' + value)
+      const emailData = Object.entries(sanitizedData)
+        .map(([key, value]) => '<strong>' + key + ':</strong> ' + String(value).substring(0, 500))
         .join('<br>');
 
       // Get email template for form type
-      const template = getEmailTemplate(form_type, data);
+      const template = getEmailTemplate(form_type, sanitizedData);
       
       // Send user confirmation email if email is provided
-      if (data.email && form_type !== 'email-test') {
+      if (sanitizedData.email && form_type !== 'email-test') {
         await resend.emails.send({
           from: 'Legion Global Network <onboarding@resend.dev>',
-          to: [data.email],
+          to: [sanitizedData.email],
           subject: template.subject,
           html: template.html,
         });
@@ -210,7 +250,7 @@ const handler = async (req: Request): Promise<Response> => {
       // Send admin notification
       const emailResponse = await resend.emails.send({
         from: 'Form Submissions <onboarding@resend.dev>',
-        to: [data.email && form_type === 'email-test' ? data.email : adminEmail],
+        to: [sanitizedData.email && form_type === 'email-test' ? sanitizedData.email : adminEmail],
         subject: form_type === 'email-test' ? template.subject : 'New ' + form_type + ' Form Submission',
         html: form_type === 'email-test' ? template.html : 
           '<h2>New Form Submission</h2>' +
@@ -222,7 +262,6 @@ const handler = async (req: Request): Promise<Response> => {
           emailData,
       });
 
-      console.log('Email notification sent successfully:', emailResponse);
       emailSent = true;
       
       // Update form submission with email success
